@@ -45,7 +45,6 @@ public class Gui extends Application {
 	    Button b1=new Button("Entrar");
 	    
 	    vb1.getChildren().add(lb1);
-	    vb1.getChildren().add(b1);
 	    vb2.getChildren().add(lb2);
 	    vb2.getChildren().add(lb3);
 	    vb2.getChildren().add(lb4);
@@ -54,7 +53,9 @@ public class Gui extends Application {
 	    root.setTop(barraMenu);
 	    root.setLeft(vb1);
 	    root.setRight(vb2);
-	    VBox.setMargin(vb1, new Insets(50, 50, 50, 50));
+	    root.setBottom(b1);
+	    BorderPane.setMargin(vb1, new Insets(50,20,50,20));
+	    BorderPane.setMargin(vb2, new Insets(50,20,50,20));
 	    
 	   
 	    
