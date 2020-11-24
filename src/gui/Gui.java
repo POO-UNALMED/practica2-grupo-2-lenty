@@ -1,6 +1,8 @@
 package gui;
 import javafx.application.*;
-import javafx.stage.Stage;
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
 
 
 
@@ -12,8 +14,11 @@ public class Gui extends Application {
 	
 	@Override
 	public void start(Stage myStage) throws Exception {
-		myStage.setTitle("Adios Mundo");
+		myStage.setTitle("Lenty");
 		
+		FlowPane rootNode = new FlowPane();
+		Scene myScene = new Scene(rootNode, 600, 400);
+		myStage.setScene(myScene);
 		myStage.show();
 	}	
 }
