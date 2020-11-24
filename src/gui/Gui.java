@@ -7,6 +7,7 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.control.*;
 import javafx.event.*;
 import javafx.scene.image.Image;
@@ -25,6 +26,7 @@ public class Gui extends Application {
 	@Override
 	public void start(Stage myStage) throws Exception {
 		myStage.setTitle("Lenty");
+		myStage.setResizable(false);
 		
 		MenuBar barraMenu=new MenuBar();
 		Menu inicio=new Menu("Inicio");
@@ -49,17 +51,27 @@ public class Gui extends Application {
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	    
 	    Label lb1 = new Label("Bienvenido a Lenty, aplicacion para la gestion de envios");
+	    lb1.setTextFill(Color.web("#000FFF"));
+	    lb1.setPrefWidth(200);
+	    lb1.setWrapText(true);
+	    lb1.setFont(new Font("Berlin Sans FB",20));
+	    
 	    
 	    Label lb3=new Label("Fotos de los creadores");
-	    Label lb4=new Label("Lenty es una aplicacion que te permitira, como administrador de un despacho de envios, registrar usuarios, "
+	    Label lb4=new Label("Lenty es una aplicacion que te permitira, como administrador un despacho de envios, registrar usuarios, "
 	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
 	    		+ "eficaz.");
-	    lb4.setTextFill(Color.web("#FF0000"));
+	    lb4.setTextFill(Color.web("#000FFF"));
 	    lb4.setPrefWidth(200);
 	    lb4.setWrapText(true);
+	    lb4.setFont(new Font("Berlin Sans FB",15));
 
 	    Button b1=new Button("Entrar");
-	    
+	    b1.setFont(new Font("Berlin Sans FB",25));
+	    b1.setMaxSize(200, Double.MAX_VALUE);
+	    b1.setTextFill(Color.web("#FF0000"));;
+	    EntrarHandler entrar1=new EntrarHandler();
+	    b1.setOnAction(entrar1);
 	  //Hoja de vida
 	    Label lab = new Label("Hoja de Vida");
 	    Label lab1 = new Label("Nombre:");
@@ -110,8 +122,8 @@ public class Gui extends Application {
 
 	    vb2.getChildren().add(fotos);
 	    vb1.getChildren().add(lb1);
-	    vb2.getChildren().add(lb4);
-	    
+	    vb1.getChildren().add(lb4);
+	    lb4.setTranslateY(200);
 	    
 	    BorderPane root=new BorderPane();
 	    root.setTop(barraMenu);
@@ -125,8 +137,7 @@ public class Gui extends Application {
 	    
 	   
 	    
-		Scene myScene = new Scene(root, 700, 600);
-		
+		Scene myScene = new Scene(root, 600, 600);
 		myStage.setScene(myScene);
 		myStage.show();
 	}
@@ -136,7 +147,6 @@ public class Gui extends Application {
 		public void handle(ActionEvent e) {
 			Object control=e.getSource();
 			if(control instanceof MenuItem) {
-				vb1.getchildren().add(lb4);
 			}
 			System.out.println("Descripcion");
 		}
@@ -150,6 +160,14 @@ public class Gui extends Application {
 		@Override
 		public void handle(ActionEvent event) {
 			System.out.println("Salir");
+		}
+		
+	}
+	class EntrarHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Cambiar de escena");
 		}
 		
 	}
