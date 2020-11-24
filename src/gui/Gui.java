@@ -74,12 +74,20 @@ public class Gui extends Application {
 	    
 	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 	    ImageView image1 = new ImageView(new Image(fileA.toURI().toString())); 
+	    image1.setFitHeight(150);
+	    image1.setFitWidth(150);
 	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
 	    ImageView image2 = new ImageView(new Image(fileB.toURI().toString()));
+	    image2.setFitHeight(150);
+	    image2.setFitWidth(150);
 	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
 	    ImageView image3 = new ImageView(new Image(fileC.toURI().toString()));
+	    image3.setFitHeight(150);
+	    image3.setFitWidth(150);
 	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
 	    ImageView image4 = new ImageView(new Image(fileD.toURI().toString()));
+	    image4.setFitHeight(150);
+	    image4.setFitWidth(150);
 	    
 	    fotos.add(image1 ,0 ,0);
 	    fotos.add(image2 ,1 ,0);
@@ -106,7 +114,7 @@ public class Gui extends Application {
 	    
 	   
 	    
-		Scene myScene = new Scene(root, 700, 400);
+		Scene myScene = new Scene(root, 700, 600);
 		
 		myStage.setScene(myScene);
 		myStage.show();
