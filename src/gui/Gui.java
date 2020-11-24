@@ -1,4 +1,6 @@
 package gui;
+import java.io.File;
+
 import javafx.application.*;
 import javafx.geometry.Insets;
 import javafx.stage.*;
@@ -7,10 +9,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 import javafx.event.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 
 
 public class Gui extends Application {
+	static File ruta = new File("");
 
 	public static void main(String[] args) {
 		launch(args);
@@ -51,6 +57,7 @@ public class Gui extends Application {
 	    lb4.setTextFill(Color.web("#FF0000"));
 	    lb4.setPrefWidth(200);
 	    lb4.setWrapText(true);
+
 	    Button b1=new Button("Entrar");
 	    
 	  //Hoja de vida
@@ -58,7 +65,6 @@ public class Gui extends Application {
 	    Label lab1 = new Label("Nombre:");
 	    Label lab2 = new Label("E-mail:");
 	    Label lab3 = new Label("Profesion:");
-	    Label lab4 = new Label("Referencias:");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -68,12 +74,43 @@ public class Gui extends Application {
 	    hojaVida.add(lab1,0, 1);
 	    hojaVida.add(lab2,0, 2);
 	    hojaVida.add(lab3,0, 3);
-	    hojaVida.add(lab4,0, 4);
 	    
-	    vb1.getChildren().add(lb1);
+	    
+	    //Imagenes
+	   
+	    GridPane fotos = new GridPane();
+	    
+	    //Label lb3=new Label("Fotos de los creadores");
+	    //fotos.add(lb3,1, 0);
+	    
+	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
+	    ImageView image1 = new ImageView(new Image(fileA.toURI().toString())); 
+	    image1.setFitHeight(150);
+	    image1.setFitWidth(150);
+	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+	    ImageView image2 = new ImageView(new Image(fileB.toURI().toString()));
+	    image2.setFitHeight(150);
+	    image2.setFitWidth(150);
+	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
+	    ImageView image3 = new ImageView(new Image(fileC.toURI().toString()));
+	    image3.setFitHeight(150);
+	    image3.setFitWidth(150);
+	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+	    ImageView image4 = new ImageView(new Image(fileD.toURI().toString()));
+	    image4.setFitHeight(150);
+	    image4.setFitWidth(150);
+	    
+	    fotos.add(image1 ,0 ,0);
+	    fotos.add(image2 ,1 ,0);
+	    fotos.add(image3 ,0 ,1);
+	    fotos.add(image4 ,1 ,1);
+	    
+	    //Panel vertical 2
 	    vb2.getChildren().add(hojaVida);
-	    vb2.getChildren().add(lb3);
-	    vb1.getChildren().add(lb4);
+
+	    vb2.getChildren().add(fotos);
+	    vb1.getChildren().add(lb1);
+	    vb2.getChildren().add(lb4);
 	    
 	    
 	    BorderPane root=new BorderPane();
@@ -88,7 +125,7 @@ public class Gui extends Application {
 	    
 	   
 	    
-		Scene myScene = new Scene(root, 700, 400);
+		Scene myScene = new Scene(root, 700, 600);
 		
 		myStage.setScene(myScene);
 		myStage.show();
