@@ -6,6 +6,7 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
+import javafx.event.*;
 
 
 
@@ -20,13 +21,16 @@ public class Gui extends Application {
 		myStage.setTitle("Lenty");
 		
 		MenuBar barraMenu=new MenuBar();
-		Menu menu1=new Menu("Salir");
-		Menu menu2=new Menu("Descripcion");
-		barraMenu.getMenus().add(menu1);
-		barraMenu.getMenus().add(menu2);
-		
-		
-		
+		Menu inicio=new Menu("Inicio");
+		MenuItem desc=new MenuItem("Descripcion");
+		MenuItem salir=new MenuItem("Salir");
+		inicio.getItems().add(desc);
+		inicio.getItems().add(salir);
+		barraMenu.getMenus().add(inicio);
+		DescripcionHandler desc1=new DescripcionHandler();
+		desc.setOnAction(desc1);
+		SalirHandler salir1=new SalirHandler();
+		salir.setOnAction(salir1);
 	    VBox vb1 = new VBox(10);
 	    vb1.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -41,7 +45,12 @@ public class Gui extends Application {
 	    Label lb1 = new Label("Bienvenido a Lenty, aplicacion para la gestion de envios");
 	    
 	    Label lb3=new Label("Fotos de los creadores");
-	    Label lb4=new Label("Descripcion de la aplicacion, solo cuando se presiona el menu");
+	    Label lb4=new Label("Lenty es una aplicacion que te permitira, como administrador de un despacho de envios, registrar usuarios, "
+	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
+	    		+ "eficaz.");
+	    lb4.setTextFill(Color.web("#FF0000"));
+	    lb4.setPrefWidth(200);
+	    lb4.setWrapText(true);
 	    Button b1=new Button("Entrar");
 	    
 	  //Hoja de vida
@@ -64,7 +73,7 @@ public class Gui extends Application {
 	    vb1.getChildren().add(lb1);
 	    vb2.getChildren().add(hojaVida);
 	    vb2.getChildren().add(lb3);
-	    vb2.getChildren().add(lb4);
+	    vb1.getChildren().add(lb4);
 	    
 	    
 	    BorderPane root=new BorderPane();
@@ -77,13 +86,35 @@ public class Gui extends Application {
 	    
 	    
 	    
-	    
 	   
 	    
 		Scene myScene = new Scene(root, 700, 400);
 		
 		myStage.setScene(myScene);
 		myStage.show();
-	}	
+	}
+	class DescripcionHandler implements EventHandler<ActionEvent>{
+		boolean event=false;
+		@Override
+		public void handle(ActionEvent e) {
+			Object control=e.getSource();
+			if(control instanceof MenuItem) {
+				vb1.getchildren().add(lb4);
+			}
+			System.out.println("Descripcion");
+		}
+		public boolean getEvent() {
+			return this.event;
+		}
+		
+	}
+	class SalirHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Salir");
+		}
+		
+	}
 }
 	
