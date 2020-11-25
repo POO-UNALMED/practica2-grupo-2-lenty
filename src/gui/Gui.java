@@ -104,8 +104,8 @@ public class Gui extends Application {
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				nombre.setText("Danilo");
-			    email.setText("Danilo@unal.edu.co");
+				nombre.setText("Danilo Giraldo Lopez");
+			    email.setText("Dgiraldolo@unal.edu.co");
 			    profesion.setText("Ingeniería de sistemas e informatica");
 			    
 			    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
@@ -170,6 +170,11 @@ public class Gui extends Application {
 	    descripcion.setTranslateY(200);
 	    
 	    BorderPane root=new BorderPane();
+	    BackgroundImage myBI= new BackgroundImage(new Image("https://i.ibb.co/whb3W46/Background.jpg",600,600,true,true),
+	            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+	              BackgroundSize.DEFAULT);
+	    //then you set to your node
+	    root.setBackground(new Background(myBI));
 	    root.setTop(barraMenu);
 	    root.setLeft(vb1);
 	    root.setRight(vb2);
@@ -207,7 +212,7 @@ public class Gui extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			descripcion.setText("Lenty es una aplicacion que te permitira, como administrador un despacho de envios, registrar usuarios, "
+			descripcion.setText("Lenty es una aplicacion que te permitira, como administrador de un despacho de envios, registrar usuarios, "
 	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
 	    		+ "eficaz.");
 			descripcion.setTextFill(Color.web("#000FFF"));
