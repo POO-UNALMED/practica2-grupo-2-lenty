@@ -61,11 +61,12 @@ public class Gui extends Application {
 	    vb2.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 	    
+	    //Bienvenida
 	    Label lb1 = new Label("Bienvenido a Lenty, aplicacion para la gestion de envios");
-	    lb1.setTextFill(Color.web("#000FFF"));
+	    lb1.setTextFill(Color.web("#19164a"));
 	    lb1.setPrefWidth(200);
 	    lb1.setWrapText(true);
-	    lb1.setFont(new Font("Berlin Sans FB",20));
+	    lb1.setFont(new Font("Times New Roman Bold",20));
 	    
 	    descripcion =new Label("");
 	    descripcion.setTextFill(Color.web("#000FFF"));
@@ -173,7 +174,6 @@ public class Gui extends Application {
 	    BackgroundImage myBI= new BackgroundImage(new Image("https://i.ibb.co/whb3W46/Background.jpg",600,600,true,true),
 	            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 	              BackgroundSize.DEFAULT);
-	    //then you set to your node
 	    root.setBackground(new Background(myBI));
 	    root.setTop(barraMenu);
 	    root.setLeft(vb1);
@@ -182,11 +182,12 @@ public class Gui extends Application {
 	    BorderPane.setMargin(vb1, new Insets(50,20,20,20));
 	    BorderPane.setMargin(vb2, new Insets(50,20,20,20));
 	    
+	    //Ingreso al sistema
 	    
 	    
 	   
 	    
-		Scene myScene = new Scene(root, 600, 600);
+		Scene myScene = new Scene(root, 600, 550);
 		myStage.setScene(myScene);
 		myStage.show();
 	}
@@ -215,7 +216,7 @@ public class Gui extends Application {
 			descripcion.setText("Lenty es una aplicacion que te permitira, como administrador de un despacho de envios, registrar usuarios, "
 	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
 	    		+ "eficaz.");
-			descripcion.setTextFill(Color.web("#000FFF"));
+			descripcion.setTextFill(Color.web("#19164a"));
 		    descripcion.setPrefWidth(200);
 		    descripcion.setWrapText(true);
 		    descripcion.setFont(new Font("Berlin Sans FB",15));
