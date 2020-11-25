@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.event.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 
 
@@ -22,6 +23,10 @@ public class Gui extends Application {
 	Label nombre;
 	Label email;
 	Label profesion;
+	ImageView image1;
+	ImageView image2;
+	ImageView image3;
+	ImageView image4;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -80,7 +85,8 @@ public class Gui extends Application {
 	    nombre = new Label("Juan Camilo Zuluaga");
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
-	    Label lab3 = new Label("Profesion: Ciencias de la computación");
+	    Label lab3 = new Label("Profesion: ");
+	    profesion = new Label("Ciencias de la computación");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -90,6 +96,38 @@ public class Gui extends Application {
 	    hojaVida.add(lab1,0, 1);
 	    hojaVida.add(lab2,0, 2);
 	    hojaVida.add(lab3,0, 3);
+	    hojaVida.add(nombre,1, 1);
+	    hojaVida.add(email,1, 2);
+	    hojaVida.add(profesion,1, 3);
+	    
+	    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				nombre.setText("Danilo");
+			    email.setText("Danilo@unal.edu.co");
+			    profesion.setText("Ingeniería de sistemas e informatica");
+			    
+			    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
+			    image1.setImage(new Image(fileA.toURI().toString())); 
+			    image1.setFitHeight(150);
+			    image1.setFitWidth(150);
+			    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+			    image2.setImage(new Image(fileB.toURI().toString()));
+			    image2.setFitHeight(150);
+			    image2.setFitWidth(150);
+			    File fileC = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
+			    image3.setImage(new Image(fileC.toURI().toString()));
+			    image3.setFitHeight(150);
+			    image3.setFitWidth(150);
+			    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+			    image4.setImage(new Image(fileD.toURI().toString()));
+			    image4.setFitHeight(150);
+			    image4.setFitWidth(150);
+			}
+		};
+	   
+	    vb2.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 	    
 	    
 	    //Imagenes
@@ -99,20 +137,22 @@ public class Gui extends Application {
 	    //Label lb3=new Label("Fotos de los creadores");
 	    //fotos.add(lb3,1, 0);
 	    
+	    
+	    
 	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
-	    ImageView image1 = new ImageView(new Image(fileA.toURI().toString())); 
+	    image1 = new ImageView(new Image(fileA.toURI().toString())); 
 	    image1.setFitHeight(150);
 	    image1.setFitWidth(150);
 	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
-	    ImageView image2 = new ImageView(new Image(fileB.toURI().toString()));
+	    image2 = new ImageView(new Image(fileB.toURI().toString()));
 	    image2.setFitHeight(150);
 	    image2.setFitWidth(150);
 	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
-	    ImageView image3 = new ImageView(new Image(fileC.toURI().toString()));
+	    image3 = new ImageView(new Image(fileC.toURI().toString()));
 	    image3.setFitHeight(150);
 	    image3.setFitWidth(150);
 	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
-	    ImageView image4 = new ImageView(new Image(fileD.toURI().toString()));
+	    image4 = new ImageView(new Image(fileD.toURI().toString()));
 	    image4.setFitHeight(150);
 	    image4.setFitWidth(150);
 	    
@@ -145,20 +185,7 @@ public class Gui extends Application {
 		myStage.setScene(myScene);
 		myStage.show();
 	}
-	/*class DescripcionHandler implements EventHandler<ActionEvent>{
-		boolean event=false;
-		@Override
-		public void handle(ActionEvent e) {
-			Object control=e.getSource();
-			if(control instanceof MenuItem) {
-			}
-			System.out.println("Descripcion");
-		}
-		public boolean getEvent() {
-			return this.event;
-		}
-		
-	}*/
+
 	class SalirHandler implements EventHandler<ActionEvent>{
 
 		@Override
@@ -188,9 +215,10 @@ public class Gui extends Application {
 		    descripcion.setWrapText(true);
 		    descripcion.setFont(new Font("Berlin Sans FB",15));
 			
+		    
 		}
+	}
 		
-		}
 		
 	}
 		
