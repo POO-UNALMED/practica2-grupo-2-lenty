@@ -18,6 +18,10 @@ import javafx.scene.image.ImageView;
 
 public class Gui extends Application {
 	static File ruta = new File("");
+	Label descripcion; 
+	Label nombre;
+	Label email;
+	Label profesion;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -28,6 +32,7 @@ public class Gui extends Application {
 		myStage.setTitle("Lenty");
 		myStage.setResizable(false);
 		
+		//Baras menu
 		MenuBar barraMenu=new MenuBar();
 		Menu inicio=new Menu("Inicio");
 		MenuItem desc=new MenuItem("Descripcion");
@@ -35,10 +40,11 @@ public class Gui extends Application {
 		inicio.getItems().add(desc);
 		inicio.getItems().add(salir);
 		barraMenu.getMenus().add(inicio);
-		DescripcionHandler desc1=new DescripcionHandler();
+		DescripcionHandler desc1 = new DescripcionHandler();
 		desc.setOnAction(desc1);
 		SalirHandler salir1=new SalirHandler();
 		salir.setOnAction(salir1);
+		
 	    VBox vb1 = new VBox(10);
 	    vb1.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -56,15 +62,11 @@ public class Gui extends Application {
 	    lb1.setWrapText(true);
 	    lb1.setFont(new Font("Berlin Sans FB",20));
 	    
-	    
-	    Label lb3=new Label("Fotos de los creadores");
-	    Label lb4=new Label("Lenty es una aplicacion que te permitira, como administrador un despacho de envios, registrar usuarios, "
-	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
-	    		+ "eficaz.");
-	    lb4.setTextFill(Color.web("#000FFF"));
-	    lb4.setPrefWidth(200);
-	    lb4.setWrapText(true);
-	    lb4.setFont(new Font("Berlin Sans FB",15));
+	    descripcion =new Label("");
+	    descripcion.setTextFill(Color.web("#000FFF"));
+	    descripcion.setPrefWidth(200);
+	    descripcion.setWrapText(true);
+	    descripcion.setFont(new Font("Berlin Sans FB",15)); 
 
 	    Button b1=new Button("Entrar");
 	    b1.setFont(new Font("Berlin Sans FB",25));
@@ -75,8 +77,10 @@ public class Gui extends Application {
 	  //Hoja de vida
 	    Label lab = new Label("Hoja de Vida");
 	    Label lab1 = new Label("Nombre:");
+	    nombre = new Label("Juan Camilo Zuluaga");
 	    Label lab2 = new Label("E-mail:");
-	    Label lab3 = new Label("Profesion:");
+	    email = new Label("juaczuluagamon@unal.edu.co");
+	    Label lab3 = new Label("Profesion: Ciencias de la computación");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -122,8 +126,8 @@ public class Gui extends Application {
 
 	    vb2.getChildren().add(fotos);
 	    vb1.getChildren().add(lb1);
-	    vb1.getChildren().add(lb4);
-	    lb4.setTranslateY(200);
+	    vb1.getChildren().add(descripcion);
+	    descripcion.setTranslateY(200);
 	    
 	    BorderPane root=new BorderPane();
 	    root.setTop(barraMenu);
@@ -141,7 +145,7 @@ public class Gui extends Application {
 		myStage.setScene(myScene);
 		myStage.show();
 	}
-	class DescripcionHandler implements EventHandler<ActionEvent>{
+	/*class DescripcionHandler implements EventHandler<ActionEvent>{
 		boolean event=false;
 		@Override
 		public void handle(ActionEvent e) {
@@ -154,7 +158,7 @@ public class Gui extends Application {
 			return this.event;
 		}
 		
-	}
+	}*/
 	class SalirHandler implements EventHandler<ActionEvent>{
 
 		@Override
@@ -168,8 +172,27 @@ public class Gui extends Application {
 		@Override
 		public void handle(ActionEvent event) {
 			System.out.println("Cambiar de escena");
+			
+		}
+	}
+			
+	class DescripcionHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			descripcion.setText("Lenty es una aplicacion que te permitira, como administrador un despacho de envios, registrar usuarios, "
+	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
+	    		+ "eficaz.");
+			descripcion.setTextFill(Color.web("#000FFF"));
+		    descripcion.setPrefWidth(200);
+		    descripcion.setWrapText(true);
+		    descripcion.setFont(new Font("Berlin Sans FB",15));
+			
+		}
+		
 		}
 		
 	}
-}
+		
+
 	
