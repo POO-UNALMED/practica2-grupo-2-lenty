@@ -787,21 +787,33 @@ public class Gui extends Application {
 			
 			
 			ComboBox<String> eliminarS = new ComboBox<String>();
-			String sedes[] = {"Perro", "hamburguesa"};
+			String sedes[] = {"Esquina", "Alli"};
 			eliminarS.getItems().addAll(sedes);
 			eliminarS.setPromptText("Sedes");
+			Button eliminarBS = new Button("Eliminar");
+			eliminarGS.add(eliminarBS, 0, 8);
 			eliminarS.valueProperty().addListener(new ChangeListener<String>(){
 				
 				public void changed(ObservableValue ov, String t, String t1) {
-					System.out.println(t1);
-					String variable = t1;
+					String sede = t1;
+					Alert dialog = new Alert(AlertType.NONE);
+					eliminarBS.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						public void handle(MouseEvent event) {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Eliminar sede");
+							dialog.setHeaderText("Se elimino la sede con éxito");
+							dialog.setContentText("La sede ubicada en "+sede+" se elimino");
+							dialog.show();
+							
+							eliminarS.setValue("Sedes");
+						}
+
+					});
 				}});
 			eliminarS.setMinSize(250, 0);
 			
 			eliminarGS.add(eliminarS, 0, 4);
 			eliminarGS.add(new Label("Eliminar sede"), 0, 0);
-			Button eliminarBS = new Button("Eliminar");
-			eliminarGS.add(eliminarBS, 0, 8);
 			
 			sede.add(consulta, 0, 10);
 			sede.add(sedeV, 1, 10);
