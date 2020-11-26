@@ -19,10 +19,10 @@ import javafx.scene.input.MouseEvent;
 
 public class Gui extends Application {
 	static File ruta = new File("");
-	Label descripcion; 
-	Label nombre;
-	Label email;
-	Label profesion;
+	static Label descripcion; 
+	static Label nombre;
+	static Label email;
+	static Label profesion;
 	static ImageView image1;
 	static ImageView image2;
 	static ImageView image3;
@@ -144,12 +144,13 @@ public class Gui extends Application {
 			@Override
 			public void handle(MouseEvent arg0) {
 				
-				if (contador == 4) {
+				if (contador == 5) {
 		    		contador = 1;	
 		    	}
 		    	else {
 		    		contador++;
 		    	}
+				System.out.println(contador);
 				
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
@@ -219,11 +220,11 @@ public class Gui extends Application {
 				    image4.setFitWidth(150);
 				}
 				else if (contador == 4) {
-					nombre = new Label("Juan Camilo Zuluaga");
-					email = new Label("juaczuluagamon@unal.edu.co");
-					profesion = new Label("Ciencias de la computación");
+					nombre.setText("Juan Camilo Zuluaga");
+					email.setText("juaczuluagamon@unal.edu.co");
+					profesion.setText("Ciencias de la computación");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
@@ -231,7 +232,7 @@ public class Gui extends Application {
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
