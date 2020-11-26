@@ -19,15 +19,17 @@ import javafx.scene.input.MouseEvent;
 
 public class Gui extends Application {
 	static File ruta = new File("");
-	Label descripcion; 
-	Label nombre;
-	Label email;
-	Label profesion;
-	ImageView image1;
-	ImageView image2;
-	ImageView image3;
-	ImageView image4;
+	static Label descripcion; 
+	static Label nombre;
+	static Label email;
+	static Label profesion;
+	static ImageView image1;
+	static ImageView image2;
+	static ImageView image3;
+	static ImageView image4;
+	static ImageView imagenRotativa;
 	static int contador = 0;
+	static int contadorx2 = 0;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -88,7 +90,7 @@ public class Gui extends Application {
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
 	    Label lab3 = new Label("Profesion: ");
-	    profesion = new Label("Ciencias de la computaciÛn");
+	    profesion = new Label("Ciencias de la computaci√≥n");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -102,119 +104,8 @@ public class Gui extends Application {
 	    hojaVida.add(email,1, 2);
 	    hojaVida.add(profesion,1, 3);
 	    
-	    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-	    	
-	    	
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				
-				if (contador == 4) {
-		    		contador = 1;
-		    	}
-		    	else {
-		    		contador++;
-		    	}
-				
-				if (contador == 1) {
-					nombre.setText("Danilo Giraldo Lopez");
-				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
-				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
-				    image1.setImage(new Image(fileA.toURI().toString())); 
-				    image1.setFitHeight(150);
-				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Danilo2.jpg"); 
-				    image2.setImage(new Image(fileB.toURI().toString()));
-				    image2.setFitHeight(150);
-				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Danilo3.jpg"); 
-				    image3.setImage(new Image(fileC.toURI().toString()));
-				    image3.setFitHeight(150);
-				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Danilo4.jpg"); 
-				    image4.setImage(new Image(fileD.toURI().toString()));
-				    image4.setFitHeight(150);
-				    image4.setFitWidth(150);
-				}
-				else if (contador == 4) {
-					nombre = new Label("Juan Camilo Zuluaga");
-					email = new Label("juaczuluagamon@unal.edu.co");
-					profesion = new Label("Ciencias de la computaciÛn");
-				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
-				    image1.setImage(new Image(fileA.toURI().toString())); 
-				    image1.setFitHeight(150);
-				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
-				    image2.setImage(new Image(fileB.toURI().toString()));
-				    image2.setFitHeight(150);
-				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
-				    image3.setImage(new Image(fileC.toURI().toString()));
-				    image3.setFitHeight(150);
-				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
-				    image4.setImage(new Image(fileD.toURI().toString()));
-				    image4.setFitHeight(150);
-				    image4.setFitWidth(150);
-				}
-				else if (contador == 2) {
-					nombre.setText("Manuel Alejandro Escobar Mira");
-				    email.setText("Maaescobarmi@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
-				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
-				    image1.setImage(new Image(fileA.toURI().toString())); 
-				    image1.setFitHeight(150);
-				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Manuel2.jpg"); 
-				    image2.setImage(new Image(fileB.toURI().toString()));
-				    image2.setFitHeight(150);
-				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Manuel3.jpg"); 
-				    image3.setImage(new Image(fileC.toURI().toString()));
-				    image3.setFitHeight(150);
-				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Manuel4.jpg"); 
-				    image4.setImage(new Image(fileD.toURI().toString()));
-				    image4.setFitHeight(150);
-				    image4.setFitWidth(150);
-				}
-				else if (contador == 3) {
-					nombre.setText("Michael");
-				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
-				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
-				    image1.setImage(new Image(fileA.toURI().toString())); 
-				    image1.setFitHeight(150);
-				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
-				    image2.setImage(new Image(fileB.toURI().toString()));
-				    image2.setFitHeight(150);
-				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
-				    image3.setImage(new Image(fileC.toURI().toString()));
-				    image3.setFitHeight(150);
-				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
-				    image4.setImage(new Image(fileD.toURI().toString()));
-				    image4.setFitHeight(150);
-				    image4.setFitWidth(150);
-				}
-				
-				
-				
-			}
-		};
-	   
-	    vb2.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-	    
-	    
-	    //Imagenes
-	   
+	  //Imagenes
+		   
 	    GridPane fotos = new GridPane();
 	    
 	    //Label lb3=new Label("Fotos de los creadores");
@@ -244,11 +135,210 @@ public class Gui extends Application {
 	    fotos.add(image3 ,0 ,1);
 	    fotos.add(image4 ,1 ,1);
 	    
+	    
+	    //Evento Hoja de vida
+	    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+	    	
+	    	
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+				if (contador == 4) {
+		    		contador = 1;	
+		    	}
+		    	else {
+		    		contador++;
+		    	}
+				System.out.println(contador);
+				
+				if (contador == 1) {
+					nombre.setText("Danilo Giraldo Lopez");
+				    email.setText("Dgiraldolo@unal.edu.co");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
+				    
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
+				    image1.setImage(new Image(fileA.toURI().toString())); 
+				    image1.setFitHeight(150);
+				    image1.setFitWidth(150);
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Danilo2.jpg"); 
+				    image2.setImage(new Image(fileB.toURI().toString()));
+				    image2.setFitHeight(150);
+				    image2.setFitWidth(150);
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Danilo3.jpg"); 
+				    image3.setImage(new Image(fileC.toURI().toString()));
+				    image3.setFitHeight(150);
+				    image3.setFitWidth(150);
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Danilo4.jpg"); 
+				    image4.setImage(new Image(fileD.toURI().toString()));
+				    image4.setFitHeight(150);
+				    image4.setFitWidth(150);
+				}
+				
+				else if (contador == 2) {
+					nombre.setText("Manuel");
+				    email.setText("Dgiraldolo@unal.edu.co");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
+				    
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
+				    image1.setImage(new Image(fileA.toURI().toString())); 
+				    image1.setFitHeight(150);
+				    image1.setFitWidth(150);
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+				    image2.setImage(new Image(fileB.toURI().toString()));
+				    image2.setFitHeight(150);
+				    image2.setFitWidth(150);
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
+				    image3.setImage(new Image(fileC.toURI().toString()));
+				    image3.setFitHeight(150);
+				    image3.setFitWidth(150);
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+				    image4.setImage(new Image(fileD.toURI().toString()));
+				    image4.setFitHeight(150);
+				    image4.setFitWidth(150);
+				}
+				else if (contador == 2) {
+					nombre.setText("Manuel Alejandro Escobar Mira");
+				    email.setText("Maaescobarmi@unal.edu.co");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
+				    
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
+				    image1.setImage(new Image(fileA.toURI().toString())); 
+				    image1.setFitHeight(150);
+				    image1.setFitWidth(150);
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Manuel2.jpg"); 
+				    image2.setImage(new Image(fileB.toURI().toString()));
+				    image2.setFitHeight(150);
+				    image2.setFitWidth(150);
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Manuel3.jpg"); 
+				    image3.setImage(new Image(fileC.toURI().toString()));
+				    image3.setFitHeight(150);
+				    image3.setFitWidth(150);
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Manuel4.jpg"); 
+            image4.setImage(new Image(fileD.toURI().toString()));
+				    image4.setFitHeight(150);
+				    image4.setFitWidth(150);
+        }
+				else if (contador == 3) {
+					nombre.setText("Michael Stiwar Zapata Agudelo");
+				    email.setText("mizapataa@unal.edu.co");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
+				    
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
+				    image1.setImage(new Image(fileA.toURI().toString())); 
+				    image1.setFitHeight(150);
+				    image1.setFitWidth(150);
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Michael2.jpg"); 
+				    image2.setImage(new Image(fileB.toURI().toString()));
+				    image2.setFitHeight(150);
+				    image2.setFitWidth(150);
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Michael3.jpg"); 
+				    image3.setImage(new Image(fileC.toURI().toString()));
+				    image3.setFitHeight(150);
+				    image3.setFitWidth(150);
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Michael4.jpg"); 
+
+				    image4.setImage(new Image(fileD.toURI().toString()));
+				    image4.setFitHeight(150);
+				    image4.setFitWidth(150);
+				}
+				else if (contador == 4) {
+					nombre.setText("Juan Camilo Zuluaga");
+					email.setText("juaczuluagamon@unal.edu.co");
+					profesion.setText("Ciencias de la computaci√≥n");
+				    
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
+				    image1.setImage(new Image(fileA.toURI().toString())); 
+				    image1.setFitHeight(150);
+				    image1.setFitWidth(150);
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+				    image2.setImage(new Image(fileB.toURI().toString()));
+				    image2.setFitHeight(150);
+				    image2.setFitWidth(150);
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
+				    image3.setImage(new Image(fileC.toURI().toString()));
+				    image3.setFitHeight(150);
+				    image3.setFitWidth(150);
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+				    image4.setImage(new Image(fileD.toURI().toString()));
+				    image4.setFitHeight(150);
+				    image4.setFitWidth(150);
+				}
+				
+				
+				
+			}
+		};
+		
+	   
+	    hojaVida.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+	    
+	    //Imagen rotativa
+	    File filee = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
+	    imagenRotativa = new ImageView(new Image(filee.toURI().toString()));
+	    imagenRotativa.setFitHeight(200);
+	    imagenRotativa.setFitWidth(200);
+	    
+	    //Evento imagen rotativa
+	    EventHandler<MouseEvent> eventHandlerx2 = new EventHandler<MouseEvent>() {
+	    	
+	    	
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+				if (contadorx2 == 4) {
+		    		contadorx2 = 1;	
+		    	}
+		    	else {
+		    		contadorx2++;
+		    	}
+				
+				if (contadorx2 == 1) {
+					
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
+				    imagenRotativa.setImage(new Image(filee.toURI().toString())); 
+				    imagenRotativa.setFitHeight(200);
+				    imagenRotativa.setFitWidth(200);
+				}
+				else if (contadorx2 == 2) {
+					
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
+				    imagenRotativa.setFitHeight(200);
+				    imagenRotativa.setFitWidth(200);
+				}
+				else if (contadorx2 == 3) {
+					
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
+				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
+				    imagenRotativa.setFitHeight(200);
+				    imagenRotativa.setFitWidth(200);
+				    
+				}
+				else if (contadorx2 == 4) {
+				    
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
+				    imagenRotativa.setFitHeight(200);
+				    imagenRotativa.setFitWidth(200);
+				
+			}
+			
+			}
+	    };
+	    
+	    
+	    imagenRotativa.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandlerx2);
+	    
+	    
+	    
 	    //Panel vertical 2
 	    vb2.getChildren().add(hojaVida);
 
 	    vb2.getChildren().add(fotos);
 	    vb1.getChildren().add(lb1);
+	    vb1.getChildren().add(imagenRotativa);
 	    vb1.getChildren().add(descripcion);
 	    descripcion.setTranslateY(200);
 	    
