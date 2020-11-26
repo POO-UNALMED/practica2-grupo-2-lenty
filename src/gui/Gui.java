@@ -79,6 +79,11 @@ public class Gui extends Application {
 		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
 		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
 		
+		//Scene2
+		BorderPane rootScene2 = new BorderPane();
+		rootScene2.setTop(barraMenu2);
+		
+		
 		
 		AyudaHandler ayuda1=new AyudaHandler();
 		ayuda.setOnAction(ayuda1);
@@ -86,6 +91,9 @@ public class Gui extends Application {
 		MenUsu.setOnAction(MenUsu1);
 		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
 		MenOrd.setOnAction(MenOrd1);
+		
+		
+		
 		MenuProductosHandler MenPro1=new MenuProductosHandler();
 		MenPro.setOnAction(MenPro1);
 		
@@ -94,11 +102,132 @@ public class Gui extends Application {
 		
 		
 		MenuSedesHandler MenSed1=new MenuSedesHandler();
-		MenSed.setOnAction(MenSed1);
+		MenSed.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				GridPane sede = new GridPane();
+				sede.setPadding(new Insets(10,10,10,10));
+				sede.setVgap(5);
+				sede.setHgap(5);
+				sede.setAlignment(Pos.CENTER);
+				
+				GridPane registrarS = new GridPane();
+				registrarS.setPadding(new Insets(10,10,10,10));
+				registrarS.setVgap(5);
+				registrarS.setHgap(5);
+				registrarS.setAlignment(Pos.CENTER);
+				
+				registrarS.add(new Label("Registrar sede"), 0, 0);
+				registrarS.add(new Label("Direccion"), 0, 1);
+				registrarS.add(new Label("Telefono"), 0, 2);
+				TextField direccion = new TextField();
+				TextField telefono = new TextField();
+				registrarS.add(direccion, 1, 1);
+				registrarS.add(telefono, 1, 2);
+				
+
+				Button registrarB = new Button("Registrar");
+				registrarS.setMinSize(100, 0);
+				registrarS.add(registrarB, 0, 3);
+				
+				Button consulta = new Button("Consultar sedes registradas");
+				consulta.setMinSize(250,100);
+				
+				Button sedeV = new Button("Consultar sede con mayores ventas");
+				sedeV.setMinSize(250, 100);
+				
+				
+				GridPane eliminarGS = new GridPane();
+				eliminarGS.setPadding(new Insets(10,10,10,10));
+				eliminarGS.setVgap(5);
+				eliminarGS.setHgap(5);
+				eliminarGS.setAlignment(Pos.CENTER);
+				
+				
+				ComboBox<String> eliminarS = new ComboBox<String>();
+				String sedes[] = {"Esquina", "Alli"};
+				eliminarS.getItems().addAll(sedes);
+				eliminarS.setPromptText("Sedes");
+				Button eliminarBS = new Button("Eliminar");
+				eliminarGS.add(eliminarBS, 0, 8);
+				eliminarS.valueProperty().addListener(new ChangeListener<String>(){
+					
+					public void changed(ObservableValue ov, String t, String t1) {
+						String sede = t1;
+						Alert dialog = new Alert(AlertType.NONE);
+						eliminarBS.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							public void handle(MouseEvent event) {
+								dialog.setAlertType(AlertType.INFORMATION);
+								dialog.setTitle("Eliminar sede");
+								dialog.setHeaderText("Se elimino la sede con éxito");
+								dialog.setContentText("La sede ubicada en "+sede+" se elimino");
+								dialog.show();
+								
+								eliminarS.setValue("Sedes");
+							}
+
+						});
+					}});
+				eliminarS.setMinSize(250, 0);
+				
+				eliminarGS.add(eliminarS, 0, 4);
+				eliminarGS.add(new Label("Eliminar sede"), 0, 0);
+				
+				sede.add(consulta, 0, 10);
+				sede.add(sedeV, 1, 10);
+				sede.add(registrarS, 0, 0);
+				sede.add(eliminarGS, 1,0);
+				
+				registrarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						Alert dialog = new Alert(AlertType.NONE);
+						String direccionS = direccion.getText();
+						String telefonoS = telefono.getText();
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Registrar sede");
+						dialog.setHeaderText("Se registro la sede con éxito");
+						dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+						dialog.show();
+						
+						direccion.setText("");
+						telefono.setText("");
+					}
+				});
+				
+				sedeV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						Alert dialog = new Alert(AlertType.NONE);
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Sede con mas ventas");
+						dialog.setHeaderText("Aqui se muestran las sedes con mas ventas");
+						dialog.show();
+						
+					}
+
+				});
+				
+				consulta.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						Alert dialog = new Alert(AlertType.NONE);
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Sedes registradas");
+						dialog.setHeaderText("Aqui se muestran las sedes registradas");
+						dialog.show();
+						
+					}
+
+				});
+				rootScene2.setCenter(sede);
+				
+			}
+			
+		});
 		
-		//Scene2
-		BorderPane rootScene2 = new BorderPane();
-		rootScene2.setTop(barraMenu2);
+		
+		
+		
 		
 		MenVeh.setOnAction(new EventHandler<ActionEvent>() {
 
