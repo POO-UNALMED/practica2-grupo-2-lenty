@@ -550,25 +550,38 @@ public class Gui extends Application {
 			eliminarG.setVgap(5);
 			eliminarG.setHgap(5);
 			eliminarG.setAlignment(Pos.CENTER);
-			
-			ComboBox eliminar = new ComboBox();
+			Button eliminarB = new Button("Eliminar");
+			eliminarB.setMinSize(100, 0);
+			eliminarG.add(eliminarB, 0, 14);
+			ComboBox<String> eliminar = new ComboBox<String>();
 			String opciones[] = {"Perro", "hamburguesa"};
 			eliminar.getItems().addAll(opciones);
 			eliminar.setPromptText("Productos");
 			eliminar.valueProperty().addListener(new ChangeListener<String>(){
 				
 				public void changed(ObservableValue ov, String t, String t1) {
-					System.out.println(t1);
-					String variable = t1;
+					String productoAEliminar = t1;
+					Alert dialog = new Alert(AlertType.NONE);
+					eliminarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						public void handle(MouseEvent event) {
+							String producto = eliminar.getAccessibleText();
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Eliminar producto");
+							dialog.setHeaderText("Se elimino el producto con éxito");
+							dialog.setContentText("El producto "+productoAEliminar+" se elimino");
+							dialog.show();
+							
+							eliminar.setValue("Productos");
+						}
+
+					});
 				}});
 			eliminar.setMinSize(250, 0);
 
 			eliminarG.add(eliminar, 0, 3);
 			eliminarG.add(new Label("Eliminar producto"), 0, 0);
 			
-			Button eliminarB = new Button("Eliminar");
-			eliminarB.setMinSize(100, 0);
-			eliminarG.add(eliminarB, 0, 14);
+			
 			
 			producto.add(agregar, 0, 0);
 			producto.add(eliminarG, 1, 0);
@@ -599,6 +612,7 @@ public class Gui extends Application {
 				}
 			});
 			
+			gui.Gui;
 		}
 	}
 	class MenuVehiculosHandler implements EventHandler<ActionEvent>{
