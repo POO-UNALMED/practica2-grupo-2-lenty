@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 
 
 
+
 public class Gui extends Application {
 	static File ruta = new File("");
 	static Label descripcion; 
@@ -34,6 +35,7 @@ public class Gui extends Application {
 	static int contador = 0;
 	static int contadorx = 0;
 	static int contadorx2 = 0;
+	
 
 	public static void main(String[] args) {
 		launch(args);
@@ -62,11 +64,19 @@ public class Gui extends Application {
 		Menu archivo=new Menu("Archivo");
 		Menu proYCon=new Menu("Procesos y consultas");
 		Menu ayuda=new Menu("Ayuda");
+		MenuItem nombreLenty=new MenuItem("Lenty");
 		MenuItem MenUsu=new MenuItem("Menu Usuarios");
 		MenuItem MenOrd=new MenuItem("Menu Ordenes");
 		MenuItem MenPro=new MenuItem("Menu Productos");
 		MenuItem MenVeh=new MenuItem("Menu Vehiculos");
 		MenuItem MenSed=new MenuItem("Menu Sedes");
+		archivo.getItems().add(nombreLenty);
+		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
+		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
+		
+		
+		AyudaHandler ayuda1=new AyudaHandler();
+		ayuda.setOnAction(ayuda1);
 		MenuUsuariosHandler MenUsu1=new MenuUsuariosHandler();
 		MenUsu.setOnAction(MenUsu1);
 		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
@@ -77,6 +87,10 @@ public class Gui extends Application {
 		MenUsu.setOnAction(MenVeh1);
 		MenuSedesHandler MenSed1=new MenuSedesHandler();
 		MenUsu.setOnAction(MenSed1);
+		
+		//Scene2
+		BorderPane rootScene2=new BorderPane();
+		rootScene2.setTop(barraMenu2);
 		
 	    VBox vb1 = new VBox(10);
 	    vb1.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -106,8 +120,8 @@ public class Gui extends Application {
 	    b1.setFont(new Font("Berlin Sans FB",25));
 	    b1.setMaxSize(200, Double.MAX_VALUE);
 	    b1.setTextFill(Color.web("#FF0000"));;
-	    EntrarHandler entrar1=new EntrarHandler();
-	    b1.setOnAction(entrar1);
+	    //EntrarHandler entrar1=new EntrarHandler();
+	    //b1.setOnAction(entrar1);
 	  //Hoja de vida
 	    Label lab = new Label("Hoja de Vida");
 	    Label lab1 = new Label("Nombre:");
@@ -361,9 +375,26 @@ public class Gui extends Application {
 	    
 	   
 	    
-		Scene myScene = new Scene(root, 600, 600);
+	    Scene myScene = new Scene(root, 600, 600);
 		myStage.setScene(myScene);
 		myStage.show();
+		
+		EventHandler<MouseEvent> stageChange = new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("entre");
+				Scene mySceneDos = new Scene(rootScene2, 600, 600);
+				myStage.setScene(mySceneDos);
+				myStage.show();
+				
+			}
+
+		
+			
+			
+		};
+		b1.addEventHandler(MouseEvent.MOUSE_CLICKED, stageChange);
 	}
 
 	class SalirHandler implements EventHandler<ActionEvent>{
@@ -374,14 +405,14 @@ public class Gui extends Application {
 		}
 		
 	}
-	class EntrarHandler implements EventHandler<ActionEvent>{
+	/*class EntrarHandler implements EventHandler<ActionEvent>{
 
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("Cambiar de escena");
+			
 			
 		}
-	}
+	}*/
 			
 	class DescripcionHandler implements EventHandler<ActionEvent>{
 	
@@ -405,6 +436,14 @@ public class Gui extends Application {
 			
 			
 		    
+		}
+	}
+	class AyudaHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Imprimir los nombres de los creadores en una ventana emergente");
+			
 		}
 	}
 	class MenuUsuariosHandler implements EventHandler<ActionEvent>{
