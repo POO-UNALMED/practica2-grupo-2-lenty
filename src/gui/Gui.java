@@ -836,6 +836,30 @@ public class Gui extends Application {
 				}
 			});
 			
+			sedeV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Sede con mas ventas");
+					dialog.setHeaderText("Aqui se muestran las sedes con mas ventas");
+					dialog.show();
+					
+				}
+
+			});
+			
+			consulta.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Sedes registradas");
+					dialog.setHeaderText("Aqui se muestran las sedes registradas");
+					dialog.show();
+					
+				}
+
+			});
+			
 		}
 	}
 		
