@@ -87,15 +87,205 @@ public class Gui extends Application {
 		
 		AyudaHandler ayuda1=new AyudaHandler();
 		ayuda.setOnAction(ayuda1);
+		
+		
+		
 		MenuUsuariosHandler MenUsu1=new MenuUsuariosHandler();
-		MenUsu.setOnAction(MenUsu1);
+		MenUsu.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+				Button btnClientes = new Button();
+				Button btnRepartidores = new Button();
+				
+				try {
+					//imagen clientes
+					Image image1 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\clientes.png"));
+					ImageView im1 = new ImageView(image1);
+					im1.setFitHeight(120);
+					im1.setFitWidth(120);
+					Button btn1 = new Button("Clientes", im1);
+					btn1.setStyle("-fx-base: blue;");
+					btn1.setContentDisplay(ContentDisplay.TOP);
+					btn1.setMaxSize(100, 50);
+					btnClientes = btn1;
+					
+					//imagen repartidores
+					Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\repartidores.png"));
+					ImageView im2 = new ImageView(image2);
+					im2.setFitHeight(120);
+					im2.setFitWidth(120);
+					Button btn2 = new Button("Repartidores", im2);
+					btn2.setStyle("-fx-base: orange;");
+					btn2.setContentDisplay(ContentDisplay.TOP);
+					btn2.setMaxSize(120, 50);
+					btnRepartidores = btn2;
+				} catch (FileNotFoundException e) {
+					Alert info = new Alert(AlertType.ERROR);
+					info.setHeaderText("Error");
+					info.setTitle("No se pudo encontrar la imagen");
+					info.setContentText("");
+					info.show();
+				}
+				
+				btnClientes.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event){
+						System.out.println("Clientes");
+					}
+				});
+				
+				btnRepartidores.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event){
+						System.out.println("Repartidores");
+					}
+				});
+				rootScene2.setCenter(null);
+				
+			}
+			
+		});
+		
+		
+		
 		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
 		MenOrd.setOnAction(MenOrd1);
 		
 		
 		
 		MenuProductosHandler MenPro1=new MenuProductosHandler();
-		MenPro.setOnAction(MenPro1);
+		MenPro.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+				GridPane producto = new GridPane();
+				producto.setPadding(new Insets(10,10,10,10));
+				producto.setVgap(5);
+				producto.setHgap(5);
+				producto.setAlignment(Pos.CENTER);
+				
+				
+				GridPane agregar = new GridPane();
+				agregar.setPadding(new Insets(10,10,10,10));
+				agregar.setVgap(5);
+				agregar.setHgap(5);
+				agregar.setAlignment(Pos.CENTER);
+				
+				agregar.add(new Label("Agregar Producto"), 0, 0);
+				agregar.add(new Label("Nombre"), 0, 1);
+				agregar.add(new Label("Descripcion"), 0, 2);
+				agregar.add(new Label("Precio"), 0, 3);
+				TextField nombreP = new TextField();
+				TextField descripcionP = new TextField();
+				TextField precioP = new TextField();
+				agregar.add(nombreP, 1, 1);
+				agregar.add(descripcionP, 1, 2);
+				agregar.add(precioP, 1, 3);
+				System.out.println(nombreP.getText());
+				Button agregarB = new Button("Agregar");
+				agregarB.setMinSize(100, 0);
+				agregar.add(agregarB, 0, 4);
+				
+				GridPane eliminarG = new GridPane();
+
+				eliminarG.setPadding(new Insets(10,10,10,10));
+				eliminarG.setVgap(5);
+				eliminarG.setHgap(5);
+				eliminarG.setAlignment(Pos.CENTER);
+				Button eliminarB = new Button("Eliminar");
+				eliminarB.setMinSize(100, 0);
+				eliminarG.add(eliminarB, 0, 14);
+				ComboBox<String> eliminar = new ComboBox<String>();
+				String opciones[] = {"Perro", "hamburguesa"};
+				eliminar.getItems().addAll(opciones);
+				eliminar.setPromptText("Productos");
+				eliminar.valueProperty().addListener(new ChangeListener<String>(){
+					
+					public void changed(ObservableValue ov, String t, String t1) {
+						String productoAEliminar = t1;
+						Alert dialog = new Alert(AlertType.NONE);
+						eliminarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							public void handle(MouseEvent event) {
+								dialog.setAlertType(AlertType.INFORMATION);
+								dialog.setTitle("Eliminar producto");
+								dialog.setHeaderText("Se elimino el producto con éxito");
+								dialog.setContentText("El producto "+productoAEliminar+" se elimino");
+								dialog.show();
+								
+								eliminar.setValue("Productos");
+							}
+
+						});
+					}});
+				eliminar.setMinSize(250, 0);
+
+				eliminarG.add(eliminar, 0, 3);
+				eliminarG.add(new Label("Eliminar producto"), 0, 0);
+				
+				
+				
+				producto.add(agregar, 0, 0);
+				producto.add(eliminarG, 1, 0);
+				Button productoV = new Button("Productos mas vendidos");
+				productoV.setMinHeight(100);
+				productoV.setMinWidth(250);
+				producto.add(productoV, 0, 20);
+				Button productoE = new Button("Productos en existencia");
+				productoE.setMinHeight(100);
+				productoE.setMinWidth(250);
+				producto.add(productoE, 1, 20);
+				
+				
+				productoV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						Alert dialog = new Alert(AlertType.NONE);
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Productos mas vendidos");
+						dialog.setHeaderText("Aqui se muestran los productos mas vendidos");
+						dialog.show();
+						
+					}
+
+				});
+				
+				productoE.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						Alert dialog = new Alert(AlertType.NONE);
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Productos en existencia");
+						dialog.setHeaderText("Aqui se muestran los productos en existencia");
+						dialog.show();
+						
+					}
+
+				});
+				
+				
+				Alert dialog = new Alert(AlertType.NONE);
+				agregarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						String nombre = nombreP.getText();
+						String precio = precioP.getText();
+						String descripcion = descripcionP.getText();
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Agregar Producto");
+						dialog.setHeaderText("Se agregó el producto con éxito");
+						dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
+						dialog.show();
+						
+						nombreP.setText("");
+						descripcionP.setText("");
+						precioP.setText("");
+					}
+				});
+				rootScene2.setCenter(producto);
+				
+			}
+			
+		});
 		
 		//MenuVehiculosHandler MenVeh1=new MenuVehiculosHandler();
 		//MenVeh.setOnAction(MenVeh1);
