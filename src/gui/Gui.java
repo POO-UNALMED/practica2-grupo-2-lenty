@@ -110,7 +110,7 @@ public class Gui extends Application {
 			public void handle(MouseEvent arg0) {
 				
 				if (contador == 4) {
-		    		contador = 0;	
+		    		contador = 1;
 		    	}
 		    	else {
 		    		contador++;
@@ -161,23 +161,23 @@ public class Gui extends Application {
 				    image4.setFitWidth(150);
 				}
 				else if (contador == 2) {
-					nombre.setText("Manuel");
-				    email.setText("Dgiraldolo@unal.edu.co");
+					nombre.setText("Manuel Alejandro Escobar Mira");
+				    email.setText("Maaescobarmi@unal.edu.co");
 				    profesion.setText("Ingeniería de sistemas e informatica");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Manuel2.jpg"); 
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Manuel3.jpg"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Manuel4.jpg"); 
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
