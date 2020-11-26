@@ -29,6 +29,7 @@ public class Gui extends Application {
 	static ImageView image4;
 	static ImageView imagenRotativa;
 	static int contador = 0;
+	static int contadorx = 0;
 	static int contadorx2 = 0;
 
 	public static void main(String[] args) {
@@ -38,7 +39,7 @@ public class Gui extends Application {
 	@Override
 	public void start(Stage myStage) throws Exception {
 		myStage.setTitle("Lenty");
-		myStage.setResizable(false);
+		//myStage.setResizable(false);
 		
 		//Baras menu
 		MenuBar barraMenu=new MenuBar();
@@ -329,7 +330,7 @@ public class Gui extends Application {
 	    };
 	    
 	    
-	    imagenRotativa.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandlerx2);
+	    imagenRotativa.addEventFilter(MouseEvent.MOUSE_ENTERED, eventHandlerx2);
 	    
 	    
 	    
@@ -340,7 +341,7 @@ public class Gui extends Application {
 	    vb1.getChildren().add(lb1);
 	    vb1.getChildren().add(imagenRotativa);
 	    vb1.getChildren().add(descripcion);
-	    descripcion.setTranslateY(200);
+	    //descripcion.setTranslateY(200);
 	    
 	    BorderPane root=new BorderPane();
 	    BackgroundImage myBI= new BackgroundImage(new Image("https://i.ibb.co/whb3W46/Background.jpg",600,600,true,true),
@@ -359,7 +360,7 @@ public class Gui extends Application {
 	    
 	   
 	    
-		Scene myScene = new Scene(root, 600, 550);
+		Scene myScene = new Scene(root, 600, 600);
 		myStage.setScene(myScene);
 		myStage.show();
 	}
@@ -382,16 +383,25 @@ public class Gui extends Application {
 	}
 			
 	class DescripcionHandler implements EventHandler<ActionEvent>{
-
+	
 		@Override
 		public void handle(ActionEvent event) {
-			descripcion.setText("Lenty es una aplicacion que te permitira, como administrador de un despacho de envios, registrar usuarios, "
-	    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
-	    		+ "eficaz.");
-			descripcion.setTextFill(Color.web("#19164a"));
-		    descripcion.setPrefWidth(200);
-		    descripcion.setWrapText(true);
-		    descripcion.setFont(new Font("Berlin Sans FB",15));
+			
+			if (contadorx == 0) {
+				contadorx++;
+				descripcion.setText("Lenty es una aplicacion que te permitira, como administrador de un despacho de envios, registrar usuarios, "
+			    		+ "repartidos, con sus respectivos vehiculos, productos y, con todo esto, hacer ordenes que permitan una organizacion "
+			    		+ "eficaz.");
+					descripcion.setTextFill(Color.web("#19164a"));
+				    descripcion.setPrefWidth(200);
+				    descripcion.setWrapText(true);
+				    descripcion.setFont(new Font("Berlin Sans FB",15));
+			}
+			else {
+				contadorx = 0;
+				descripcion.setText("");
+			}
+			
 			
 		    
 		}
