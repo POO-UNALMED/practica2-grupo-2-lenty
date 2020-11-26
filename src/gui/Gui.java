@@ -580,7 +580,24 @@ public class Gui extends Application {
 			productoE.setMinHeight(100);
 			productoE.setMinWidth(250);
 			producto.add(productoE, 1, 20);
-
+			
+			Alert dialog = new Alert(AlertType.NONE);
+			agregarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					String nombre = nombreP.getText();
+					String precio = precioP.getText();
+					String descripcion = descripcionP.getText();
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Agregar Producto");
+					dialog.setHeaderText("Se agregó el producto con éxito");
+					dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
+					dialog.show();
+					
+					nombreP.setText("");
+					descripcionP.setText("");
+					precioP.setText("");
+				}
+			});
 			
 		}
 	}
