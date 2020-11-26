@@ -88,14 +88,126 @@ public class Gui extends Application {
 		MenOrd.setOnAction(MenOrd1);
 		MenuProductosHandler MenPro1=new MenuProductosHandler();
 		MenPro.setOnAction(MenPro1);
-		MenuVehiculosHandler MenVeh1=new MenuVehiculosHandler();
-		MenVeh.setOnAction(MenVeh1);
+		
+		//MenuVehiculosHandler MenVeh1=new MenuVehiculosHandler();
+		//MenVeh.setOnAction(MenVeh1);
+		
+		
 		MenuSedesHandler MenSed1=new MenuSedesHandler();
 		MenSed.setOnAction(MenSed1);
 		
 		//Scene2
-		BorderPane rootScene2=new BorderPane();
+		BorderPane rootScene2 = new BorderPane();
 		rootScene2.setTop(barraMenu2);
+		
+		MenVeh.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				//Menu Vehiculos
+				GridPane Veh=new GridPane();
+				//Registrar
+				Label regi=new Label("Registrar un Vehiculo");
+				Label pla=new Label("Placa (String)=");
+				TextField placa=new TextField();
+				Label mod=new Label("Modelo (String)=");
+				TextField modelo=new TextField();
+				Label matri=new Label("Matricula (Int)=");
+				TextField matricula=new TextField();
+				Label seg=new Label("Seguro (true o false)=");
+				TextField seguro=new TextField();
+				Button registrar=new Button("Registrar");
+				VBox RegVeh=new VBox(regi,pla,placa,mod,modelo,matri,matricula,seg,seguro,registrar);
+				Veh.add(RegVeh, 0, 0);
+				//Eliminar
+				ArrayList<String> a=new ArrayList<>();
+				a.add("ASD123");
+				Label eli=new Label("Eliminar vehiculo");
+				ComboBox<String> eliVeh=new ComboBox<String>(FXCollections.observableArrayList(a));
+				eliVeh.setPromptText("Seleccione la placa de vehiculo a eliminar");
+				TextField vehAEli=new TextField();
+				eliVeh.valueProperty().addListener(new ChangeListener<String>(){
+
+					@Override
+					public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+						vehAEli.setText(arg2);
+					}
+					
+				});
+				Button eliminar=new Button("Eliminar");
+				VBox elimi=new VBox(eli,eliVeh,vehAEli,eliminar);
+				Veh.add(elimi, 0, 1);
+				//Consultar
+				Button consultar=new Button("Consultar Vehiculos");
+				Veh.add(consultar, 1, 0);
+				consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				//Modificar
+				Button modificar=new Button("Modificar Vehiculo ");
+				Veh.add(modificar, 1, 1);
+				modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				Veh.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				Veh.setVgap(15);
+				Veh.setHgap(15);
+				Veh.setAlignment(Pos.CENTER);
+				rootScene2.setCenter(Veh);
+				registrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent arg0) {
+						try {
+							String placa1=placa.getText();
+							String modelo1=modelo.getText();
+							int matricula1=Integer.parseInt(matricula.getText());
+							boolean seguro1=Boolean.parseBoolean(seguro.getText());
+							Alert confir=new Alert(AlertType.CONFIRMATION);
+							confir.setTitle("Confirmar registrar vehiculo");
+							confir.setHeaderText("Se requiere confirmacion para crear el vehiculo o se descartara");
+							confir.setContentText("Esta seguro de que quiere registrar el vehiculo con placa= "
+									+ placa1+" modelo= " + modelo1+" matricula= "+matricula1+" seguro= "+seguro1);
+							placa.setText("");
+							modelo.setText("");
+							matricula.setText("");
+							seguro.setText("");
+							confir.show();
+						}
+						catch(Exception e) {
+							Alert error=new Alert(AlertType.ERROR);
+							error.setTitle("ERROR");
+							error.setTitle("No se pudo registrar vehiculo");
+							error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+							error.show();
+						}
+					}
+					
+				});
+				eliminar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						try {
+							String placaVehEli=vehAEli.getText();
+							int aux=a.indexOf(placaVehEli);
+							Alert confir=new Alert(AlertType.CONFIRMATION);
+							confir.setTitle("Confirmar eliminacion de vehiculo");
+							confir.setHeaderText("Se requiere confirmacion para eliminar un vehiculo");
+							confir.setContentText("Esta seguro de que quiere registrar el vehiculo con placa= "+placaVehEli);
+							confir.show();
+						}
+						catch(Exception e) {
+							Alert error=new Alert(AlertType.ERROR);
+							error.setTitle("ERROR");
+							error.setTitle("No se pudo Eliminar vehiculo");
+							error.setContentText("Verifique que hayan vehiculos a eliminar y seleccione la placa de uno");
+							error.show();
+						}
+					}
+					
+				});
+			}
+		});
+		
+		
+    
+	  
 		
 	    VBox vb1 = new VBox(10);
 	    vb1.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -385,7 +497,7 @@ public class Gui extends Application {
 
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("entre");
+				//System.out.println("entre");
 				Scene mySceneDos = new Scene(rootScene2, 600, 600);
 				myStage.setScene(mySceneDos);
 				myStage.show();
