@@ -54,6 +54,27 @@ public class Gui extends Application {
 		SalirHandler salir1=new SalirHandler();
 		salir.setOnAction(salir1);
 		
+		//Barra menu2
+		MenuBar barraMenu2=new MenuBar();
+		Menu archivo=new Menu("Archivo");
+		Menu proYCon=new Menu("Procesos y consultas");
+		Menu ayuda=new Menu("Ayuda");
+		MenuItem MenUsu=new MenuItem("Menu Usuarios");
+		MenuItem MenOrd=new MenuItem("Menu Ordenes");
+		MenuItem MenPro=new MenuItem("Menu Productos");
+		MenuItem MenVeh=new MenuItem("Menu Vehiculos");
+		MenuItem MenSed=new MenuItem("Menu Sedes");
+		MenuUsuariosHandler MenUsu1=new MenuUsuariosHandler();
+		MenUsu.setOnAction(MenUsu1);
+		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
+		MenUsu.setOnAction(MenOrd1);
+		MenuProductosHandler MenPro1=new MenuProductosHandler();
+		MenUsu.setOnAction(MenPro1);
+		MenuVehiculosHandler MenVeh1=new MenuVehiculosHandler();
+		MenUsu.setOnAction(MenVeh1);
+		MenuSedesHandler MenSed1=new MenuSedesHandler();
+		MenUsu.setOnAction(MenSed1);
+		
 	    VBox vb1 = new VBox(10);
 	    vb1.setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -382,6 +403,46 @@ public class Gui extends Application {
 			
 			
 		    
+		}
+	}
+	class MenuUsuariosHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Menu de Usuarios");
+			
+		}
+	}
+	class MenuOrdenesHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Menu de Ordenes");
+			
+		}
+	}
+	class MenuProductosHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Menu de Productos");
+			
+		}
+	}
+	class MenuVehiculosHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Menu de Vehiculos");
+			
+		}
+	}
+	class MenuSedesHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Menu de Sedes");
+			
 		}
 	}
 		
