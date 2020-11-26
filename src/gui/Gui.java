@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import javafx.application.*;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -373,8 +374,6 @@ public class Gui extends Application {
 	    //Ingreso al sistema
 	    
 	    
-	   
-	    
 	    Scene myScene = new Scene(root, 600, 600);
 		myStage.setScene(myScene);
 		myStage.show();
@@ -442,8 +441,10 @@ public class Gui extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("Imprimir los nombres de los creadores en una ventana emergente");
-			
+			Object control=event.getSource();
+			if(control instanceof Menu) {
+				System.out.println("Imprimir los nombres de los creadores en una ventana emergente");	
+			}
 		}
 	}
 	class MenuUsuariosHandler implements EventHandler<ActionEvent>{
@@ -520,8 +521,45 @@ public class Gui extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("Menu de Vehiculos");
+			//Menu Vehiculos
+			GridPane Veh=new GridPane();
+			Label regi=new Label("Registrar un Vehiculo");
+			Label pla=new Label("Placa=");
+			TextField placa=new TextField();
+			Label mod=new Label("Modelo=");
+			TextField modelo=new TextField();
+			Label matri=new Label("Matricula=");
+			TextField matricula=new TextField();
+			Label seg=new Label("Seguro(true o false)=");
+			TextField seguro=new TextField();
+			Button registrar=new Button("Registrar");
+			VBox RegVeh=new VBox(regi,pla,placa,mod,modelo,matri,matricula,seg,seguro,registrar);
+			Veh.add(RegVeh, 0, 0);
+			Label eli=new Label("Eliminar vehiculo");
+			ComboBox eliVeh=new ComboBox();
+			eliVeh.setPromptText("Seleecione un vehiculo a eliminar");
+			TextField vehAEli=new TextField();
+			Button eliminar=new Button("Eliminar");
+			VBox elimi=new VBox(eli,eliVeh,vehAEli,eliminar);
+			Veh.add(elimi, 0, 1);
+			Button consultar=new Button("Consultar Vehiculos");
+			Veh.add(consultar, 1, 0);
+			consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			Button modificar=new Button("Modificar Vehiculo ");
+			Veh.add(modificar, 1, 1);
+			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			Veh.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			Veh.setPadding(new Insets(20,20,20,20));
+			Veh.setAlignment(Pos.CENTER);
+			//Falta decir que Veh pasa a ser el centro del rootScene2
 			
+			eliminar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					
+				}
+				
+			});
 		}
 	}
 	class MenuSedesHandler implements EventHandler<ActionEvent>{
