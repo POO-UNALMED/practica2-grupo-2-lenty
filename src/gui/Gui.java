@@ -593,6 +593,20 @@ public class Gui extends Application {
 			productoE.setMinWidth(250);
 			producto.add(productoE, 1, 20);
 			
+			
+			productoV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Productos mas vendidos");
+					dialog.setHeaderText("Aqui se muestran los productos mas vendidos");
+					dialog.show();
+					
+				}
+
+			});
+			
+			
 			Alert dialog = new Alert(AlertType.NONE);
 			agregarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent event) {
