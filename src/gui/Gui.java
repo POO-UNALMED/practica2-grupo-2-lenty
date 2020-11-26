@@ -151,7 +151,6 @@ public class Gui extends Application {
 		    	else {
 		    		contador++;
 		    	}
-				System.out.println(contador);
 				
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
