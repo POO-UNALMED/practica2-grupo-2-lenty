@@ -808,6 +808,21 @@ public class Gui extends Application {
 			sede.add(registrarS, 0, 0);
 			sede.add(eliminarGS, 1,0);
 			
+			registrarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					String direccionS = direccion.getText();
+					String telefonoS = telefono.getText();
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Registrar sede");
+					dialog.setHeaderText("Se registro la sede con éxito");
+					dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+					dialog.show();
+					
+					direccion.setText("");
+					telefono.setText("");
+				}
+			});
 			
 		}
 	}
