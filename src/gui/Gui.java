@@ -692,7 +692,67 @@ public class Gui extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("Menu de Sedes");
+			GridPane sede = new GridPane();
+			sede.setPadding(new Insets(10,10,10,10));
+			sede.setVgap(5);
+			sede.setHgap(5);
+			sede.setAlignment(Pos.CENTER);
+			
+			GridPane registrarS = new GridPane();
+			registrarS.setPadding(new Insets(10,10,10,10));
+			registrarS.setVgap(5);
+			registrarS.setHgap(5);
+			registrarS.setAlignment(Pos.CENTER);
+			
+			registrarS.add(new Label("Registrar sede"), 0, 0);
+			registrarS.add(new Label("Direccion"), 0, 1);
+			registrarS.add(new Label("Telefono"), 0, 2);
+			TextField direccion = new TextField();
+			TextField telefono = new TextField();
+			registrarS.add(direccion, 1, 1);
+			registrarS.add(telefono, 1, 2);
+			
+
+			Button registrarB = new Button("Registrar");
+			registrarS.setMinSize(100, 0);
+			registrarS.add(registrarB, 0, 3);
+			
+			Button consulta = new Button("Consultar sedes registradas");
+			consulta.setMinSize(250,100);
+			
+			Button sedeV = new Button("Consultar sede con mayores ventas");
+			sedeV.setMinSize(250, 100);
+			
+			
+			GridPane eliminarGS = new GridPane();
+			eliminarGS.setPadding(new Insets(10,10,10,10));
+			eliminarGS.setVgap(5);
+			eliminarGS.setHgap(5);
+			eliminarGS.setAlignment(Pos.CENTER);
+			
+			
+			ComboBox eliminarS = new ComboBox();
+			String sedes[] = {"Perro", "hamburguesa"};
+			eliminarS.getItems().addAll(sedes);
+			eliminarS.setPromptText("Sedes");
+			eliminarS.valueProperty().addListener(new ChangeListener<String>(){
+				
+				public void changed(ObservableValue ov, String t, String t1) {
+					System.out.println(t1);
+					String variable = t1;
+				}});
+			eliminarS.setMinSize(250, 0);
+			
+			eliminarGS.add(eliminarS, 0, 4);
+			eliminarGS.add(new Label("Eliminar sede"), 0, 0);
+			Button eliminarBS = new Button("Eliminar");
+			eliminarGS.add(eliminarBS, 0, 8);
+			
+			sede.add(consulta, 0, 10);
+			sede.add(sedeV, 1, 10);
+			sede.add(registrarS, 0, 0);
+			sede.add(eliminarGS, 1,0);
+			
 			
 		}
 	}
