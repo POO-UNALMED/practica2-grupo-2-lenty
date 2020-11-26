@@ -787,27 +787,78 @@ public class Gui extends Application {
 			
 			
 			ComboBox<String> eliminarS = new ComboBox<String>();
-			String sedes[] = {"Perro", "hamburguesa"};
+			String sedes[] = {"Esquina", "Alli"};
 			eliminarS.getItems().addAll(sedes);
 			eliminarS.setPromptText("Sedes");
+			Button eliminarBS = new Button("Eliminar");
+			eliminarGS.add(eliminarBS, 0, 8);
 			eliminarS.valueProperty().addListener(new ChangeListener<String>(){
 				
 				public void changed(ObservableValue ov, String t, String t1) {
-					System.out.println(t1);
-					String variable = t1;
+					String sede = t1;
+					Alert dialog = new Alert(AlertType.NONE);
+					eliminarBS.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						public void handle(MouseEvent event) {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Eliminar sede");
+							dialog.setHeaderText("Se elimino la sede con éxito");
+							dialog.setContentText("La sede ubicada en "+sede+" se elimino");
+							dialog.show();
+							
+							eliminarS.setValue("Sedes");
+						}
+
+					});
 				}});
 			eliminarS.setMinSize(250, 0);
 			
 			eliminarGS.add(eliminarS, 0, 4);
 			eliminarGS.add(new Label("Eliminar sede"), 0, 0);
-			Button eliminarBS = new Button("Eliminar");
-			eliminarGS.add(eliminarBS, 0, 8);
 			
 			sede.add(consulta, 0, 10);
 			sede.add(sedeV, 1, 10);
 			sede.add(registrarS, 0, 0);
 			sede.add(eliminarGS, 1,0);
 			
+			registrarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					String direccionS = direccion.getText();
+					String telefonoS = telefono.getText();
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Registrar sede");
+					dialog.setHeaderText("Se registro la sede con éxito");
+					dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+					dialog.show();
+					
+					direccion.setText("");
+					telefono.setText("");
+				}
+			});
+			
+			sedeV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Sede con mas ventas");
+					dialog.setHeaderText("Aqui se muestran las sedes con mas ventas");
+					dialog.show();
+					
+				}
+
+			});
+			
+			consulta.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Sedes registradas");
+					dialog.setHeaderText("Aqui se muestran las sedes registradas");
+					dialog.show();
+					
+				}
+
+			});
 			
 		}
 	}
