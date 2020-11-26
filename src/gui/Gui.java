@@ -134,7 +134,7 @@ public class Gui extends Application {
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
 	    Label lab3 = new Label("Profesion: ");
-	    profesion = new Label("Ciencias de la computaci√≥n");
+	    profesion = new Label("Ciencias de la computaci√É¬≥n");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -198,7 +198,7 @@ public class Gui extends Application {
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
 				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -221,7 +221,7 @@ public class Gui extends Application {
 				else if (contador == 2) {
 					nombre.setText("Manuel Alejandro Escobar Mira");
 				    email.setText("Maaescobarmi@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -243,7 +243,7 @@ public class Gui extends Application {
 				else if (contador == 3) {
 					nombre.setText("Michael Stiwar Zapata Agudelo");
 				    email.setText("mizapataa@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -266,7 +266,7 @@ public class Gui extends Application {
 				else if (contador == 4) {
 					nombre.setText("Juan Camilo Zuluaga");
 					email.setText("juaczuluagamon@unal.edu.co");
-					profesion.setText("Ciencias de la computaciÛn");
+					profesion.setText("Ciencias de la computaci√≥n");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -516,7 +516,71 @@ public class Gui extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("Menu de Productos");
+			GridPane producto = new GridPane();
+			producto.setPadding(new Insets(10,10,10,10));
+			producto.setVgap(5);
+			producto.setHgap(5);
+			producto.setAlignment(Pos.CENTER);
+			
+			
+			GridPane agregar = new GridPane();
+			agregar.setPadding(new Insets(10,10,10,10));
+			agregar.setVgap(5);
+			agregar.setHgap(5);
+			agregar.setAlignment(Pos.CENTER);
+			
+			agregar.add(new Label("Agregar Producto"), 0, 0);
+			agregar.add(new Label("Nombre"), 0, 1);
+			agregar.add(new Label("Descripcion"), 0, 2);
+			agregar.add(new Label("Precio"), 0, 3);
+			TextField nombreP = new TextField();
+			TextField descripcionP = new TextField();
+			TextField precioP = new TextField();
+			agregar.add(nombreP, 1, 1);
+			agregar.add(descripcionP, 1, 2);
+			agregar.add(precioP, 1, 3);
+			System.out.println(nombreP.getText());
+			Button agregarB = new Button("Agregar");
+			agregarB.setMinSize(100, 0);
+			agregar.add(agregarB, 0, 4);
+			
+			GridPane eliminarG = new GridPane();
+
+			eliminarG.setPadding(new Insets(10,10,10,10));
+			eliminarG.setVgap(5);
+			eliminarG.setHgap(5);
+			eliminarG.setAlignment(Pos.CENTER);
+			
+			ComboBox eliminar = new ComboBox();
+			String opciones[] = {"Perro", "hamburguesa"};
+			eliminar.getItems().addAll(opciones);
+			eliminar.setPromptText("Productos");
+			eliminar.valueProperty().addListener(new ChangeListener<String>(){
+				
+				public void changed(ObservableValue ov, String t, String t1) {
+					System.out.println(t1);
+					String variable = t1;
+				}});
+			eliminar.setMinSize(250, 0);
+
+			eliminarG.add(eliminar, 0, 3);
+			eliminarG.add(new Label("Eliminar producto"), 0, 0);
+			
+			Button eliminarB = new Button("Eliminar");
+			eliminarB.setMinSize(100, 0);
+			eliminarG.add(eliminarB, 0, 14);
+			
+			producto.add(agregar, 0, 0);
+			producto.add(eliminarG, 1, 0);
+			Button productoV = new Button("Productos mas vendidos");
+			productoV.setMinHeight(100);
+			productoV.setMinWidth(250);
+			producto.add(productoV, 0, 20);
+			Button productoE = new Button("Productos en existencia");
+			productoE.setMinHeight(100);
+			productoE.setMinWidth(250);
+			producto.add(productoE, 1, 20);
+
 			
 		}
 	}
