@@ -606,6 +606,18 @@ public class Gui extends Application {
 
 			});
 			
+			productoE.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Productos en existencia");
+					dialog.setHeaderText("Aqui se muestran los productos en existencia");
+					dialog.show();
+					
+				}
+
+			});
+			
 			
 			Alert dialog = new Alert(AlertType.NONE);
 			agregarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
