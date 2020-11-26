@@ -1,5 +1,7 @@
 package gui;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javafx.application.*;
 import javafx.geometry.Insets;
@@ -9,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.event.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -447,8 +450,54 @@ public class Gui extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("Menu de Usuarios");
+			//Menu de usuarios
 			
+			Button btnClientes = new Button();
+			Button btnRepartidores = new Button();
+			
+			try {
+				//imagen clientes
+				Image image1 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\clientes.png"));
+				ImageView im1 = new ImageView(image1);
+				im1.setFitHeight(120);
+				im1.setFitWidth(120);
+				Button btn1 = new Button("Clientes", im1);
+				btn1.setStyle("-fx-base: blue;");
+				btn1.setContentDisplay(ContentDisplay.TOP);
+				btn1.setMaxSize(100, 50);
+				btnClientes = btn1;
+				
+				//imagen repartidores
+				Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\repartidores.png"));
+				ImageView im2 = new ImageView(image2);
+				im2.setFitHeight(120);
+				im2.setFitWidth(120);
+				Button btn2 = new Button("Repartidores", im2);
+				btn2.setStyle("-fx-base: orange;");
+				btn2.setContentDisplay(ContentDisplay.TOP);
+				btn2.setMaxSize(120, 50);
+				btnRepartidores = btn2;
+			} catch (FileNotFoundException e) {
+				Alert info = new Alert(AlertType.ERROR);
+				info.setHeaderText("Error");
+				info.setTitle("No se pudo encontrar la imagen");
+				info.setContentText("");
+				info.show();
+			}
+			
+			btnClientes.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event){
+					System.out.println("Clientes");
+				}
+			});
+			
+			btnRepartidores.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event){
+					System.out.println("Repartidores");
+				}
+			});
 		}
 	}
 	class MenuOrdenesHandler implements EventHandler<ActionEvent>{
