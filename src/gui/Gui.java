@@ -372,8 +372,7 @@ public class Gui extends Application {
 	    BorderPane.setMargin(vb2, new Insets(50,20,20,20));
 	    
 	    //Ingreso al sistema
-	    
-	    
+
 	    Scene myScene = new Scene(root, 600, 600);
 		myStage.setScene(myScene);
 		myStage.show();
@@ -524,13 +523,13 @@ public class Gui extends Application {
 			//Menu Vehiculos
 			GridPane Veh=new GridPane();
 			Label regi=new Label("Registrar un Vehiculo");
-			Label pla=new Label("Placa=");
+			Label pla=new Label("Placa (String)=");
 			TextField placa=new TextField();
-			Label mod=new Label("Modelo=");
+			Label mod=new Label("Modelo (String)=");
 			TextField modelo=new TextField();
-			Label matri=new Label("Matricula=");
+			Label matri=new Label("Matricula (Int)=");
 			TextField matricula=new TextField();
-			Label seg=new Label("Seguro(true o false)=");
+			Label seg=new Label("Seguro (true o false)=");
 			TextField seguro=new TextField();
 			Button registrar=new Button("Registrar");
 			VBox RegVeh=new VBox(regi,pla,placa,mod,modelo,matri,matricula,seg,seguro,registrar);
@@ -552,7 +551,36 @@ public class Gui extends Application {
 			Veh.setPadding(new Insets(20,20,20,20));
 			Veh.setAlignment(Pos.CENTER);
 			//Falta decir que Veh pasa a ser el centro del rootScene2
-			
+			registrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					try {
+						String placa1=placa.getText();
+						String modelo1=modelo.getText();
+						int matricula1=Integer.parseInt(matricula.getText());
+						boolean seguro1=Boolean.parseBoolean(seguro.getText());
+						Alert confir=new Alert(AlertType.CONFIRMATION);
+						confir.setTitle("Confirmar registrar vehiculo");
+						confir.setHeaderText("Se requiere confirmacion para crear el vehiculo o se descartara");
+						confir.setContentText("Esta seguro de que quiere registrar el vehiculo con placa= "
+								+ placa1+" modelo= " + modelo1+" matricula= "+matricula1+" seguro= "+seguro1);
+						placa.setText("");
+						modelo.setText("");
+						matricula.setText("");
+						seguro.setText("");
+						confir.show();
+					}
+					catch(Exception e) {
+						Alert error=new Alert(AlertType.ERROR);
+						error.setTitle("ERROR");
+						error.setTitle("No se pudo registrar vehiculo");
+						error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+						error.show();
+					}
+				}
+				
+			});
 			eliminar.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
