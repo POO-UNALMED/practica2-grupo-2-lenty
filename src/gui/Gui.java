@@ -59,11 +59,19 @@ public class Gui extends Application {
 		Menu archivo=new Menu("Archivo");
 		Menu proYCon=new Menu("Procesos y consultas");
 		Menu ayuda=new Menu("Ayuda");
+		MenuItem nombreLenty=new MenuItem("Lenty");
 		MenuItem MenUsu=new MenuItem("Menu Usuarios");
 		MenuItem MenOrd=new MenuItem("Menu Ordenes");
 		MenuItem MenPro=new MenuItem("Menu Productos");
 		MenuItem MenVeh=new MenuItem("Menu Vehiculos");
 		MenuItem MenSed=new MenuItem("Menu Sedes");
+		archivo.getItems().add(nombreLenty);
+		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
+		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
+		
+		
+		AyudaHandler ayuda1=new AyudaHandler();
+		ayuda.setOnAction(ayuda1);
 		MenuUsuariosHandler MenUsu1=new MenuUsuariosHandler();
 		MenUsu.setOnAction(MenUsu1);
 		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
@@ -74,6 +82,10 @@ public class Gui extends Application {
 		MenUsu.setOnAction(MenVeh1);
 		MenuSedesHandler MenSed1=new MenuSedesHandler();
 		MenUsu.setOnAction(MenSed1);
+		
+		//Scene2
+		BorderPane rootScene2=new BorderPane();
+		rootScene2.setTop(barraMenu2);
 		
 	    VBox vb1 = new VBox(10);
 	    vb1.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -402,6 +414,14 @@ public class Gui extends Application {
 			
 			
 		    
+		}
+	}
+	class AyudaHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("Imprimir los nombres de los creadores en una ventana emergente");
+			
 		}
 	}
 	class MenuUsuariosHandler implements EventHandler<ActionEvent>{
