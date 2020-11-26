@@ -564,7 +564,6 @@ public class Gui extends Application {
 					Alert dialog = new Alert(AlertType.NONE);
 					eliminarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						public void handle(MouseEvent event) {
-							String producto = eliminar.getAccessibleText();
 							dialog.setAlertType(AlertType.INFORMATION);
 							dialog.setTitle("Eliminar producto");
 							dialog.setHeaderText("Se elimino el producto con éxito");
@@ -612,7 +611,6 @@ public class Gui extends Application {
 				}
 			});
 			
-			gui.Gui;
 		}
 	}
 	class MenuVehiculosHandler implements EventHandler<ActionEvent>{
@@ -762,7 +760,7 @@ public class Gui extends Application {
 			eliminarGS.setAlignment(Pos.CENTER);
 			
 			
-			ComboBox eliminarS = new ComboBox();
+			ComboBox<String> eliminarS = new ComboBox<String>();
 			String sedes[] = {"Perro", "hamburguesa"};
 			eliminarS.getItems().addAll(sedes);
 			eliminarS.setPromptText("Sedes");
