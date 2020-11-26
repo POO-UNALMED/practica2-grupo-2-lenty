@@ -80,13 +80,13 @@ public class Gui extends Application {
 		MenuUsuariosHandler MenUsu1=new MenuUsuariosHandler();
 		MenUsu.setOnAction(MenUsu1);
 		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
-		MenUsu.setOnAction(MenOrd1);
+		MenOrd.setOnAction(MenOrd1);
 		MenuProductosHandler MenPro1=new MenuProductosHandler();
-		MenUsu.setOnAction(MenPro1);
+		MenPro.setOnAction(MenPro1);
 		MenuVehiculosHandler MenVeh1=new MenuVehiculosHandler();
-		MenUsu.setOnAction(MenVeh1);
+		MenVeh.setOnAction(MenVeh1);
 		MenuSedesHandler MenSed1=new MenuSedesHandler();
-		MenUsu.setOnAction(MenSed1);
+		MenSed.setOnAction(MenSed1);
 		
 		//Scene2
 		BorderPane rootScene2=new BorderPane();
