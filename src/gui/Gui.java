@@ -75,6 +75,8 @@ public class Gui extends Application {
 		MenuItem MenPro=new MenuItem("Menu Productos");
 		MenuItem MenVeh=new MenuItem("Menu Vehiculos");
 		MenuItem MenSed=new MenuItem("Menu Sedes");
+		MenuItem acercaDe = new MenuItem("Acerca de");
+		ayuda.getItems().add(acercaDe);
 		archivo.getItems().add(nombreLenty);
 		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
 		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
@@ -86,7 +88,23 @@ public class Gui extends Application {
 		
 		
 		AyudaHandler ayuda1=new AyudaHandler();
-		ayuda.setOnAction(ayuda1);
+		acercaDe.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Alert dialog = new Alert(AlertType.NONE);
+				dialog.setAlertType(AlertType.INFORMATION);
+				dialog.setTitle("Acerca de");
+				dialog.setHeaderText("Esta aplicacion fue creada por:\n\n"
+						+ "-Michael Zapata\n"
+						+ "-Danilo Garcia\n"
+						+ "-Juan Zuluaga\n"
+						+ "-Manuel Escobar");
+				dialog.setContentText("Universidad Nacional de Colombia, 2020");
+				dialog.show();
+			}
+			
+		});
 		
 		
 		
