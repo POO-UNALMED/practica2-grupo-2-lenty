@@ -2,10 +2,12 @@ package gui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import javafx.application.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.*;
@@ -132,7 +134,7 @@ public class Gui extends Application {
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
 	    Label lab3 = new Label("Profesion: ");
-	    profesion = new Label("Ciencias de la computaci√≥n");
+	    profesion = new Label("Ciencias de la computaci√É¬≥n");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -196,7 +198,7 @@ public class Gui extends Application {
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
 				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -219,7 +221,7 @@ public class Gui extends Application {
 				else if (contador == 2) {
 					nombre.setText("Manuel Alejandro Escobar Mira");
 				    email.setText("Maaescobarmi@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -241,7 +243,7 @@ public class Gui extends Application {
 				else if (contador == 3) {
 					nombre.setText("Michael Stiwar Zapata Agudelo");
 				    email.setText("mizapataa@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -264,7 +266,7 @@ public class Gui extends Application {
 				else if (contador == 4) {
 					nombre.setText("Juan Camilo Zuluaga");
 					email.setText("juaczuluagamon@unal.edu.co");
-					profesion.setText("Ciencias de la computaciÛn");
+					profesion.setText("Ciencias de la computaci√≥n");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -374,7 +376,7 @@ public class Gui extends Application {
 	    BorderPane.setMargin(vb2, new Insets(50,20,20,20));
 	    
 	    //Ingreso al sistema
-
+	    
 	    Scene myScene = new Scene(root, 600, 600);
 		myStage.setScene(myScene);
 		myStage.show();
@@ -588,6 +590,7 @@ public class Gui extends Application {
 		public void handle(ActionEvent event) {
 			//Menu Vehiculos
 			GridPane Veh=new GridPane();
+			//Registrar
 			Label regi=new Label("Registrar un Vehiculo");
 			Label pla=new Label("Placa (String)=");
 			TextField placa=new TextField();
@@ -600,21 +603,35 @@ public class Gui extends Application {
 			Button registrar=new Button("Registrar");
 			VBox RegVeh=new VBox(regi,pla,placa,mod,modelo,matri,matricula,seg,seguro,registrar);
 			Veh.add(RegVeh, 0, 0);
+			//Eliminar
+			ArrayList<String> a=new ArrayList<>();
+			a.add("ASD123");
 			Label eli=new Label("Eliminar vehiculo");
-			ComboBox eliVeh=new ComboBox();
-			eliVeh.setPromptText("Seleecione un vehiculo a eliminar");
+			ComboBox<String> eliVeh=new ComboBox<String>(FXCollections.observableArrayList(a));
+			eliVeh.setPromptText("Seleccione la placa de vehiculo a eliminar");
 			TextField vehAEli=new TextField();
+			eliVeh.valueProperty().addListener(new ChangeListener<String>(){
+
+				@Override
+				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+					vehAEli.setText(arg2);
+				}
+				
+			});
 			Button eliminar=new Button("Eliminar");
 			VBox elimi=new VBox(eli,eliVeh,vehAEli,eliminar);
 			Veh.add(elimi, 0, 1);
+			//Consultar
 			Button consultar=new Button("Consultar Vehiculos");
 			Veh.add(consultar, 1, 0);
 			consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			//Modificar
 			Button modificar=new Button("Modificar Vehiculo ");
 			Veh.add(modificar, 1, 1);
 			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 			Veh.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-			Veh.setPadding(new Insets(20,20,20,20));
+			Veh.setVgap(15);
+			Veh.setHgap(15);
 			Veh.setAlignment(Pos.CENTER);
 			//Falta decir que Veh pasa a ser el centro del rootScene2
 			registrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -650,7 +667,22 @@ public class Gui extends Application {
 			eliminar.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					
+					try {
+						String placaVehEli=vehAEli.getText();
+						int aux=a.indexOf(placaVehEli);
+						Alert confir=new Alert(AlertType.CONFIRMATION);
+						confir.setTitle("Confirmar eliminacion de vehiculo");
+						confir.setHeaderText("Se requiere confirmacion para eliminar un vehiculo");
+						confir.setContentText("Esta seguro de que quiere registrar el vehiculo con placa= "+placaVehEli);
+						confir.show();
+					}
+					catch(Exception e) {
+						Alert error=new Alert(AlertType.ERROR);
+						error.setTitle("ERROR");
+						error.setTitle("No se pudo Eliminar vehiculo");
+						error.setContentText("Verifique que hayan vehiculos a eliminar y seleccione la placa de uno");
+						error.show();
+					}
 				}
 				
 			});
