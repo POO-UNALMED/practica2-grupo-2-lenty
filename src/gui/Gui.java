@@ -90,7 +90,7 @@ public class Gui extends Application {
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
 	    Label lab3 = new Label("Profesion: ");
-	    profesion = new Label("Ciencias de la computaciÛn");
+	    profesion = new Label("Ciencias de la computaci√≥n");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -155,7 +155,7 @@ public class Gui extends Application {
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
 				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -178,7 +178,7 @@ public class Gui extends Application {
 				else if (contador == 2) {
 					nombre.setText("Manuel");
 				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -197,10 +197,32 @@ public class Gui extends Application {
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
 				}
+				else if (contador == 2) {
+					nombre.setText("Manuel Alejandro Escobar Mira");
+				    email.setText("Maaescobarmi@unal.edu.co");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
+				    
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
+				    image1.setImage(new Image(fileA.toURI().toString())); 
+				    image1.setFitHeight(150);
+				    image1.setFitWidth(150);
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Manuel2.jpg"); 
+				    image2.setImage(new Image(fileB.toURI().toString()));
+				    image2.setFitHeight(150);
+				    image2.setFitWidth(150);
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Manuel3.jpg"); 
+				    image3.setImage(new Image(fileC.toURI().toString()));
+				    image3.setFitHeight(150);
+				    image3.setFitWidth(150);
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Manuel4.jpg"); 
+            image4.setImage(new Image(fileD.toURI().toString()));
+				    image4.setFitHeight(150);
+				    image4.setFitWidth(150);
+        }
 				else if (contador == 3) {
 					nombre.setText("Michael Stiwar Zapata Agudelo");
 				    email.setText("mizapataa@unal.edu.co");
-				    profesion.setText("IngenierÌa de sistemas e informatica");
+				    profesion.setText("Ingenier√≠a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -215,6 +237,7 @@ public class Gui extends Application {
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
 				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Michael4.jpg"); 
+
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
@@ -222,7 +245,7 @@ public class Gui extends Application {
 				else if (contador == 4) {
 					nombre.setText("Juan Camilo Zuluaga");
 					email.setText("juaczuluagamon@unal.edu.co");
-					profesion.setText("Ciencias de la computaciÛn");
+					profesion.setText("Ciencias de la computaci√≥n");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
