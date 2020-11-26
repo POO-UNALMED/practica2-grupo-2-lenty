@@ -144,7 +144,7 @@ public class Gui extends Application {
 			@Override
 			public void handle(MouseEvent arg0) {
 				
-				if (contador == 5) {
+				if (contador == 4) {
 		    		contador = 1;	
 		    	}
 		    	else {
