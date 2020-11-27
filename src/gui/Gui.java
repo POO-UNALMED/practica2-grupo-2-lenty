@@ -66,10 +66,9 @@ public class Gui extends Application {
 		
 		//Barra menu2
 		MenuBar barraMenu2=new MenuBar();
-		Menu archivo=new Menu("Archivo");
+		Menu archivo=new Menu("Lenty");
 		Menu proYCon=new Menu("Procesos y consultas");
 		Menu ayuda=new Menu("Ayuda");
-		MenuItem nombreLenty=new MenuItem("Lenty");
 		MenuItem MenUsu=new MenuItem("Menu Usuarios");
 		MenuItem MenOrd=new MenuItem("Menu Ordenes");
 		MenuItem MenPro=new MenuItem("Menu Productos");
@@ -77,14 +76,26 @@ public class Gui extends Application {
 		MenuItem MenSed=new MenuItem("Menu Sedes");
 		MenuItem acercaDe = new MenuItem("Acerca de");
 		ayuda.getItems().add(acercaDe);
-		archivo.getItems().add(nombreLenty);
 		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
 		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
 		
 		//Scene2
 		BorderPane rootScene2 = new BorderPane();
 		rootScene2.setTop(barraMenu2);
-		
+		VBox ingreso=new VBox();
+		Label ingreso1=new Label("Bienvenido a Lenty, aplicacion para la gestion eficaz de"
+				+ "envios, arriba de la ventana vera dos menus, en Ayuda podra ver los desarrolladores"
+				+ "de esta aplicacion por si cuenta con alguna dida al respecto, al lado izquierdo "
+				+ "de esto se encuentra el menu Procesos y Consultas, el cual despliega las opciones"
+				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones"
+				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro.");
+		ingreso1.setTextFill(Color.web("#19164a"));
+	    ingreso1.setPrefWidth(400);
+	    ingreso1.setWrapText(true);
+	    ingreso1.setFont(new Font("Berlin Sans FB",25));
+		ingreso.getChildren().add(ingreso1);
+		ingreso.setAlignment(Pos.CENTER);
+		rootScene2.setCenter(ingreso);
 		
 		
 		AyudaHandler ayuda1=new AyudaHandler();
@@ -167,9 +178,15 @@ public class Gui extends Application {
 		});
 		
 		
-		
-		MenuOrdenesHandler MenOrd1=new MenuOrdenesHandler();
-		MenOrd.setOnAction(MenOrd1);
+		MenOrd.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				
+			}
+			
+		});
 		
 		
 		
@@ -317,10 +334,6 @@ public class Gui extends Application {
 			}
 			
 		});
-		
-		//MenuVehiculosHandler MenVeh1=new MenuVehiculosHandler();
-		//MenVeh.setOnAction(MenVeh1);
-		
 		
 		MenSed.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -581,6 +594,7 @@ public class Gui extends Application {
 				rootScene2.setCenter(border);
 			}
 		});
+		
 		
 		
     
@@ -857,6 +871,10 @@ public class Gui extends Application {
 	            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 	              BackgroundSize.DEFAULT);
 	    root.setBackground(new Background(myBI));
+	    BackgroundImage myBI2= new BackgroundImage(new Image("https://i.ibb.co/whb3W46/Background.jpg",600,600,true,true),
+	            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+	              BackgroundSize.DEFAULT);
+	    rootScene2.setBackground(new Background(myBI2));
 	    root.setTop(barraMenu);
 	    root.setLeft(vb1);
 	    root.setRight(vb2);
@@ -992,18 +1010,7 @@ public class Gui extends Application {
 				}
 			});
 		}
-	}
-	class MenuOrdenesHandler implements EventHandler<ActionEvent>{
-
-		@Override
-		public void handle(ActionEvent event) {
-			System.out.println("Menu de Ordenes");
-			
-		}
-	}
-
-		
-		
+	}	
 }
 		
 
