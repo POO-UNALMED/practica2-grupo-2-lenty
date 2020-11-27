@@ -606,7 +606,23 @@ public class Gui extends Application {
 			Button modificar=new Button("Modificar Orden");
 			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 			Orden.add(modificar, 1, 1);
-			rootScene2.setCenter(Orden);
+
+
+			BorderPane border = new BorderPane();
+			VBox t = new VBox(10);
+			Label a = new Label("Menu de Ordenes");
+			Label b =new Label("En este menu puede crear y eliminar ordenes, asi como consultar las ordenes activas");
+			t.getChildren().add(a);
+			t.getChildren().add(b);
+			border.setCenter(Orden);
+			border.setTop(t);
+		    b.setWrapText(true);
+		    b.setAlignment(Pos.CENTER);
+		    b.setStyle(" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
+		    t.setAlignment(Pos.CENTER);
+
+			BorderPane.setMargin(t, new Insets(50,20,20,20));
+			rootScene2.setCenter(border);
 			}
 			
 		});
@@ -718,8 +734,9 @@ public class Gui extends Application {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Productos mas vendidos");
-						dialog.setHeaderText("Aqui se muestran los productos mas vendidos");
+						dialog.setTitle("Producto mas vendido");
+						dialog.setHeaderText("El producto que mas se ha vendido es el ");
+						dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString()));
 						dialog.show();
 						
 					}
