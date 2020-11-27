@@ -736,7 +736,7 @@ public class Gui extends Application {
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Producto mas vendido");
 						dialog.setHeaderText("El producto que mas se ha vendido es "+Producto.productoMayorVentas().getNombre());
-						dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString()));
+						dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString())+"\nSe ha vendido "+Producto.productoMayorVentas().getCantVentas()+" veces");
 						dialog.show();
 						
 					}
@@ -886,8 +886,10 @@ public class Gui extends Application {
 				
 				
 				ComboBox<String> eliminarS = new ComboBox<String>();
-				String sedes[] = {"Esquina", "Alli"};
-				eliminarS.getItems().addAll(sedes);
+				LinkedList<Sede> sedes = Sede.consultarSedes();
+				for (Sede s: sedes) {
+					eliminarS.getItems().add(s.toString());
+				}
 				eliminarS.setPromptText("Sedes");
 				Button eliminarBS = new Button("Eliminar");
 				eliminarGS.add(eliminarBS, 0, 8);
@@ -895,6 +897,8 @@ public class Gui extends Application {
 					
 					public void changed(ObservableValue ov, String t, String t1) {
 						String sede = t1;
+						int indice = eliminarS.getSelectionModel().getSelectedIndex();
+
 						Alert dialog = new Alert(AlertType.NONE);
 						eliminarBS.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle(MouseEvent event) {
@@ -903,6 +907,12 @@ public class Gui extends Application {
 								dialog.setHeaderText("Se elimino la sede con exito");
 								dialog.setContentText("La sede ubicada en "+sede+" se elimino");
 								dialog.show();
+								Sede.getSede().remove(indice);
+								eliminarS.getItems().clear();
+								LinkedList<Sede> sedes = Sede.consultarSedes();
+								for (Sede s: sedes) {
+									eliminarS.getItems().add(s.toString());
+								}
 								
 								eliminarS.setValue("Sedes");
 							}
@@ -945,6 +955,14 @@ public class Gui extends Application {
 							dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
 							dialog.show();
 							
+							Sede sede = new Sede(direccionS, Integer.parseInt(telefonoS));
+							Sede.adicionarSede(sede);
+							eliminarS.getItems().clear();
+							LinkedList<Sede> sedes = Sede.consultarSedes();
+							for (Sede s: sedes) {
+								eliminarS.getItems().add(s.toString());
+							}
+							
 							direccion.setText("");
 							telefono.setText("");
 						}
@@ -956,7 +974,8 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Sede con mas ventas");
-						dialog.setHeaderText("Aqui se muestran las sedes con mas ventas");
+						dialog.setHeaderText("La sede que mas ventas ha realizado es:");
+						dialog.setContentText(Sede.sedeMayorVentas().toString()+" \nVentas: "+ Sede.sedeMayorVentas().getCantVentas());
 						dialog.show();
 						
 					}
@@ -968,7 +987,12 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Sedes registradas");
-						dialog.setHeaderText("Aqui se muestran las sedes registradas");
+						String s = "";
+						for (Sede sede : Sede.consultarSedes()) {
+							s += sede.toString()+"\n\n";
+						}
+						dialog.setHeaderText("Las sedes registradas son las siguientes:");
+						dialog.setContentText(s);
 						dialog.show();
 						
 					}

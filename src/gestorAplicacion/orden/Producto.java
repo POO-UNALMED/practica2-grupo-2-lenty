@@ -82,6 +82,10 @@ public class Producto implements Serializable{
 
 
 
+	public int getCantVentas() {
+		return cantVentas;
+	}
+
 	public static LinkedList<Producto> getProductos() {
 		return productos;
 	}
