@@ -17,7 +17,7 @@ public class Orden implements Serializable {
 	cancelarlas, consultar las ordenes dentro de la base de datos, rechazar la orden. */
 	private static final long serialVersionUID = 1L;	
 	private static LinkedList<Orden> ordenes = new LinkedList<Orden>();
-	private static int idG = 0;
+	private static int idG = ordenes.size();
 	private int id;
 	private Cliente cliente;
 	private Sede sede;
@@ -30,6 +30,7 @@ public class Orden implements Serializable {
 	private float pesoTotal;
 	public String estado;
 	public Orden(Cliente c,Sede s,Repartidor r,int valor,ArrayList<Producto> p,float peso,String es) {
+		idG = ordenes.size();
 		idG++;
 		this.id=idG;
 		this.cliente=c;
