@@ -788,10 +788,12 @@ public class Gui extends Application {
 			VBox El=new VBox(eliminarOrden,eliAEli,eliminacion,eliminar);
 			Orden1.add(El, 0, 1);
 			//Modificar Orden
+			
+			/*
 			Button modificar=new Button("Modificar Orden");
 			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 			Orden1.add(modificar, 1, 1);
-
+			*/
 
 			BorderPane border = new BorderPane();
 			VBox t = new VBox(10);
@@ -1330,9 +1332,9 @@ public class Gui extends Application {
 					
 				});
 				//Modificar
-				Button modificar=new Button("Modificar Vehiculo");
-				Veh.add(modificar, 1, 1);
-				modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				///Button modificar=new Button("Modificar Vehiculo");
+				///Veh.add(modificar, 1, 1);
+				///modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				Veh.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				Veh.setVgap(15);
 				Veh.setHgap(15);
