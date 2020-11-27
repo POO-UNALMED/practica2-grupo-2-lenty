@@ -211,7 +211,7 @@ public class Gui extends Application {
 				
 				agregar.add(new Label("Agregar Producto"), 0, 0);
 				agregar.add(new Label("Nombre"), 0, 1);
-				agregar.add(new Label("Descripcion"), 0, 2);
+				agregar.add(new Label("Descripcion (Opcional)"), 0, 2);
 				agregar.add(new Label("Precio"), 0, 3);
 				TextField nombreP = new TextField();
 				TextField descripcionP = new TextField();
@@ -305,15 +305,31 @@ public class Gui extends Application {
 						String nombre = nombreP.getText();
 						String precio = precioP.getText();
 						String descripcion = descripcionP.getText();
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Agregar Producto");
-						dialog.setHeaderText("Se agrego el producto con exito");
-						dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
-						dialog.show();
-						
-						nombreP.setText("");
-						descripcionP.setText("");
-						precioP.setText("");
+						if (nombre.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta el nombre");
+							dialog.setHeaderText("No se puede crear un producto sin nombre");
+							dialog.setContentText("Por favor ingrese un nombre");
+							dialog.show();
+						}
+						else if(precio.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta el precio");
+							dialog.setHeaderText("No se puede crear un producto sin precio");
+							dialog.setContentText("Por favor ingrese un precio");
+							dialog.show();
+						}
+						else {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Agregar Producto");
+							dialog.setHeaderText("Se agrego el producto con exito");
+							dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
+							dialog.show();
+							
+							nombreP.setText("");
+							descripcionP.setText("");
+							precioP.setText("");
+						}
 					}
 				});
 				BorderPane border = new BorderPane();
@@ -419,14 +435,30 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						String direccionS = direccion.getText();
 						String telefonoS = telefono.getText();
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Registrar sede");
-						dialog.setHeaderText("Se registro la sede con exito");
-						dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
-						dialog.show();
-						
-						direccion.setText("");
-						telefono.setText("");
+						if (direccionS.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta la direccion");
+							dialog.setHeaderText("No se puede registrar una sede sin direccion");
+							dialog.setContentText("Por favor ingrese una direccion");
+							dialog.show();
+						}
+						else if (telefonoS.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta el telefono");
+							dialog.setHeaderText("No se puede registrar una sede sin telefono");
+							dialog.setContentText("Por favor ingrese un telefono");
+							dialog.show();
+						}
+						else {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Registrar sede");
+							dialog.setHeaderText("Se registro la sede con exito");
+							dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+							dialog.show();
+							
+							direccion.setText("");
+							telefono.setText("");
+						}
 					}
 				});
 				
@@ -456,7 +488,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Sedes");
-				Label b =new Label("En este menu puede registrar y eliminar sedes, así como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
+				Label b =new Label("En este menu puede registrar y eliminar sedes, asi como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(sede);
