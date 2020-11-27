@@ -987,15 +987,24 @@ public class Gui extends Application {
 				consulta.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Sedes registradas");
-						String s = "";
-						for (Sede sede : Sede.consultarSedes()) {
-							s += sede.toString()+"\n\n";
+						System.out.println(Sede.getSede().size());
+						if(Sede.getSede().size() == 0){
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Sedes registradas");
+							dialog.setHeaderText("No hay sedes registradas");
+							dialog.show();
 						}
-						dialog.setHeaderText("Las sedes registradas son las siguientes:");
-						dialog.setContentText(s);
-						dialog.show();
+						else{
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Sedes registradas");
+							String s = "";
+							for (Sede sede : Sede.consultarSedes()) {
+								s += sede.toString()+"\n\n";
+							}
+							dialog.setHeaderText("Las sedes registradas son las siguientes:");
+							dialog.setContentText(s);
+							dialog.show();
+						}
 						
 					}
 
