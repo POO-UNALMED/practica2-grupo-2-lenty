@@ -151,7 +151,7 @@ public class Gui extends Application {
 				
 				try {
 					//imagen clientes
-					Image image1 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\clientes.png"));
+					Image image1 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\Imagenes\\clientes.png"));
 					ImageView im1 = new ImageView(image1);
 					im1.setFitHeight(120);
 					im1.setFitWidth(120);
@@ -164,7 +164,7 @@ public class Gui extends Application {
 					clientes.add(btnClientes, 0, 0);
 					
 					//imagen repartidores
-					Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\repartidores.png"));
+					Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\Imagenes\\repartidores.png"));
 					ImageView im2 = new ImageView(image2);
 					im2.setFitHeight(120);
 					im2.setFitWidth(120);
@@ -205,7 +205,7 @@ public class Gui extends Application {
 				
 				VBox t = new VBox(10);
 				Label a = new Label("Gestion Humana");
-				Label b =new Label("En este menu podr� seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
+				Label b =new Label("En este menu podras seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(gestionHumana);
