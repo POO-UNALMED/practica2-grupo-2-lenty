@@ -247,7 +247,7 @@ public class Gui extends Application {
 							public void handle(MouseEvent event) {
 								dialog.setAlertType(AlertType.INFORMATION);
 								dialog.setTitle("Eliminar producto");
-								dialog.setHeaderText("Se elimino el producto con éxito");
+								dialog.setHeaderText("Se elimino el producto con exito");
 								dialog.setContentText("El producto "+productoAEliminar+" se elimino");
 								dialog.show();
 								
@@ -308,7 +308,7 @@ public class Gui extends Application {
 						String descripcion = descripcionP.getText();
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Agregar Producto");
-						dialog.setHeaderText("Se agregó el producto con éxito");
+						dialog.setHeaderText("Se agrego el producto con exito");
 						dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
 						dialog.show();
 						
@@ -320,7 +320,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Productos");
-				Label b =new Label("En este menu podrá agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido");
+				Label b =new Label("En este menu puede agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(producto);
@@ -396,7 +396,7 @@ public class Gui extends Application {
 							public void handle(MouseEvent event) {
 								dialog.setAlertType(AlertType.INFORMATION);
 								dialog.setTitle("Eliminar sede");
-								dialog.setHeaderText("Se elimino la sede con éxito");
+								dialog.setHeaderText("Se elimino la sede con exito");
 								dialog.setContentText("La sede ubicada en "+sede+" se elimino");
 								dialog.show();
 								
@@ -422,7 +422,7 @@ public class Gui extends Application {
 						String telefonoS = telefono.getText();
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Registrar sede");
-						dialog.setHeaderText("Se registro la sede con éxito");
+						dialog.setHeaderText("Se registro la sede con exito");
 						dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
 						dialog.show();
 						
@@ -457,7 +457,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Sedes");
-				Label b =new Label("En este menu podrá registrar y eliminar sedes, así como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
+				Label b =new Label("En este menu puede registrar y eliminar sedes, así como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(sede);
@@ -582,7 +582,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label c = new Label("Menu de Vehiculos");
-				Label b =new Label("En este menu podrá agregar y eliminar vehículos, así como consultar y modificar los vehiculos");
+				Label b =new Label("En este menu podra agregar y eliminar vehiculos, asi como consultar y modificar los vehiculos");
 				t.getChildren().add(c);
 				t.getChildren().add(b);
 				border.setCenter(Veh);
@@ -639,7 +639,7 @@ public class Gui extends Application {
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
 	    Label lab3 = new Label("Profesion: ");
-	    profesion = new Label("Ciencias de la computaciÃÂ³n");
+	    profesion = new Label("Ciencias de la computacion");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -703,7 +703,7 @@ public class Gui extends Application {
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
 				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("IngenierÃ­a de sistemas e informatica");
+				    profesion.setText("Ingenieria de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -726,7 +726,7 @@ public class Gui extends Application {
 				else if (contador == 2) {
 					nombre.setText("Manuel Alejandro Escobar Mira");
 				    email.setText("Maaescobarmi@unal.edu.co");
-				    profesion.setText("IngenierÃ­a de sistemas e informatica");
+				    profesion.setText("Ingenieria de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -748,7 +748,7 @@ public class Gui extends Application {
 				else if (contador == 3) {
 					nombre.setText("Michael Stiwar Zapata Agudelo");
 				    email.setText("mizapataa@unal.edu.co");
-				    profesion.setText("IngenierÃ­a de sistemas e informatica");
+				    profesion.setText("Ingenieria de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -771,7 +771,7 @@ public class Gui extends Application {
 				else if (contador == 4) {
 					nombre.setText("Juan Camilo Zuluaga");
 					email.setText("juaczuluagamon@unal.edu.co");
-					profesion.setText("Ciencias de la computaciÃ³n");
+					profesion.setText("Ciencias de la computacion");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -949,16 +949,7 @@ public class Gui extends Application {
 		    
 		}
 	}
-	class AyudaHandler implements EventHandler<ActionEvent>{
-
-		@Override
-		public void handle(ActionEvent event) {
-			Object control=event.getSource();
-			if(control instanceof Menu) {
-				System.out.println("Imprimir los nombres de los creadores en una ventana emergente");	
-			}
-		}
-	}
+	
 	class MenuUsuariosHandler implements EventHandler<ActionEvent>{
 
 		@Override
