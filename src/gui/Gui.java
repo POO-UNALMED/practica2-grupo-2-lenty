@@ -120,11 +120,31 @@ public class Gui extends Application {
 		
 		
 		
-		MenuUsuariosHandler MenUsu1=new MenuUsuariosHandler();
 		MenUsu.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
+				
+				// Pane de Gestion Humana
+				GridPane gestionHumana = new GridPane();
+				gestionHumana.setPadding(new Insets(10,10,10,10));
+				gestionHumana.setVgap(5);
+				gestionHumana.setHgap(5);
+				gestionHumana.setAlignment(Pos.CENTER);
+				
+				GridPane clientes = new GridPane();
+				clientes.setPadding(new Insets(10,10,10,10));
+				clientes.setVgap(5);
+				clientes.setHgap(5);
+				clientes.setAlignment(Pos.CENTER);
+				
+				
+				GridPane repartidores = new GridPane();
+				repartidores.setPadding(new Insets(10,10,10,10));
+				repartidores.setVgap(5);
+				repartidores.setHgap(5);
+				repartidores.setAlignment(Pos.CENTER);
+				
 				
 				Button btnClientes = new Button();
 				Button btnRepartidores = new Button();
@@ -141,6 +161,8 @@ public class Gui extends Application {
 					btn1.setMaxSize(100, 50);
 					btnClientes = btn1;
 					
+					clientes.add(btnClientes, 0, 0);
+					
 					//imagen repartidores
 					Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\repartidores.png"));
 					ImageView im2 = new ImageView(image2);
@@ -151,6 +173,9 @@ public class Gui extends Application {
 					btn2.setContentDisplay(ContentDisplay.TOP);
 					btn2.setMaxSize(120, 50);
 					btnRepartidores = btn2;
+					
+					repartidores.add(btnRepartidores, 0, 0);
+					
 				} catch (FileNotFoundException e) {
 					Alert info = new Alert(AlertType.ERROR);
 					info.setHeaderText("Error");
@@ -172,10 +197,27 @@ public class Gui extends Application {
 						System.out.println("Repartidores");
 					}
 				});
-				rootScene2.setCenter(null);
 				
+				gestionHumana.add(clientes, 0, 0);
+				gestionHumana.add(repartidores, 1, 0);
+				
+				BorderPane border = new BorderPane();
+				
+				VBox t = new VBox(10);
+				Label a = new Label("Gestion Humana");
+				Label b =new Label("En este menu podr� seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
+				t.getChildren().add(a);
+				t.getChildren().add(b);
+				border.setCenter(gestionHumana);
+				border.setTop(t);
+			    b.setWrapText(true);
+			    b.setAlignment(Pos.CENTER);
+			    b.setStyle(" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
+			    t.setAlignment(Pos.CENTER);
+			    
+			    BorderPane.setMargin(t, new Insets(50,20,20,20));
+				rootScene2.setCenter(border);
 			}
-			
 		});
 		
 		
@@ -980,61 +1022,18 @@ public class Gui extends Application {
 		    
 		}
 	}
-	
-	class MenuUsuariosHandler implements EventHandler<ActionEvent>{
+
+	class AyudaHandler implements EventHandler<ActionEvent>{
 
 		@Override
 		public void handle(ActionEvent event) {
-			//Menu de usuarios
-			
-			Button btnClientes = new Button();
-			Button btnRepartidores = new Button();
-			
-			try {
-				//imagen clientes
-				Image image1 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\clientes.png"));
-				ImageView im1 = new ImageView(image1);
-				im1.setFitHeight(120);
-				im1.setFitWidth(120);
-				Button btn1 = new Button("Clientes", im1);
-				btn1.setStyle("-fx-base: blue;");
-				btn1.setContentDisplay(ContentDisplay.TOP);
-				btn1.setMaxSize(100, 50);
-				btnClientes = btn1;
-				
-				//imagen repartidores
-				Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\repartidores.png"));
-				ImageView im2 = new ImageView(image2);
-				im2.setFitHeight(120);
-				im2.setFitWidth(120);
-				Button btn2 = new Button("Repartidores", im2);
-				btn2.setStyle("-fx-base: orange;");
-				btn2.setContentDisplay(ContentDisplay.TOP);
-				btn2.setMaxSize(120, 50);
-				btnRepartidores = btn2;
-			} catch (FileNotFoundException e) {
-				Alert info = new Alert(AlertType.ERROR);
-				info.setHeaderText("Error");
-				info.setTitle("No se pudo encontrar la imagen");
-				info.setContentText("");
-				info.show();
+			Object control=event.getSource();
+			if(control instanceof Menu) {
+				System.out.println("Imprimir los nombres de los creadores en una ventana emergente");	
 			}
-			
-			btnClientes.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event){
-					System.out.println("Clientes");
-				}
-			});
-			
-			btnRepartidores.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event){
-					System.out.println("Repartidores");
-				}
-			});
 		}
-	}	
+	}
+
 }
 		
 
