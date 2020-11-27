@@ -27,6 +27,7 @@ public class Repartidor extends Persona implements Serializable {
         this.entSalud = entSalud;
         this.salario = salario;
         this.disponibilidad = disponibilidad;
+        repartidores.add(this);
     }
 
     public Repartidor(String entSalud, int salario, boolean disponibilidad, long id, String nombre, String telefono) {
