@@ -212,7 +212,7 @@ public class Gui extends Application {
 						menuClientes.setAlignment(Pos.CENTER);
 						
 						Label regi = new Label("Registrar un Cliente");
-						Label docu = new Label("Documento");
+						Label docu = new Label("Documento (Long)");
 						TextField documento=new TextField();
 						Label nom = new Label("Nombre (String)=");
 						TextField nombre = new TextField();
@@ -250,22 +250,46 @@ public class Gui extends Application {
 							@Override
 							public void handle(MouseEvent arg0) {
 								try {
-									String documento1 = documento.getText();
+									Long documento1 = Long.parseLong(documento.getText());
 									String nombre1 = nombre.getText();
 									String telefono1 = telefono.getText();
 									String genero1 = genero.getText();
+									String direccion1=direccion.getText();
+									String metPag1="";
+									if(tarjeta.getText().equals("00000000000")) {
+										metPag1="efectivo";
+									}
+									else {
+										metPag1="tarjeta";
+									}
 									int tarjeta1 = Integer.parseInt(tarjeta.getText());
 									Alert confir = new Alert(AlertType.CONFIRMATION);
 									confir.setTitle("Confirmar registro cliente");
 									confir.setHeaderText("Se requiere confirmacion para crear el cliente o se descartara");
 									confir.setContentText("Esta seguro de que quiere registrar el cliente con documento= "
-											+ documento1+" nombre= " + nombre1+" telefono= "+telefono1+" genero= "+genero1);
-									documento.setText("");
-									nombre.setText("");
-									telefono.setText("");
-									genero.setText("");
-									tarjeta.setText("");
-									confir.show();
+											+ documento1+", direccion= "+direccion1+", nombre= " + nombre1+", telefono= "+telefono1+", genero= "+genero1
+											+", metodo de pago= "+metPag1);
+									Optional<ButtonType> result=confir.showAndWait();
+									if(result.get()==ButtonType.OK) {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("Registro cliente");
+										mens.setHeaderText("Se registro al cliente");
+										mens.show();
+										new Cliente(direccion1,metPag1,tarjeta1,documento1,nombre1,genero1,telefono1);
+										documento.setText("");
+										nombre.setText("");
+										telefono.setText("");
+										genero.setText("");
+										tarjeta.setText("");
+										direccion.setText("");
+									}
+									else {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("No se registro el cliente");
+										mens.setHeaderText("Se cancelo el registro del cliente");
+										mens.show();
+									}
+									
 								}
 								catch(Exception e) {
 									Alert error=new Alert(AlertType.ERROR);
@@ -282,11 +306,39 @@ public class Gui extends Application {
 						// Consultar
 						Button consultar = new Button("Ver Clientes");
 						consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						consultar.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								String aux="";
+								for(int i=0;i<Cliente.getClientes().size();i++) {
+									aux+="\n Nombre= "+Cliente.getClientes().get(i).getNombre()+", ID= "+Cliente.getClientes().get(i).getId();
+								}
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Cliente registrados");
+								confir.setHeaderText("Nombre, ID de los clientes registrados");
+								confir.setContentText(aux);
+								confir.show();
+							}
+							
+						});
 						gestionHumana.add(consultar, 1, 0);
 						
 						// Cliente con mayores compras
 						Button mayoresCompras = new Button("Cliente que mas ha comprado");
 						mayoresCompras.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						mayoresCompras.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Cliente que mas ha comprado");
+								confir.setHeaderText("El cliente con mayores compras ha sido");
+								confir.setContentText("Nombre= "+Cliente.clienteMayorVentas().getNombre()+", Numero de compras= "+Cliente.clienteMayorVentas().getCantVentas());
+								confir.show();
+							}
+							
+						});
 						gestionHumana.add(mayoresCompras, 1, 1);
 						
 						// Regresar
@@ -329,7 +381,7 @@ public class Gui extends Application {
 						menuRepartidores.setAlignment(Pos.CENTER);
 						
 						Label regi = new Label("Registrar un Repartidor");
-						Label docu = new Label("Documento");
+						Label docu = new Label("Documento (Long)=");
 						TextField documento=new TextField();
 						Label nom = new Label("Nombre (String)=");
 						TextField nombre = new TextField();
@@ -349,7 +401,7 @@ public class Gui extends Application {
 							@Override
 							public void handle(MouseEvent arg0) {
 								try {
-									String documento1 = documento.getText();
+									long documento1=Long.parseLong(documento.getText());
 									String nombre1 = nombre.getText();
 									String telefono1 = telefono.getText();
 									String genero1 = genero.getText();
@@ -359,14 +411,28 @@ public class Gui extends Application {
 									confir.setTitle("Confirmar registro repartidor");
 									confir.setHeaderText("Se requiere confirmacion para crear el repartidor o se descartara");
 									confir.setContentText("Esta seguro de que quiere registrar el repartidor con documento= "
-											+ documento1+" nombre= " + nombre1+" telefono= "+telefono1+" genero= "+genero1+" salario= "+salario1);
-									documento.setText("");
-									nombre.setText("");
-									telefono.setText("");
-									genero.setText("");
-									entidad.setText("");
-									salario.setText("");
-									confir.show();
+											+ documento1+", nombre= " + nombre1+", telefono= "+telefono1+", genero= "+genero1+", salario= "+salario1);
+									Optional<ButtonType> result=confir.showAndWait();
+									if(result.get()==ButtonType.OK) {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("Registro repartidor");
+										mens.setHeaderText("Se registro al repartidor");
+										mens.show();
+										new Repartidor(entidad1,salario1,true,documento1,nombre1,genero1,telefono1);
+										documento.setText("");
+										nombre.setText("");
+										telefono.setText("");
+										genero.setText("");
+										entidad.setText("");
+										salario.setText("");
+									}
+									else {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("No se registro el repartidor");
+										mens.setHeaderText("Se cancelo el registro del repartidor");
+										mens.show();
+									}
+
 								}
 								catch(Exception e) {
 									Alert error=new Alert(AlertType.ERROR);
@@ -383,11 +449,39 @@ public class Gui extends Application {
 						// Consultar
 						Button consultar = new Button("Ver Repartidores");
 						consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						consultar.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								String aux="";
+								for(int i=0;i<Repartidor.getRepartidores().size();i++) {
+									aux+="\n Nombre= "+Repartidor.getRepartidores().get(i).getNombre()+", ID= "+Repartidor.getRepartidores().get(i).getId();
+								}
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Repartidores registrados");
+								confir.setHeaderText("Nombre, ID de los repartidores registrados");
+								confir.setContentText(aux);
+								confir.show();
+							}
+							
+						});
 						gestionHumana.add(consultar, 1, 0);
 						
 						// Repartidor con mas pedidos
 						Button mayoresPedidos = new Button("Repartidor con mas pedidos");
 						mayoresPedidos.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						mayoresPedidos.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Repartidor con mas pedidos");
+								confir.setHeaderText("El repartidor que mas pedidos ha realizado");
+								confir.setContentText("Nombre= "+Repartidor.repartidorMasPedidos().getNombre()+", Numero de compras= "+Repartidor.repartidorMasPedidos().getId());
+								confir.show();
+							}
+							
+						});
 						gestionHumana.add(mayoresPedidos, 1, 1);
 						
 						// Regresar
