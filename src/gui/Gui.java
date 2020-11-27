@@ -211,7 +211,7 @@ public class Gui extends Application {
 				
 				agregar.add(new Label("Agregar Producto"), 0, 0);
 				agregar.add(new Label("Nombre"), 0, 1);
-				agregar.add(new Label("Descripcion"), 0, 2);
+				agregar.add(new Label("Descripcion (Opcional)"), 0, 2);
 				agregar.add(new Label("Precio"), 0, 3);
 				TextField nombreP = new TextField();
 				TextField descripcionP = new TextField();
@@ -305,15 +305,31 @@ public class Gui extends Application {
 						String nombre = nombreP.getText();
 						String precio = precioP.getText();
 						String descripcion = descripcionP.getText();
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Agregar Producto");
-						dialog.setHeaderText("Se agrego el producto con exito");
-						dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
-						dialog.show();
-						
-						nombreP.setText("");
-						descripcionP.setText("");
-						precioP.setText("");
+						if (nombre.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta el nombre");
+							dialog.setHeaderText("No se puede crear un producto sin nombre");
+							dialog.setContentText("Por favor ingrese un nombre");
+							dialog.show();
+						}
+						else if(precio.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta el precio");
+							dialog.setHeaderText("No se puede crear un producto sin precio");
+							dialog.setContentText("Por favor ingrese un precio");
+							dialog.show();
+						}
+						else {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Agregar Producto");
+							dialog.setHeaderText("Se agrego el producto con exito");
+							dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
+							dialog.show();
+							
+							nombreP.setText("");
+							descripcionP.setText("");
+							precioP.setText("");
+						}
 					}
 				});
 				BorderPane border = new BorderPane();
@@ -419,14 +435,30 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						String direccionS = direccion.getText();
 						String telefonoS = telefono.getText();
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Registrar sede");
-						dialog.setHeaderText("Se registro la sede con exito");
-						dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
-						dialog.show();
-						
-						direccion.setText("");
-						telefono.setText("");
+						if (direccionS.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta la direccion");
+							dialog.setHeaderText("No se puede registrar una sede sin direccion");
+							dialog.setContentText("Por favor ingrese una direccion");
+							dialog.show();
+						}
+						else if (telefonoS.isEmpty()) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Falta el telefono");
+							dialog.setHeaderText("No se puede registrar una sede sin telefono");
+							dialog.setContentText("Por favor ingrese un telefono");
+							dialog.show();
+						}
+						else {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Registrar sede");
+							dialog.setHeaderText("Se registro la sede con exito");
+							dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+							dialog.show();
+							
+							direccion.setText("");
+							telefono.setText("");
+						}
 					}
 				});
 				
@@ -456,7 +488,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Sedes");
-				Label b =new Label("En este menu puede registrar y eliminar sedes, así como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
+				Label b =new Label("En este menu puede registrar y eliminar sedes, asi como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(sede);
@@ -661,19 +693,19 @@ public class Gui extends Application {
 	    
 	    
 	    
-	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
+	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\1.png"); 
 	    image1 = new ImageView(new Image(fileA.toURI().toString())); 
 	    image1.setFitHeight(150);
 	    image1.setFitWidth(150);
-	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\2.png"); 
 	    image2 = new ImageView(new Image(fileB.toURI().toString()));
 	    image2.setFitHeight(150);
 	    image2.setFitWidth(150);
-	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
+	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\3.png"); 
 	    image3 = new ImageView(new Image(fileC.toURI().toString()));
 	    image3.setFitHeight(150);
 	    image3.setFitWidth(150);
-	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\4.png"); 
 	    image4 = new ImageView(new Image(fileD.toURI().toString()));
 	    image4.setFitHeight(150);
 	    image4.setFitWidth(150);
@@ -704,19 +736,19 @@ public class Gui extends Application {
 				    email.setText("Dgiraldolo@unal.edu.co");
 				    profesion.setText("Ingenieria de sistemas e informatica");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Danilo2.jpg"); 
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Danilo2.jpg"); 
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Danilo3.jpg"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Danilo3.jpg"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Danilo4.jpg"); 
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Danilo4.jpg"); 
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
@@ -727,19 +759,19 @@ public class Gui extends Application {
 				    email.setText("Maaescobarmi@unal.edu.co");
 				    profesion.setText("Ingenieria de sistemas e informatica");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Manuel1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Manuel2.jpg"); 
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Manuel2.jpg"); 
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Manuel3.jpg"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Manuel3.jpg"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Manuel4.jpg"); 
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Manuel4.jpg"); 
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
@@ -749,19 +781,19 @@ public class Gui extends Application {
 				    email.setText("mizapataa@unal.edu.co");
 				    profesion.setText("Ingenieria de sistemas e informatica");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Michael1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Michael2.jpg"); 
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Michael2.jpg"); 
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Michael3.jpg"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Michael3.jpg"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Michael4.jpg"); 
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Michael4.jpg"); 
 
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
@@ -772,19 +804,19 @@ public class Gui extends Application {
 					email.setText("juaczuluagamon@unal.edu.co");
 					profesion.setText("Ciencias de la computacion");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\2.png"); 
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\3.png"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\4.png"); 
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
@@ -799,7 +831,7 @@ public class Gui extends Application {
 	    hojaVida.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 	    
 	    //Imagen rotativa
-	    File filee = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
+	    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\1.png"); 
 	    imagenRotativa = new ImageView(new Image(filee.toURI().toString()));
 	    imagenRotativa.setFitHeight(200);
 	    imagenRotativa.setFitWidth(200);
@@ -821,21 +853,21 @@ public class Gui extends Application {
 				
 				if (contadorx2 == 1) {
 					
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\3.png"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\3.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString())); 
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
 				}
 				else if (contadorx2 == 2) {
 					
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\2.png"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\2.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
 				}
 				else if (contadorx2 == 3) {
 					
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\5.jpg"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\5.jpg"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
@@ -843,7 +875,7 @@ public class Gui extends Application {
 				}
 				else if (contadorx2 == 4) {
 				    
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\4.png"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\4.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
