@@ -559,7 +559,9 @@ public class Gui extends Application {
 				}
 				
 			});
-			Orden.add(ordenesAct, 2, 0);
+			Orden.add(ordenesAct, 1, 0);
+			Orden.setVgap(5);
+			Orden.setHgap(5);
 			//Eliminar Orden
 			ArrayList<Integer> pruebaEliminar=new ArrayList<>();
 			for(int i=0;i<5;i++) {
