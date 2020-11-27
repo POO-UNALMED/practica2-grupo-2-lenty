@@ -83,6 +83,8 @@ public class Gui extends Application {
 		MenuItem MenVeh=new MenuItem("Menu Vehiculos");
 		MenuItem MenSed=new MenuItem("Menu Sedes");
 		MenuItem acercaDe = new MenuItem("Acerca de");
+		MenuItem salirB = new MenuItem("Guardar y Salir");
+		archivo.getItems().add(salirB);
 		ayuda.getItems().add(acercaDe);
 		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
 		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
@@ -98,7 +100,8 @@ public class Gui extends Application {
 				+ "de esto se encuentra el menu Procesos y Consultas, el cual despliega las opciones "
 				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones"
 
-				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro.");
+				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro."
+				+ "\nEn la pestaña Lenty hay un boton para guardar y salir.");
 		ingreso1.setTextFill(Color.web("#19164a"));
 	    ingreso1.setPrefWidth(400);
 	    ingreso1.setWrapText(true);
@@ -107,6 +110,15 @@ public class Gui extends Application {
 		ingreso.setAlignment(Pos.CENTER);
 		rootScene2.setCenter(ingreso);
 		
+		salirB.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Escritor.Escribir();
+				Platform.exit();
+			}
+			
+		});
 		
 		acercaDe.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -331,11 +343,19 @@ public class Gui extends Application {
 
 							@Override
 							public void handle(ActionEvent arg0) {
-								Alert confir = new Alert(AlertType.INFORMATION);
-								confir.setTitle("Cliente que mas ha comprado");
-								confir.setHeaderText("El cliente con mayores compras ha sido");
-								confir.setContentText("Nombre= "+Cliente.clienteMayorVentas().getNombre()+", Numero de compras= "+Cliente.clienteMayorVentas().getCantVentas());
-								confir.show();
+								try {
+									Alert confir = new Alert(AlertType.INFORMATION);
+									confir.setTitle("Cliente que mas ha comprado");
+									confir.setHeaderText("El cliente con mayores compras ha sido");
+									confir.setContentText("Nombre= "+Cliente.clienteMayorVentas().getNombre()+", Numero de compras= "+Cliente.clienteMayorVentas().getCantVentas());
+									confir.show();
+								}
+								catch(Exception a) {
+									Alert confir = new Alert(AlertType.ERROR);
+									confir.setTitle("Cliente que mas ha comprado");
+									confir.setHeaderText("No hay cliente con mayor ventas");
+									confir.show();
+								}
 							}
 							
 						});
@@ -477,7 +497,7 @@ public class Gui extends Application {
 								Alert confir = new Alert(AlertType.INFORMATION);
 								confir.setTitle("Repartidor con mas pedidos");
 								confir.setHeaderText("El repartidor que mas pedidos ha realizado");
-								confir.setContentText("Nombre= "+Repartidor.repartidorMasPedidos().getNombre()+", Numero de compras= "+Repartidor.repartidorMasPedidos().getId());
+								confir.setContentText("Nombre= "+Repartidor.repartidorMasPedidos().getNombre()+", Numero de pedidos= "+Repartidor.repartidorMasPedidos().getCantVentas());
 								confir.show();
 							}
 							
@@ -717,12 +737,12 @@ public class Gui extends Application {
 			Orden1.setVgap(5);
 			Orden1.setHgap(5);
 			//Eliminar Orden
-			ArrayList<Integer> pruebaEliminar=new ArrayList<>();
-			for(int i=0;i<Orden.getOrdenes().size();i++) {
-				pruebaEliminar.add(i);
-			}
+
 			Label eliminarOrden=new Label("Eliminar Orden");
-			ComboBox<Integer> eliAEli=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaEliminar));
+			ComboBox<Integer> eliAEli=new ComboBox<Integer>();
+			for(int i=0;i<Orden.getOrdenes().size();i++) {
+				eliAEli.getItems().add(Orden.getOrdenes().get(i).getId());
+			}
 			eliAEli.setPromptText("ID de Orden a Eliminar");
 			TextField eliminacion=new TextField();
 			eliAEli.valueProperty().addListener(new ChangeListener<Integer>(){
@@ -739,24 +759,21 @@ public class Gui extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					try {
-						int aux=Integer.parseInt(eliminacion.getText());
+						String id = eliminacion.getText();
+						int aux = eliAEli.getSelectionModel().getSelectedIndex();
 						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.CONFIRMATION);
-						dialog.setTitle("Confirmar eliminacion");
-						dialog.setHeaderText("Esta seguro de eliminar la orden con el ID "+aux);
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Orden eliminada");
+						dialog.setHeaderText("Se elimino la orden correctamente");
+						dialog.setContentText("ID de la orden eliminada: "+(id));
 						dialog.show();
-						
-						Optional<ButtonType> o = dialog.showAndWait();
-						if (o.get() == ButtonType.OK) {
-							Orden.getOrdenes().remove(aux);
-							dialog.setAlertType(AlertType.INFORMATION);
-							dialog.setHeaderText("Se eliminó la orden");
+					
+						Orden.getOrdenes().remove(aux);
+						eliAEli.getItems().clear();
+						for(int i=0;i<Orden.getOrdenes().size();i++) {
+							eliAEli.getItems().add(Orden.getOrdenes().get(i).getId());
 						}
-						else {
-
-							dialog.setAlertType(AlertType.ERROR);
-							dialog.setHeaderText("No se eliminó la orden");
-						}
+						eliminacion.setText("");
 					}
 					catch(Exception e) {
 						Alert error=new Alert(AlertType.ERROR);
