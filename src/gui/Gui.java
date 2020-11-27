@@ -225,8 +225,175 @@ public class Gui extends Application {
 
 			@Override
 			public void handle(ActionEvent arg0) {
+			GridPane Orden=new GridPane();
+			Orden.setAlignment(Pos.CENTER);
+			//Crear Orden
+			ArrayList<String> pruebaClientes=new ArrayList<>();
+			pruebaClientes.add("Manuel");
+			ArrayList<String> pruebaSedes=new ArrayList<>();
+			pruebaSedes.add("Cra38#35");
+			ArrayList<String> pruebaRepartidores=new ArrayList<>();
+			pruebaRepartidores.add("Francisco");
+			ArrayList<String> pruebaProductos=new ArrayList<>();
+			pruebaProductos.add("Hamburguesa");
+			ArrayList<Integer> pruebaCantidad=new ArrayList<>();
+			for(int i=0;i<5;i++) {
+				pruebaCantidad.add(i);
+			}
+			Label lbOr1=new Label("Crear Orden");
+			ComboBox<String> eliCli=new ComboBox<String>(FXCollections.observableArrayList(pruebaClientes));
+			eliCli.setPromptText("Seleccione un Cliente");
+			TextField cliente=new TextField();
+			eliCli.valueProperty().addListener(new ChangeListener<String>(){
+
+				@Override
+				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+					cliente.setText(arg2);
+				}
 				
+			});
+			ComboBox<String> eliSede=new ComboBox<String>(FXCollections.observableArrayList(pruebaSedes));
+			eliSede.setPromptText("Seleccione la Sede");
+			TextField sede=new TextField();
+			eliSede.valueProperty().addListener(new ChangeListener<String>(){
+
+				@Override
+				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+					sede.setText(arg2);
+				}
 				
+			});
+			ComboBox<String> eliRep=new ComboBox<String>(FXCollections.observableArrayList(pruebaRepartidores));
+			eliRep.setPromptText("Seleccione un repartidor");
+			TextField repartidor=new TextField();
+			eliRep.valueProperty().addListener(new ChangeListener<String>(){
+
+				@Override
+				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+					repartidor.setText(arg2);
+				}
+				
+			});
+			ComboBox<String> eliPro=new ComboBox<String>(FXCollections.observableArrayList(pruebaProductos));
+			eliPro.setPromptText("Seleccione el Producto");
+			TextField producto=new TextField();
+			eliPro.valueProperty().addListener(new ChangeListener<String>(){
+
+				@Override
+				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+					producto.setText(arg2);
+				}
+				
+			});
+			ComboBox<Integer> eliCan=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaCantidad));
+			eliCan.setPromptText("Seleccione La cantidad del producto");
+			TextField cantidad=new TextField();
+			eliCan.valueProperty().addListener(new ChangeListener<Integer>(){
+
+				@Override
+				public void changed(ObservableValue<? extends Integer> arg0, Integer arg1, Integer arg2) {
+					// TODO Auto-generated method stub
+					cantidad.setText(String.valueOf(arg2));
+				}
+				
+			});
+			Label pso=new Label("Peso de la orden=");
+			TextField peso=new TextField();
+			Button crear=new Button("Crear Orden");
+			crear.setOnAction(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					try{
+						String cliente1=cliente.getText();
+						String sede1=sede.getText();
+						String repartidor1=repartidor.getText();
+						String producto1=producto.getText();
+						int cantidad1=Integer.parseInt(cantidad.getText());
+						Alert dialog = new Alert(AlertType.NONE);
+						dialog.setAlertType(AlertType.CONFIRMATION);
+						dialog.setTitle("Creacion Orden");
+						dialog.setHeaderText("Se requiere confimacion para crear la orden para el Cliente "+cliente1
+								+" en la Sede "+sede1+" que se enviara con el Repartidor "+repartidor1+" y los productos "
+								+producto1+" y la cantidad "+cantidad1);
+						dialog.show();
+					}
+					catch(Exception e) {
+						Alert error=new Alert(AlertType.ERROR);
+						error.setTitle("ERROR");
+						error.setTitle("No se pudo crear la Orden");
+						error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+						error.show();
+					}
+				}
+				
+			});
+			VBox CreOrden=new VBox(lbOr1,eliCli,cliente,eliSede,sede,eliRep,repartidor,eliPro,producto,eliCan,cantidad,pso,peso,crear);
+			Orden.add(CreOrden, 0, 0);
+			//Ver ordenes activas
+			Button ordenesAct=new Button("Ver ordenes activas");
+			ordenesAct.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			
+			ordenesAct.setOnAction(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					Alert dialog = new Alert(AlertType.NONE);
+					dialog.setAlertType(AlertType.INFORMATION);
+					dialog.setTitle("Ordenes Activas");
+					dialog.setHeaderText("Mostrar el ID de las Activas");
+					dialog.show();
+				}
+				
+			});
+			Orden.add(ordenesAct, 2, 0);
+			//Eliminar Orden
+			ArrayList<Integer> pruebaEliminar=new ArrayList<>();
+			for(int i=0;i<5;i++) {
+				pruebaEliminar.add(i);
+			}
+			Label eliminarOrden=new Label("Eliminar Orden");
+			ComboBox<Integer> eliAEli=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaEliminar));
+			eliPro.setPromptText("ID de Orden a Eliminar");
+			TextField eliminacion=new TextField();
+			eliAEli.valueProperty().addListener(new ChangeListener<Integer>(){
+				@Override
+				public void changed(ObservableValue<? extends Integer> arg0, Integer arg1, Integer arg2) {
+					// TODO Auto-generated method stub
+					eliminacion.setText(String.valueOf(arg2));
+				}
+				
+			});
+			Button eliminar=new Button("Eliminar Orden");
+			eliminar.setOnAction(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent event) {
+					try {
+						int aux=Integer.parseInt(eliminacion.getText());
+						Alert dialog = new Alert(AlertType.NONE);
+						dialog.setAlertType(AlertType.CONFIRMATION);
+						dialog.setTitle("Confirmar eliminacion");
+						dialog.setHeaderText("¿Esta seguro de eliminar la orden con el ID "+aux+"?");
+						dialog.show();
+					}
+					catch(Exception e) {
+						Alert error=new Alert(AlertType.ERROR);
+						error.setTitle("ERROR");
+						error.setTitle("No se eliminar la Orden");
+						error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+						error.show();
+					}
+				}
+				
+			});
+			VBox El=new VBox(eliminarOrden,eliAEli,eliminacion,eliminar);
+			Orden.add(El, 0, 1);
+			//Modificar Orden
+			Button modificar=new Button("Modificar Orden");
+			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			Orden.add(modificar, 1, 1);
+			rootScene2.setCenter(Orden);
 			}
 			
 		});
