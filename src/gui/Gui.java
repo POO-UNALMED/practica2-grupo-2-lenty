@@ -1115,6 +1115,7 @@ public class Gui extends Application {
 							String modelo1=modelo.getText();
 							int matricula1=Integer.parseInt(matricula.getText());
 							boolean seguro1=Boolean.parseBoolean(seguro.getText());
+							
 							Alert confir=new Alert(AlertType.CONFIRMATION);
 							confir.setTitle("Confirmar registrar vehiculo");
 							confir.setHeaderText("Se requiere confirmacion para crear el vehiculo o se descartara");
@@ -1128,6 +1129,11 @@ public class Gui extends Application {
 								mens.show();
 								Vehiculo aux=new Vehiculo(placa1,modelo1,matricula1,seguro1,null);
 								Vehiculo.adicionarVehiculo(aux);
+								eliVeh.getItems().clear();
+								ArrayList<String> veh=new ArrayList<>();
+								for(int i=0;i<Vehiculo.getVehiculos().size();i++) {
+									eliVeh.getItems().add(Vehiculo.getVehiculos().get(i).getPlaca());
+								}
 								placa.setText("");
 								modelo.setText("");
 								matricula.setText("");
@@ -1170,6 +1176,11 @@ public class Gui extends Application {
 									if(Vehiculo.getVehiculos().get(i).getPlaca().equals(aux)) {
 										Vehiculo.getVehiculos().remove(i);
 									}
+								}
+								eliVeh.getItems().clear();
+								ArrayList<String> veh=new ArrayList<>();
+								for(int i=0;i<Vehiculo.getVehiculos().size();i++) {
+									eliVeh.getItems().add(Vehiculo.getVehiculos().get(i).getPlaca());
 								}
 								
 							}
