@@ -83,11 +83,13 @@ public class Gui extends Application {
 		BorderPane rootScene2 = new BorderPane();
 		rootScene2.setTop(barraMenu2);
 		VBox ingreso=new VBox();
+
 		Label ingreso1=new Label("Bienvenido a Lenty, aplicacion para la gestion eficaz de "
 				+ "envios, arriba de la ventana vera dos menus, en Ayuda podra ver los desarrolladores "
 				+ "de esta aplicacion por si cuenta con alguna dida al respecto, al lado izquierdo "
 				+ "de esto se encuentra el menu Procesos y Consultas, el cual despliega las opciones "
-				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones "
+				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones"
+
 				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro.");
 		ingreso1.setTextFill(Color.web("#19164a"));
 	    ingreso1.setPrefWidth(400);
@@ -245,7 +247,7 @@ public class Gui extends Application {
 							public void handle(MouseEvent event) {
 								dialog.setAlertType(AlertType.INFORMATION);
 								dialog.setTitle("Eliminar producto");
-								dialog.setHeaderText("Se elimino el producto con �xito");
+								dialog.setHeaderText("Se elimino el producto con éxito");
 								dialog.setContentText("El producto "+productoAEliminar+" se elimino");
 								dialog.show();
 								
@@ -306,7 +308,7 @@ public class Gui extends Application {
 						String descripcion = descripcionP.getText();
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Agregar Producto");
-						dialog.setHeaderText("Se agreg� el producto con �xito");
+						dialog.setHeaderText("Se agregó el producto con éxito");
 						dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
 						dialog.show();
 						
@@ -318,7 +320,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Productos");
-				Label b =new Label("En este menu podr� agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido");
+				Label b =new Label("En este menu podrá agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(producto);
@@ -394,7 +396,7 @@ public class Gui extends Application {
 							public void handle(MouseEvent event) {
 								dialog.setAlertType(AlertType.INFORMATION);
 								dialog.setTitle("Eliminar sede");
-								dialog.setHeaderText("Se elimino la sede con �xito");
+								dialog.setHeaderText("Se elimino la sede con éxito");
 								dialog.setContentText("La sede ubicada en "+sede+" se elimino");
 								dialog.show();
 								
@@ -420,7 +422,7 @@ public class Gui extends Application {
 						String telefonoS = telefono.getText();
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Registrar sede");
-						dialog.setHeaderText("Se registro la sede con �xito");
+						dialog.setHeaderText("Se registro la sede con éxito");
 						dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
 						dialog.show();
 						
@@ -455,7 +457,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Sedes");
-				Label b =new Label("En este menu podr� registrar y eliminar sedes, as� como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
+				Label b =new Label("En este menu podrá registrar y eliminar sedes, así como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(sede);
@@ -580,7 +582,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label c = new Label("Menu de Vehiculos");
-				Label b =new Label("En este menu podr� agregar y eliminar veh�culos, as� como consultar y modificar los vehiculos");
+				Label b =new Label("En este menu podrá agregar y eliminar vehículos, así como consultar y modificar los vehiculos");
 				t.getChildren().add(c);
 				t.getChildren().add(b);
 				border.setCenter(Veh);
@@ -637,7 +639,7 @@ public class Gui extends Application {
 	    Label lab2 = new Label("E-mail:");
 	    email = new Label("juaczuluagamon@unal.edu.co");
 	    Label lab3 = new Label("Profesion: ");
-	    profesion = new Label("Ciencias de la computaciÃ³n");
+	    profesion = new Label("Ciencias de la computaciÃÂ³n");
 	    GridPane hojaVida = new GridPane();
 	    hojaVida.setPadding(new Insets(10,10,10,10));
 	    hojaVida.setVgap(5);
@@ -701,7 +703,7 @@ public class Gui extends Application {
 				if (contador == 1) {
 					nombre.setText("Danilo Giraldo Lopez");
 				    email.setText("Dgiraldolo@unal.edu.co");
-				    profesion.setText("Ingeniería de sistemas e informatica");
+				    profesion.setText("IngenierÃ­a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Danilo.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -724,7 +726,7 @@ public class Gui extends Application {
 				else if (contador == 2) {
 					nombre.setText("Manuel Alejandro Escobar Mira");
 				    email.setText("Maaescobarmi@unal.edu.co");
-				    profesion.setText("Ingeniería de sistemas e informatica");
+				    profesion.setText("IngenierÃ­a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Manuel1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -746,7 +748,7 @@ public class Gui extends Application {
 				else if (contador == 3) {
 					nombre.setText("Michael Stiwar Zapata Agudelo");
 				    email.setText("mizapataa@unal.edu.co");
-				    profesion.setText("Ingeniería de sistemas e informatica");
+				    profesion.setText("IngenierÃ­a de sistemas e informatica");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Michael1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
@@ -769,7 +771,7 @@ public class Gui extends Application {
 				else if (contador == 4) {
 					nombre.setText("Juan Camilo Zuluaga");
 					email.setText("juaczuluagamon@unal.edu.co");
-					profesion.setText("Ciencias de la computación");
+					profesion.setText("Ciencias de la computaciÃ³n");
 				    
 				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\1.png"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
