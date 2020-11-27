@@ -660,10 +660,15 @@ public class Gui extends Application {
 							mens.setHeaderText("Se creo la Orden");
 							mens.show();
 							new Orden(cliente1,sede1,repartidor1,valor,productos,peso1,"Aceptada");
+							eliCli.setValue("Seleccione un Cliente");
+							eliSede.setValue("Seleccion la sede");
+							eliRep.setValue("Seleccione el repartidor");
+							eligPro.setValue("Seleccione el Producto");
 							cliente.setText("");
 							sede.setText("");
 							repartidor.setText("");
 							producto.setText("");
+							peso.setText("");
 							listaAux.clear();
 						}
 						else {
@@ -713,7 +718,7 @@ public class Gui extends Application {
 			Orden1.setHgap(5);
 			//Eliminar Orden
 			ArrayList<Integer> pruebaEliminar=new ArrayList<>();
-			for(int i=0;i<5;i++) {
+			for(int i=0;i<Orden.getOrdenes().size();i++) {
 				pruebaEliminar.add(i);
 			}
 			Label eliminarOrden=new Label("Eliminar Orden");
@@ -740,12 +745,24 @@ public class Gui extends Application {
 						dialog.setTitle("Confirmar eliminacion");
 						dialog.setHeaderText("Esta seguro de eliminar la orden con el ID "+aux);
 						dialog.show();
+						
+						Optional<ButtonType> o = dialog.showAndWait();
+						if (o.get() == ButtonType.OK) {
+							Orden.getOrdenes().remove(aux);
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setHeaderText("Se eliminó la orden");
+						}
+						else {
+
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setHeaderText("No se eliminó la orden");
+						}
 					}
 					catch(Exception e) {
 						Alert error=new Alert(AlertType.ERROR);
 						error.setTitle("ERROR");
-						error.setTitle("No se eliminar la Orden");
-						error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+						error.setTitle("No se eliminara la Orden");
+						error.setContentText("Verifique que el indice pertenezca a una orden");
 						error.show();
 					}
 				}

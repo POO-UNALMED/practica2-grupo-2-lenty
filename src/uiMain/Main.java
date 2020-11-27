@@ -192,7 +192,6 @@ public class Main {
 
 			System.out.println("\nPeso total de la orden: ");
 			peso=in.nextFloat();
-			new Orden(c,s,r,valor,p,peso,es);
 			menuOrden();
 			break;
 
