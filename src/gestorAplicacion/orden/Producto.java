@@ -15,7 +15,7 @@ public class Producto implements Serializable{
 	private long precio;
 	private static LinkedList<Producto> productos = new LinkedList<>();
 	private int cantVentas;
-	Producto(String nom,String des,long pre){
+	public Producto(String nom,String des,long pre){
 		this.nombre=nom;
 		this.descripcion=des;
 		this.precio=pre;

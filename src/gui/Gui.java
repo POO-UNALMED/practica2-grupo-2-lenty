@@ -438,21 +438,27 @@ public class Gui extends Application {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-			GridPane Orden=new GridPane();
-			Orden.setAlignment(Pos.CENTER);
+			GridPane Orden1=new GridPane();
+			Orden1.setAlignment(Pos.CENTER);
 			//Crear Orden
 			ArrayList<String> pruebaClientes=new ArrayList<>();
-			pruebaClientes.add("Manuel");
-			ArrayList<String> pruebaSedes=new ArrayList<>();
-			pruebaSedes.add("Cra38#35");
-			ArrayList<String> pruebaRepartidores=new ArrayList<>();
-			pruebaRepartidores.add("Francisco");
-			ArrayList<String> pruebaProductos=new ArrayList<>();
-			pruebaProductos.add("Hamburguesa");
-			ArrayList<Integer> pruebaCantidad=new ArrayList<>();
-			for(int i=0;i<5;i++) {
-				pruebaCantidad.add(i);
+			for(int i=0;i<Cliente.getClientes().size();i++) {
+				pruebaClientes.add(Cliente.getClientes().get(i).getNombre());
 			}
+			ArrayList<String> pruebaSedes=new ArrayList<>();
+			for(int i=0;i<Sede.getSede().size();i++) {
+				pruebaSedes.add(Sede.getSede().get(i).getDireccion());
+			}
+			ArrayList<String> pruebaRepartidores=new ArrayList<>();
+			for(int i=0;i<Repartidor.getRepartidores().size();i++) {
+				pruebaRepartidores.add(Repartidor.getRepartidores().get(i).getNombre());
+			}
+			ArrayList<String> pruebaProductos=new ArrayList<>();
+			for(int i=0;i<Producto.getProductos().size();i++) {
+				pruebaProductos.add(Producto.getProductos().get(i).getNombre());
+			}
+			
+			
 			Label lbOr1=new Label("Crear Orden");
 			ComboBox<String> eliCli=new ComboBox<String>(FXCollections.observableArrayList(pruebaClientes));
 			eliCli.setPromptText("Seleccione un Cliente");
@@ -487,10 +493,10 @@ public class Gui extends Application {
 				}
 				
 			});
-			ComboBox<String> eliPro=new ComboBox<String>(FXCollections.observableArrayList(pruebaProductos));
-			eliPro.setPromptText("Seleccione el Producto");
+			ComboBox<String> eligPro=new ComboBox<String>(FXCollections.observableArrayList(pruebaProductos));
+			eligPro.setPromptText("Seleccione el Producto");
 			TextField producto=new TextField();
-			eliPro.valueProperty().addListener(new ChangeListener<String>(){
+			eligPro.valueProperty().addListener(new ChangeListener<String>(){
 
 				@Override
 				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -498,15 +504,17 @@ public class Gui extends Application {
 				}
 				
 			});
-			ComboBox<Integer> eliCan=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaCantidad));
-			eliCan.setPromptText("Seleccione La cantidad del producto");
-			TextField cantidad=new TextField();
-			eliCan.valueProperty().addListener(new ChangeListener<Integer>(){
+			ArrayList<Producto> listaAux =new ArrayList<>();
+			Button agregar=new Button("agregar");
+			agregar.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
-				public void changed(ObservableValue<? extends Integer> arg0, Integer arg1, Integer arg2) {
-					// TODO Auto-generated method stub
-					cantidad.setText(String.valueOf(arg2));
+				public void handle(ActionEvent arg0) {
+					for(int i=0;i<Producto.getProductos().size();i++) {
+						if(producto.getText().equals(Producto.getProductos().get(i).getNombre())) {
+							listaAux.add(Producto.getProductos().get(i));
+						}
+					}
 				}
 				
 			});
@@ -518,18 +526,58 @@ public class Gui extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					try{
-						String cliente1=cliente.getText();
-						String sede1=sede.getText();
-						String repartidor1=repartidor.getText();
-						String producto1=producto.getText();
-						int cantidad1=Integer.parseInt(cantidad.getText());
+						String prod1="";
+						Cliente cliente1=null;
+						for(int i=0; i<Cliente.getClientes().size();i++) {
+							if(Cliente.getClientes().get(i).getNombre().equals(cliente.getText()));
+							cliente1=Cliente.getClientes().get(i);
+						}
+						Sede sede1 = null;
+						for(int i=0;i<Sede.getSede().size();i++) {
+							if(Sede.getSede().get(i).getDireccion().equals(sede.getText())) {
+								sede1=Sede.getSede().get(i);
+							}
+						}
+						Repartidor repartidor1 = null;
+						for(int i=0;i<Repartidor.getRepartidores().size();i++) {
+							if(Repartidor.getRepartidores().get(i).getNombre().equals(repartidor.getText())) {
+								repartidor1=Repartidor.getRepartidores().get(i);
+							}
+						}
+						int valor = 0;
+						ArrayList<Producto> productos=listaAux;
+						for (int i = 0; i<productos.size();i++) {
+							valor+= productos.get(i).getPrecio();
+						}
+						for(int i=0;i<productos.size();i++) {
+							prod1+=productos.get(i).getNombre()+", ";
+						}
+						float peso1=Float.parseFloat(peso.getText());
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.CONFIRMATION);
 						dialog.setTitle("Creacion Orden");
-						dialog.setHeaderText("Se requiere confimacion para crear la orden para el Cliente "+cliente1
-								+" en la Sede "+sede1+" que se enviara con el Repartidor "+repartidor1+" y los productos "
-								+producto1+" y la cantidad "+cantidad1);
-						dialog.show();
+						dialog.setHeaderText("Se requiere confimacion para crear la orden para el Cliente "+cliente1.getNombre()
+								+"\nen la Sede "+sede1.getDireccion()+" que se enviara con el Repartidor "+repartidor1.getNombre()+" con peso de "+peso1
+								+"\ncon los productos "+prod1);
+						Optional<ButtonType> result=dialog.showAndWait();
+						if(result.get()==ButtonType.OK) {
+							Alert mens=new Alert(AlertType.INFORMATION);
+							mens.setTitle("Creacion de la Orden");
+							mens.setHeaderText("Se creo la Orden");
+							mens.show();
+							new Orden(cliente1,sede1,repartidor1,valor,productos,peso1,"Aceptada");
+							cliente.setText("");
+							sede.setText("");
+							repartidor.setText("");
+							producto.setText("");
+							listaAux.clear();
+						}
+						else {
+							Alert mens=new Alert(AlertType.INFORMATION);
+							mens.setTitle("No se creo la Orden");
+							mens.setHeaderText("Se cancelo la creacion de la Orden");
+							mens.show();
+						}
 					}
 					catch(Exception e) {
 						Alert error=new Alert(AlertType.ERROR);
@@ -541,8 +589,8 @@ public class Gui extends Application {
 				}
 				
 			});
-			VBox CreOrden=new VBox(lbOr1,eliCli,cliente,eliSede,sede,eliRep,repartidor,eliPro,producto,eliCan,cantidad,pso,peso,crear);
-			Orden.add(CreOrden, 0, 0);
+			VBox CreOrden=new VBox(lbOr1,eliCli,cliente,eliSede,sede,eliRep,repartidor,eligPro,producto,agregar,pso,peso,crear);
+			Orden1.add(CreOrden, 0, 0);
 			//Ver ordenes activas
 			Button ordenesAct=new Button("Ver ordenes activas");
 			ordenesAct.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -552,16 +600,23 @@ public class Gui extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					Alert dialog = new Alert(AlertType.NONE);
+					String aux7="";
+					for(int i=0;i<Orden.getOrdenes().size();i++) {
+						if(Orden.getOrdenes().get(i).getEstado().equals("Aceptada") || Orden.getOrdenes().get(i).getEstado().equals("Activa") ) {
+							aux7+="\nId de orden : "+Orden.getOrdenes().get(i).getId()+", cliente : "+Orden.getOrdenes().get(i).getCliente().getNombre()+" ";
+						}
+					}
 					dialog.setAlertType(AlertType.INFORMATION);
 					dialog.setTitle("Ordenes Activas");
-					dialog.setHeaderText("Mostrar el ID de las Activas");
+					dialog.setHeaderText("ID de la orden, Cliente de la orden");
+					dialog.setContentText(aux7);
 					dialog.show();
 				}
 				
 			});
-			Orden.add(ordenesAct, 1, 0);
-			Orden.setVgap(5);
-			Orden.setHgap(5);
+			Orden1.add(ordenesAct, 1, 0);
+			Orden1.setVgap(5);
+			Orden1.setHgap(5);
 			//Eliminar Orden
 			ArrayList<Integer> pruebaEliminar=new ArrayList<>();
 			for(int i=0;i<5;i++) {
@@ -569,7 +624,7 @@ public class Gui extends Application {
 			}
 			Label eliminarOrden=new Label("Eliminar Orden");
 			ComboBox<Integer> eliAEli=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaEliminar));
-			eliPro.setPromptText("ID de Orden a Eliminar");
+			eliAEli.setPromptText("ID de Orden a Eliminar");
 			TextField eliminacion=new TextField();
 			eliAEli.valueProperty().addListener(new ChangeListener<Integer>(){
 				@Override
@@ -589,7 +644,7 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.CONFIRMATION);
 						dialog.setTitle("Confirmar eliminacion");
-						dialog.setHeaderText("�Esta seguro de eliminar la orden con el ID "+aux+"?");
+						dialog.setHeaderText("Esta seguro de eliminar la orden con el ID "+aux);
 						dialog.show();
 					}
 					catch(Exception e) {
@@ -603,11 +658,11 @@ public class Gui extends Application {
 				
 			});
 			VBox El=new VBox(eliminarOrden,eliAEli,eliminacion,eliminar);
-			Orden.add(El, 0, 1);
+			Orden1.add(El, 0, 1);
 			//Modificar Orden
 			Button modificar=new Button("Modificar Orden");
 			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-			Orden.add(modificar, 1, 1);
+			Orden1.add(modificar, 1, 1);
 
 
 			BorderPane border = new BorderPane();
@@ -616,7 +671,7 @@ public class Gui extends Application {
 			Label b =new Label("En este menu puede crear y eliminar ordenes, asi como consultar las ordenes activas");
 			t.getChildren().add(a);
 			t.getChildren().add(b);
-			border.setCenter(Orden);
+			border.setCenter(Orden1);
 			border.setTop(t);
 		    b.setWrapText(true);
 		    b.setAlignment(Pos.CENTER);
@@ -1588,6 +1643,51 @@ public class Gui extends Application {
 			if(control instanceof Menu) {
 				System.out.println("Imprimir los nombres de los creadores en una ventana emergente");	
 			}
+		}
+	}
+	public class FieldPanel extends Pane {
+
+		String tituloCriterios;
+		ArrayList<String> criterios;
+		String tituloValores;
+		ArrayList<String> valoresIniciales;
+		ArrayList<Boolean> habilitado;
+		GridPane definitivo;
+		public FieldPanel(String tituloCriterios, ArrayList<String> criterios, String tituloValores, ArrayList<String> valores, ArrayList<Boolean> habilitado) {
+			this.tituloCriterios=tituloCriterios;
+			this.criterios=criterios;
+			this.tituloCriterios=tituloCriterios;
+			this.valoresIniciales=valores;
+			this.habilitado=habilitado;
+			GridPane aux=new GridPane();
+			aux.add(new Label(tituloCriterios), 0, 0);
+			for(int i=1;i<=this.criterios.size();i++) {
+				aux.add(new Label(this.criterios.get(i-1)), i, 0);
+				TextField aux1=new TextField();
+				aux1.setText(this.valoresIniciales.get(i-1));
+				if(habilitado.get(i-1)==true) {
+					aux1.setEditable(habilitado.get(i-1));
+				}
+				else {
+					aux1.setEditable(false);
+				}
+			}
+			this.definitivo=aux;
+		}
+		public String getTituloCriterios() {
+			return this.tituloCriterios;
+		}
+		public ArrayList<String> getCriterios(){
+			return this.criterios;
+		}
+		public String getTituloValores() {
+			return this.tituloValores;
+		}
+		public ArrayList<String> getValoresIniciales(){
+			return this.valoresIniciales;
+		}
+		public ArrayList<Boolean> getHabilitado(){
+			return this.habilitado;
 		}
 	}
 
