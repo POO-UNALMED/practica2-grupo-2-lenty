@@ -298,7 +298,21 @@ public class Gui extends Application {
 						precioP.setText("");
 					}
 				});
-				rootScene2.setCenter(producto);
+				BorderPane border = new BorderPane();
+				VBox t = new VBox(10);
+				Label a = new Label("Menu de Productos");
+				Label b =new Label("En este menu podrá agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido");
+				t.getChildren().add(a);
+				t.getChildren().add(b);
+				border.setCenter(producto);
+				border.setTop(t);
+			    b.setWrapText(true);
+			    b.setAlignment(Pos.CENTER);
+			    b.setStyle(" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
+			    t.setAlignment(Pos.CENTER);
+
+				BorderPane.setMargin(t, new Insets(50,20,20,20));
+				rootScene2.setCenter(border);
 				
 			}
 			
@@ -425,7 +439,21 @@ public class Gui extends Application {
 					}
 
 				});
-				rootScene2.setCenter(sede);
+				BorderPane border = new BorderPane();
+				VBox t = new VBox(10);
+				Label a = new Label("Menu de Sedes");
+				Label b =new Label("En este menu podrá registrar y eliminar sedes, así como consultar cuales sedes hay registradas y cual es la sede que mas ha vendido");
+				t.getChildren().add(a);
+				t.getChildren().add(b);
+				border.setCenter(sede);
+				border.setTop(t);
+			    b.setWrapText(true);
+			    b.setAlignment(Pos.CENTER);
+			    b.setStyle(" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
+			    t.setAlignment(Pos.CENTER);
+
+				BorderPane.setMargin(t, new Insets(50,20,20,20));
+				rootScene2.setCenter(border);
 				
 			}
 			
@@ -484,7 +512,6 @@ public class Gui extends Application {
 				Veh.setVgap(15);
 				Veh.setHgap(15);
 				Veh.setAlignment(Pos.CENTER);
-				rootScene2.setCenter(Veh);
 				registrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -537,6 +564,21 @@ public class Gui extends Application {
 					}
 					
 				});
+				BorderPane border = new BorderPane();
+				VBox t = new VBox(10);
+				Label c = new Label("Menu de Vehiculos");
+				Label b =new Label("En este menu podrá agregar y eliminar vehículos, así como consultar y modificar los vehiculos");
+				t.getChildren().add(c);
+				t.getChildren().add(b);
+				border.setCenter(Veh);
+				border.setTop(t);
+			    b.setWrapText(true);
+			    b.setAlignment(Pos.CENTER);
+			    b.setStyle(" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
+			    t.setAlignment(Pos.CENTER);
+
+				BorderPane.setMargin(t, new Insets(50,20,20,20));
+				rootScene2.setCenter(border);
 			}
 		});
 		
