@@ -38,7 +38,7 @@ public class Producto implements Serializable{
 	void setNombre(String i) {
 		this.nombre=i;
 	}
-	String getNombre() {
+	public String getNombre() {
 		return this.nombre;
 	}
 	void setDescripcion(String i) {

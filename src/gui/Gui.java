@@ -735,7 +735,7 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Producto mas vendido");
-						dialog.setHeaderText("El producto que mas se ha vendido es el ");
+						dialog.setHeaderText("El producto que mas se ha vendido es "+Producto.productoMayorVentas().getNombre());
 						dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString()));
 						dialog.show();
 						
@@ -746,9 +746,14 @@ public class Gui extends Application {
 				productoE.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
+						String s = "";
+						for(String a : Producto.verProductos()) {
+							s += a+"\n";
+						}
 						dialog.setAlertType(AlertType.INFORMATION);
 						dialog.setTitle("Productos en existencia");
-						dialog.setHeaderText("Aqui se muestran los productos en existencia");
+						dialog.setHeaderText("Los productos en existencia son los siguientes:");
+						dialog.setContentText(s);
 						dialog.show();
 						
 					}
