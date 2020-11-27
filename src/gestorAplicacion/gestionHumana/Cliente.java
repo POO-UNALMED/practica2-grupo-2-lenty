@@ -24,6 +24,7 @@ public class Cliente extends Persona implements Serializable {
         this.direccion = direccion;
         this.metPago = metPago;
         this.tarjeta = tarjeta;
+        clientes.add(this);
     }
 
     public Cliente(String direccion, String metPago, long tarjeta, long id, String nombre, String telefono) {

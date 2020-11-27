@@ -83,6 +83,8 @@ public class Gui extends Application {
 		MenuItem MenVeh=new MenuItem("Menu Vehiculos");
 		MenuItem MenSed=new MenuItem("Menu Sedes");
 		MenuItem acercaDe = new MenuItem("Acerca de");
+		MenuItem salirB = new MenuItem("Guardar y Salir");
+		archivo.getItems().add(salirB);
 		ayuda.getItems().add(acercaDe);
 		proYCon.getItems().addAll(MenUsu,MenOrd,MenPro,MenVeh,MenSed);
 		barraMenu2.getMenus().addAll(archivo,proYCon,ayuda);
@@ -98,7 +100,8 @@ public class Gui extends Application {
 				+ "de esto se encuentra el menu Procesos y Consultas, el cual despliega las opciones "
 				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones"
 
-				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro.");
+				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro."
+				+ "\nEn la pesta�a Lenty hay un boton para guardar y salir.");
 		ingreso1.setTextFill(Color.web("#19164a"));
 	    ingreso1.setPrefWidth(400);
 	    ingreso1.setWrapText(true);
@@ -107,6 +110,15 @@ public class Gui extends Application {
 		ingreso.setAlignment(Pos.CENTER);
 		rootScene2.setCenter(ingreso);
 
+		salirB.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Escritor.Escribir();
+				Platform.exit();
+			}
+
+		});
 
 		acercaDe.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -212,7 +224,7 @@ public class Gui extends Application {
 						menuClientes.setAlignment(Pos.CENTER);
 
 						Label regi = new Label("Registrar un Cliente");
-						Label docu = new Label("Documento");
+						Label docu = new Label("Documento (Long)");
 						TextField documento=new TextField();
 						Label nom = new Label("Nombre (String)=");
 						TextField nombre = new TextField();
@@ -250,22 +262,46 @@ public class Gui extends Application {
 							@Override
 							public void handle(MouseEvent arg0) {
 								try {
-									String documento1 = documento.getText();
+									Long documento1 = Long.parseLong(documento.getText());
 									String nombre1 = nombre.getText();
 									String telefono1 = telefono.getText();
 									String genero1 = genero.getText();
+									String direccion1=direccion.getText();
+									String metPag1="";
+									if(tarjeta.getText().equals("00000000000")) {
+										metPag1="efectivo";
+									}
+									else {
+										metPag1="tarjeta";
+									}
 									int tarjeta1 = Integer.parseInt(tarjeta.getText());
 									Alert confir = new Alert(AlertType.CONFIRMATION);
 									confir.setTitle("Confirmar registro cliente");
 									confir.setHeaderText("Se requiere confirmacion para crear el cliente o se descartara");
 									confir.setContentText("Esta seguro de que quiere registrar el cliente con documento= "
-											+ documento1+" nombre= " + nombre1+" telefono= "+telefono1+" genero= "+genero1);
-									documento.setText("");
-									nombre.setText("");
-									telefono.setText("");
-									genero.setText("");
-									tarjeta.setText("");
-									confir.show();
+											+ documento1+", direccion= "+direccion1+", nombre= " + nombre1+", telefono= "+telefono1+", genero= "+genero1
+											+", metodo de pago= "+metPag1);
+									Optional<ButtonType> result=confir.showAndWait();
+									if(result.get()==ButtonType.OK) {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("Registro cliente");
+										mens.setHeaderText("Se registro al cliente");
+										mens.show();
+										new Cliente(direccion1,metPag1,tarjeta1,documento1,nombre1,genero1,telefono1);
+										documento.setText("");
+										nombre.setText("");
+										telefono.setText("");
+										genero.setText("");
+										tarjeta.setText("");
+										direccion.setText("");
+									}
+									else {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("No se registro el cliente");
+										mens.setHeaderText("Se cancelo el registro del cliente");
+										mens.show();
+									}
+
 								}
 								catch(Exception e) {
 									Alert error=new Alert(AlertType.ERROR);
@@ -282,11 +318,47 @@ public class Gui extends Application {
 						// Consultar
 						Button consultar = new Button("Ver Clientes");
 						consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						consultar.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								String aux="";
+								for(int i=0;i<Cliente.getClientes().size();i++) {
+									aux+="\n Nombre= "+Cliente.getClientes().get(i).getNombre()+", ID= "+Cliente.getClientes().get(i).getId();
+								}
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Cliente registrados");
+								confir.setHeaderText("Nombre, ID de los clientes registrados");
+								confir.setContentText(aux);
+								confir.show();
+							}
+
+						});
 						gestionHumana.add(consultar, 1, 0);
 
 						// Cliente con mayores compras
 						Button mayoresCompras = new Button("Cliente que mas ha comprado");
 						mayoresCompras.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						mayoresCompras.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								try {
+									Alert confir = new Alert(AlertType.INFORMATION);
+									confir.setTitle("Cliente que mas ha comprado");
+									confir.setHeaderText("El cliente con mayores compras ha sido");
+									confir.setContentText("Nombre= "+Cliente.clienteMayorVentas().getNombre()+", Numero de compras= "+Cliente.clienteMayorVentas().getCantVentas());
+									confir.show();
+								}
+								catch(Exception a) {
+									Alert confir = new Alert(AlertType.ERROR);
+									confir.setTitle("Cliente que mas ha comprado");
+									confir.setHeaderText("No hay cliente con mayor ventas");
+									confir.show();
+								}
+							}
+
+						});
 						gestionHumana.add(mayoresCompras, 1, 1);
 
 						// Regresar
@@ -329,7 +401,7 @@ public class Gui extends Application {
 						menuRepartidores.setAlignment(Pos.CENTER);
 
 						Label regi = new Label("Registrar un Repartidor");
-						Label docu = new Label("Documento");
+						Label docu = new Label("Documento (Long)=");
 						TextField documento=new TextField();
 						Label nom = new Label("Nombre (String)=");
 						TextField nombre = new TextField();
@@ -349,7 +421,7 @@ public class Gui extends Application {
 							@Override
 							public void handle(MouseEvent arg0) {
 								try {
-									String documento1 = documento.getText();
+									long documento1=Long.parseLong(documento.getText());
 									String nombre1 = nombre.getText();
 									String telefono1 = telefono.getText();
 									String genero1 = genero.getText();
@@ -359,14 +431,28 @@ public class Gui extends Application {
 									confir.setTitle("Confirmar registro repartidor");
 									confir.setHeaderText("Se requiere confirmacion para crear el repartidor o se descartara");
 									confir.setContentText("Esta seguro de que quiere registrar el repartidor con documento= "
-											+ documento1+" nombre= " + nombre1+" telefono= "+telefono1+" genero= "+genero1+" salario= "+salario1);
-									documento.setText("");
-									nombre.setText("");
-									telefono.setText("");
-									genero.setText("");
-									entidad.setText("");
-									salario.setText("");
-									confir.show();
+											+ documento1+", nombre= " + nombre1+", telefono= "+telefono1+", genero= "+genero1+", salario= "+salario1);
+									Optional<ButtonType> result=confir.showAndWait();
+									if(result.get()==ButtonType.OK) {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("Registro repartidor");
+										mens.setHeaderText("Se registro al repartidor");
+										mens.show();
+										new Repartidor(entidad1,salario1,true,documento1,nombre1,genero1,telefono1);
+										documento.setText("");
+										nombre.setText("");
+										telefono.setText("");
+										genero.setText("");
+										entidad.setText("");
+										salario.setText("");
+									}
+									else {
+										Alert mens=new Alert(AlertType.INFORMATION);
+										mens.setTitle("No se registro el repartidor");
+										mens.setHeaderText("Se cancelo el registro del repartidor");
+										mens.show();
+									}
+
 								}
 								catch(Exception e) {
 									Alert error=new Alert(AlertType.ERROR);
@@ -383,11 +469,39 @@ public class Gui extends Application {
 						// Consultar
 						Button consultar = new Button("Ver Repartidores");
 						consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						consultar.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								String aux="";
+								for(int i=0;i<Repartidor.getRepartidores().size();i++) {
+									aux+="\n Nombre= "+Repartidor.getRepartidores().get(i).getNombre()+", ID= "+Repartidor.getRepartidores().get(i).getId();
+								}
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Repartidores registrados");
+								confir.setHeaderText("Nombre, ID de los repartidores registrados");
+								confir.setContentText(aux);
+								confir.show();
+							}
+
+						});
 						gestionHumana.add(consultar, 1, 0);
 
 						// Repartidor con mas pedidos
 						Button mayoresPedidos = new Button("Repartidor con mas pedidos");
 						mayoresPedidos.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						mayoresPedidos.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								Alert confir = new Alert(AlertType.INFORMATION);
+								confir.setTitle("Repartidor con mas pedidos");
+								confir.setHeaderText("El repartidor que mas pedidos ha realizado");
+								confir.setContentText("Nombre= "+Repartidor.repartidorMasPedidos().getNombre()+", Numero de pedidos= "+Repartidor.repartidorMasPedidos().getCantVentas());
+								confir.show();
+							}
+
+						});
 						gestionHumana.add(mayoresPedidos, 1, 1);
 
 						// Regresar
@@ -438,21 +552,27 @@ public class Gui extends Application {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-			GridPane Orden=new GridPane();
-			Orden.setAlignment(Pos.CENTER);
+			GridPane Orden1=new GridPane();
+			Orden1.setAlignment(Pos.CENTER);
 			//Crear Orden
 			ArrayList<String> pruebaClientes=new ArrayList<>();
-			pruebaClientes.add("Manuel");
-			ArrayList<String> pruebaSedes=new ArrayList<>();
-			pruebaSedes.add("Cra38#35");
-			ArrayList<String> pruebaRepartidores=new ArrayList<>();
-			pruebaRepartidores.add("Francisco");
-			ArrayList<String> pruebaProductos=new ArrayList<>();
-			pruebaProductos.add("Hamburguesa");
-			ArrayList<Integer> pruebaCantidad=new ArrayList<>();
-			for(int i=0;i<5;i++) {
-				pruebaCantidad.add(i);
+			for(int i=0;i<Cliente.getClientes().size();i++) {
+				pruebaClientes.add(Cliente.getClientes().get(i).getNombre());
 			}
+			ArrayList<String> pruebaSedes=new ArrayList<>();
+			for(int i=0;i<Sede.getSede().size();i++) {
+				pruebaSedes.add(Sede.getSede().get(i).getDireccion());
+			}
+			ArrayList<String> pruebaRepartidores=new ArrayList<>();
+			for(int i=0;i<Repartidor.getRepartidores().size();i++) {
+				pruebaRepartidores.add(Repartidor.getRepartidores().get(i).getNombre());
+			}
+			ArrayList<String> pruebaProductos=new ArrayList<>();
+			for(int i=0;i<Producto.getProductos().size();i++) {
+				pruebaProductos.add(Producto.getProductos().get(i).getNombre());
+			}
+
+
 			Label lbOr1=new Label("Crear Orden");
 			ComboBox<String> eliCli=new ComboBox<String>(FXCollections.observableArrayList(pruebaClientes));
 			eliCli.setPromptText("Seleccione un Cliente");
@@ -487,10 +607,10 @@ public class Gui extends Application {
 				}
 
 			});
-			ComboBox<String> eliPro=new ComboBox<String>(FXCollections.observableArrayList(pruebaProductos));
-			eliPro.setPromptText("Seleccione el Producto");
+			ComboBox<String> eligPro=new ComboBox<String>(FXCollections.observableArrayList(pruebaProductos));
+			eligPro.setPromptText("Seleccione el Producto");
 			TextField producto=new TextField();
-			eliPro.valueProperty().addListener(new ChangeListener<String>(){
+			eligPro.valueProperty().addListener(new ChangeListener<String>(){
 
 				@Override
 				public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -498,15 +618,17 @@ public class Gui extends Application {
 				}
 
 			});
-			ComboBox<Integer> eliCan=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaCantidad));
-			eliCan.setPromptText("Seleccione La cantidad del producto");
-			TextField cantidad=new TextField();
-			eliCan.valueProperty().addListener(new ChangeListener<Integer>(){
+			ArrayList<Producto> listaAux =new ArrayList<>();
+			Button agregar=new Button("agregar");
+			agregar.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
-				public void changed(ObservableValue<? extends Integer> arg0, Integer arg1, Integer arg2) {
-					// TODO Auto-generated method stub
-					cantidad.setText(String.valueOf(arg2));
+				public void handle(ActionEvent arg0) {
+					for(int i=0;i<Producto.getProductos().size();i++) {
+						if(producto.getText().equals(Producto.getProductos().get(i).getNombre())) {
+							listaAux.add(Producto.getProductos().get(i));
+						}
+					}
 				}
 
 			});
@@ -518,18 +640,63 @@ public class Gui extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					try{
-						String cliente1=cliente.getText();
-						String sede1=sede.getText();
-						String repartidor1=repartidor.getText();
-						String producto1=producto.getText();
-						int cantidad1=Integer.parseInt(cantidad.getText());
+						String prod1="";
+						Cliente cliente1=null;
+						for(int i=0; i<Cliente.getClientes().size();i++) {
+							if(Cliente.getClientes().get(i).getNombre().equals(cliente.getText()));
+							cliente1=Cliente.getClientes().get(i);
+						}
+						Sede sede1 = null;
+						for(int i=0;i<Sede.getSede().size();i++) {
+							if(Sede.getSede().get(i).getDireccion().equals(sede.getText())) {
+								sede1=Sede.getSede().get(i);
+							}
+						}
+						Repartidor repartidor1 = null;
+						for(int i=0;i<Repartidor.getRepartidores().size();i++) {
+							if(Repartidor.getRepartidores().get(i).getNombre().equals(repartidor.getText())) {
+								repartidor1=Repartidor.getRepartidores().get(i);
+							}
+						}
+						int valor = 0;
+						ArrayList<Producto> productos=listaAux;
+						for (int i = 0; i<productos.size();i++) {
+							valor+= productos.get(i).getPrecio();
+						}
+						for(int i=0;i<productos.size();i++) {
+							prod1+=productos.get(i).getNombre()+", ";
+						}
+						float peso1=Float.parseFloat(peso.getText());
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.CONFIRMATION);
 						dialog.setTitle("Creacion Orden");
-						dialog.setHeaderText("Se requiere confimacion para crear la orden para el Cliente "+cliente1
-								+" en la Sede "+sede1+" que se enviara con el Repartidor "+repartidor1+" y los productos "
-								+producto1+" y la cantidad "+cantidad1);
-						dialog.show();
+						dialog.setHeaderText("Se requiere confimacion para crear la orden para el Cliente "+cliente1.getNombre()
+								+"\nen la Sede "+sede1.getDireccion()+" que se enviara con el Repartidor "+repartidor1.getNombre()+" con peso de "+peso1
+								+"\ncon los productos "+prod1);
+						Optional<ButtonType> result=dialog.showAndWait();
+						if(result.get()==ButtonType.OK) {
+							Alert mens=new Alert(AlertType.INFORMATION);
+							mens.setTitle("Creacion de la Orden");
+							mens.setHeaderText("Se creo la Orden");
+							mens.show();
+							new Orden(cliente1,sede1,repartidor1,valor,productos,peso1,"Aceptada");
+							eliCli.setValue("Seleccione un Cliente");
+							eliSede.setValue("Seleccion la sede");
+							eliRep.setValue("Seleccione el repartidor");
+							eligPro.setValue("Seleccione el Producto");
+							cliente.setText("");
+							sede.setText("");
+							repartidor.setText("");
+							producto.setText("");
+							peso.setText("");
+							listaAux.clear();
+						}
+						else {
+							Alert mens=new Alert(AlertType.INFORMATION);
+							mens.setTitle("No se creo la Orden");
+							mens.setHeaderText("Se cancelo la creacion de la Orden");
+							mens.show();
+						}
 					}
 					catch(Exception e) {
 						Alert error=new Alert(AlertType.ERROR);
@@ -541,8 +708,8 @@ public class Gui extends Application {
 				}
 
 			});
-			VBox CreOrden=new VBox(lbOr1,eliCli,cliente,eliSede,sede,eliRep,repartidor,eliPro,producto,eliCan,cantidad,pso,peso,crear);
-			Orden.add(CreOrden, 0, 0);
+			VBox CreOrden=new VBox(lbOr1,eliCli,cliente,eliSede,sede,eliRep,repartidor,eligPro,producto,agregar,pso,peso,crear);
+			Orden1.add(CreOrden, 0, 0);
 			//Ver ordenes activas
 			Button ordenesAct=new Button("Ver ordenes activas");
 			ordenesAct.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -552,24 +719,31 @@ public class Gui extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					Alert dialog = new Alert(AlertType.NONE);
+					String aux7="";
+					for(int i=0;i<Orden.getOrdenes().size();i++) {
+						if(Orden.getOrdenes().get(i).getEstado().equals("Aceptada") || Orden.getOrdenes().get(i).getEstado().equals("Activa") ) {
+							aux7+="\nId de orden : "+Orden.getOrdenes().get(i).getId()+", cliente : "+Orden.getOrdenes().get(i).getCliente().getNombre()+" ";
+						}
+					}
 					dialog.setAlertType(AlertType.INFORMATION);
 					dialog.setTitle("Ordenes Activas");
-					dialog.setHeaderText("Mostrar el ID de las Activas");
+					dialog.setHeaderText("ID de la orden, Cliente de la orden");
+					dialog.setContentText(aux7);
 					dialog.show();
 				}
 
 			});
-			Orden.add(ordenesAct, 1, 0);
-			Orden.setVgap(5);
-			Orden.setHgap(5);
+			Orden1.add(ordenesAct, 1, 0);
+			Orden1.setVgap(5);
+			Orden1.setHgap(5);
 			//Eliminar Orden
-			ArrayList<Integer> pruebaEliminar=new ArrayList<>();
-			for(int i=0;i<5;i++) {
-				pruebaEliminar.add(i);
-			}
+
 			Label eliminarOrden=new Label("Eliminar Orden");
-			ComboBox<Integer> eliAEli=new ComboBox<Integer>(FXCollections.observableArrayList(pruebaEliminar));
-			eliPro.setPromptText("ID de Orden a Eliminar");
+			ComboBox<Integer> eliAEli=new ComboBox<Integer>();
+			for(int i=0;i<Orden.getOrdenes().size();i++) {
+				eliAEli.getItems().add(Orden.getOrdenes().get(i).getId());
+			}
+			eliAEli.setPromptText("ID de Orden a Eliminar");
 			TextField eliminacion=new TextField();
 			eliAEli.valueProperty().addListener(new ChangeListener<Integer>(){
 				@Override
@@ -585,29 +759,36 @@ public class Gui extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					try {
-						int aux=Integer.parseInt(eliminacion.getText());
+						String id = eliminacion.getText();
+						int aux = eliAEli.getSelectionModel().getSelectedIndex();
 						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.CONFIRMATION);
-						dialog.setTitle("Confirmar eliminacion");
-						dialog.setHeaderText("�Esta seguro de eliminar la orden con el ID "+aux+"?");
+						dialog.setAlertType(AlertType.INFORMATION);
+						dialog.setTitle("Orden eliminada");
+						dialog.setHeaderText("Se elimino la orden correctamente");
+						dialog.setContentText("ID de la orden eliminada: "+(id));
 						dialog.show();
+
+						Orden.getOrdenes().remove(aux);
+						eliAEli.getItems().clear();
+						for(int i=0;i<Orden.getOrdenes().size();i++) {
+							eliAEli.getItems().add(Orden.getOrdenes().get(i).getId());
+						}
+						eliminacion.setText("");
 					}
 					catch(Exception e) {
 						Alert error=new Alert(AlertType.ERROR);
 						error.setTitle("ERROR");
-						error.setTitle("No se eliminar la Orden");
-						error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+						error.setTitle("No se eliminara la Orden");
+						error.setContentText("Verifique que el indice pertenezca a una orden");
 						error.show();
 					}
 				}
 
 			});
 			VBox El=new VBox(eliminarOrden,eliAEli,eliminacion,eliminar);
-			Orden.add(El, 0, 1);
+			Orden1.add(El, 0, 1);
 			//Modificar Orden
-			Button modificar=new Button("Modificar Orden");
-			modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-			Orden.add(modificar, 1, 1);
+
 
 
 			BorderPane border = new BorderPane();
@@ -616,7 +797,7 @@ public class Gui extends Application {
 			Label b =new Label("En este menu puede crear y eliminar ordenes, asi como consultar las ordenes activas");
 			t.getChildren().add(a);
 			t.getChildren().add(b);
-			border.setCenter(Orden);
+			border.setCenter(Orden1);
 			border.setTop(t);
 		    b.setWrapText(true);
 		    b.setAlignment(Pos.CENTER);
@@ -686,29 +867,36 @@ public class Gui extends Application {
 						String productoAEliminar = t1;
 						int indice = eliminar.getSelectionModel().getSelectedIndex();
 						Alert dialog = new Alert(AlertType.NONE);
+
 						eliminarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle(MouseEvent event) {
-								if(productoAEliminar == "Productos") {
-									dialog.setAlertType(AlertType.ERROR);
-									dialog.setTitle("Eliminar producto");
-									dialog.setHeaderText("No se selecciono ningun producto");
-									dialog.setContentText("Por favor seleccione uno");
-									dialog.show();
-								}
-								else {
-									dialog.setAlertType(AlertType.INFORMATION);
-									dialog.setTitle("Eliminar producto");
-									dialog.setHeaderText("Se elimino el producto con exito");
-									dialog.setContentText("El producto "+productoAEliminar+" se elimino");
-									dialog.show();
-									Producto.getProductos().remove(indice);
-									eliminar.getItems().clear();
-									LinkedList<String> productos = Producto.verProductos();
-									for (int i = 0; i<productos.size();i++) {
-										eliminar.getItems().add(productos.get(i));
+
+									if(productoAEliminar == "Productos") {
+										dialog.setAlertType(AlertType.ERROR);
+										dialog.setTitle("Eliminar producto");
+										dialog.setHeaderText("No se selecciono ningun producto");
+										dialog.setContentText("Por favor seleccione uno");
+										dialog.show();
 									}
-									eliminar.setValue("Productos");
-								}
+									else {
+
+										dialog.setAlertType(AlertType.INFORMATION);
+										dialog.setTitle("Eliminar producto");
+										dialog.setHeaderText("Se elimino el producto con exito");
+										dialog.setContentText("El producto "+productoAEliminar+" se elimino");
+										dialog.show();
+										Producto.getProductos().remove(indice);
+										eliminar.getItems().clear();
+										LinkedList<String> productos = Producto.verProductos();
+										for (int i = 0; i<productos.size();i++) {
+											eliminar.getItems().add(productos.get(i));
+										}
+										eliminar.setValue("Productos");
+									}
+
+
+
+
 							}
 
 						});
@@ -734,30 +922,47 @@ public class Gui extends Application {
 
 				productoV.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
-						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Producto mas vendido");
-						dialog.setHeaderText("El producto que mas se ha vendido es "+Producto.productoMayorVentas().getNombre());
-						dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString())+"\nSe ha vendido "+Producto.productoMayorVentas().getCantVentas()+" veces");
-						dialog.show();
-
+						try {
+							Alert dialog = new Alert(AlertType.NONE);
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Producto mas vendido");
+							dialog.setHeaderText("El producto que mas se ha vendido es "+Producto.productoMayorVentas().getNombre());
+							dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString())+"\nSe ha vendido "+Producto.productoMayorVentas().getCantVentas()+" veces");
+							dialog.show();
+						}
+						catch(Exception a) {
+							Alert dialog = new Alert(AlertType.NONE);
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Producto mas vendido");
+							dialog.setHeaderText("No hay un producto mas vendido");
+							dialog.show();
+						}
 					}
 
 				});
 
 				productoE.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
-						Alert dialog = new Alert(AlertType.NONE);
-						String s = "";
-						for(String a : Producto.verProductos()) {
-							s += a+"\n";
+						if(Producto.getProductos().size() != 0) {
+							Alert dialog = new Alert(AlertType.NONE);
+							String s = "";
+							for(String a : Producto.verProductos()) {
+								s += a+"\n";
+							}
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Productos en existencia");
+							dialog.setHeaderText("Los productos en existencia son los siguientes:");
+							dialog.setContentText(s);
+							dialog.show();
 						}
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Productos en existencia");
-						dialog.setHeaderText("Los productos en existencia son los siguientes:");
-						dialog.setContentText(s);
-						dialog.show();
+						else {
+							Alert dialog = new Alert(AlertType.NONE);
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Productos en existencia");
+							dialog.setHeaderText("No hay productos en existencia");
+							dialog.show();
 
+						}
 					}
 
 				});
@@ -904,19 +1109,28 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						eliminarBS.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle(MouseEvent event) {
-								dialog.setAlertType(AlertType.INFORMATION);
-								dialog.setTitle("Eliminar sede");
-								dialog.setHeaderText("Se elimino la sede con exito");
-								dialog.setContentText("La sede ubicada en "+sede+" se elimino");
-								dialog.show();
-								Sede.getSede().remove(indice);
-								eliminarS.getItems().clear();
-								LinkedList<Sede> sedes = Sede.consultarSedes();
-								for (Sede s: sedes) {
-									eliminarS.getItems().add(s.toString());
-								}
+								try {
+									dialog.setAlertType(AlertType.INFORMATION);
+									dialog.setTitle("Eliminar sede");
+									dialog.setHeaderText("Se elimino la sede con exito");
+									dialog.setContentText("La sede ubicada en "+sede+" se elimino");
+									dialog.show();
+									Sede.getSede().remove(indice);
+									eliminarS.getItems().clear();
+									LinkedList<Sede> sedes = Sede.consultarSedes();
+									for (Sede s: sedes) {
+										eliminarS.getItems().add(s.toString());
+									}
 
-								eliminarS.setValue("Sedes");
+									eliminarS.setValue("Sedes");
+								}
+								catch(Exception a) {
+									dialog.setAlertType(AlertType.ERROR);
+									dialog.setTitle("Eliminar sede");
+									dialog.setHeaderText("No selecciono una sede");
+									dialog.setContentText("Seleccione una sede");
+									dialog.show();
+								}
 							}
 
 						});
@@ -951,22 +1165,31 @@ public class Gui extends Application {
 							dialog.show();
 						}
 						else {
-							dialog.setAlertType(AlertType.INFORMATION);
-							dialog.setTitle("Registrar sede");
-							dialog.setHeaderText("Se registro la sede con exito");
-							dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
-							dialog.show();
+							try {
+								dialog.setAlertType(AlertType.INFORMATION);
+								dialog.setTitle("Registrar sede");
+								dialog.setHeaderText("Se registro la sede con exito");
+								dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+								dialog.show();
 
-							Sede sede = new Sede(direccionS, Integer.parseInt(telefonoS));
-							Sede.adicionarSede(sede);
-							eliminarS.getItems().clear();
-							LinkedList<Sede> sedes = Sede.consultarSedes();
-							for (Sede s: sedes) {
-								eliminarS.getItems().add(s.toString());
+								Sede sede = new Sede(direccionS, Integer.parseInt(telefonoS));
+								Sede.adicionarSede(sede);
+								eliminarS.getItems().clear();
+								LinkedList<Sede> sedes = Sede.consultarSedes();
+								for (Sede s: sedes) {
+									eliminarS.getItems().add(s.toString());
+								}
+
+								direccion.setText("");
+								telefono.setText("");
 							}
-
-							direccion.setText("");
-							telefono.setText("");
+							catch(Exception a) {
+								dialog.setAlertType(AlertType.ERROR);
+								dialog.setTitle("Registrar sede");
+								dialog.setHeaderText("El telefono debe ser un numero");
+								dialog.setContentText("Por favor ingrese un numero");
+								dialog.show();
+							}
 						}
 					}
 				});
@@ -974,12 +1197,19 @@ public class Gui extends Application {
 				sedeV.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Sede con mas ventas");
-						dialog.setHeaderText("La sede que mas ventas ha realizado es:");
-						dialog.setContentText(Sede.sedeMayorVentas().toString()+" \nVentas: "+ Sede.sedeMayorVentas().getCantVentas());
-						dialog.show();
-
+						try {
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Sede con mas ventas");
+							dialog.setHeaderText("La sede que mas ventas ha realizado es:");
+							dialog.setContentText(Sede.sedeMayorVentas().toString()+" \nVentas: "+ Sede.sedeMayorVentas().getCantVentas());
+							dialog.show();
+						}
+						catch(Exception a) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Sede con mas ventas");
+							dialog.setHeaderText("No hay una sede con mayor ventas");
+							dialog.show();
+						}
 					}
 
 				});
@@ -987,7 +1217,6 @@ public class Gui extends Application {
 				consulta.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
-						System.out.println(Sede.getSede().size());
 						if(Sede.getSede().size() == 0){
 							dialog.setAlertType(AlertType.ERROR);
 							dialog.setTitle("Sedes registradas");
@@ -1098,10 +1327,6 @@ public class Gui extends Application {
 					}
 
 				});
-				//Modificar
-				Button modificar=new Button("Modificar Vehiculo");
-				Veh.add(modificar, 1, 1);
-				modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				Veh.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				Veh.setVgap(15);
 				Veh.setHgap(15);
@@ -1204,7 +1429,7 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label c = new Label("Menu de Vehiculos");
-				Label b =new Label("En este menu podra agregar y eliminar vehiculos, asi como consultar y modificar los vehiculos");
+				Label b =new Label("En este menu podra agregar y eliminar vehiculos, asi como consultar los vehiculos registrados");
 				t.getChildren().add(c);
 				t.getChildren().add(b);
 				border.setCenter(Veh);
@@ -1588,6 +1813,51 @@ public class Gui extends Application {
 			if(control instanceof Menu) {
 				System.out.println("Imprimir los nombres de los creadores en una ventana emergente");
 			}
+		}
+	}
+	public class FieldPanel extends Pane {
+
+		String tituloCriterios;
+		ArrayList<String> criterios;
+		String tituloValores;
+		ArrayList<String> valoresIniciales;
+		ArrayList<Boolean> habilitado;
+		GridPane definitivo;
+		public FieldPanel(String tituloCriterios, ArrayList<String> criterios, String tituloValores, ArrayList<String> valores, ArrayList<Boolean> habilitado) {
+			this.tituloCriterios=tituloCriterios;
+			this.criterios=criterios;
+			this.tituloCriterios=tituloCriterios;
+			this.valoresIniciales=valores;
+			this.habilitado=habilitado;
+			GridPane aux=new GridPane();
+			aux.add(new Label(tituloCriterios), 0, 0);
+			for(int i=1;i<=this.criterios.size();i++) {
+				aux.add(new Label(this.criterios.get(i-1)), i, 0);
+				TextField aux1=new TextField();
+				aux1.setText(this.valoresIniciales.get(i-1));
+				if(habilitado.get(i-1)==true) {
+					aux1.setEditable(habilitado.get(i-1));
+				}
+				else {
+					aux1.setEditable(false);
+				}
+			}
+			this.definitivo=aux;
+		}
+		public String getTituloCriterios() {
+			return this.tituloCriterios;
+		}
+		public ArrayList<String> getCriterios(){
+			return this.criterios;
+		}
+		public String getTituloValores() {
+			return this.tituloValores;
+		}
+		public ArrayList<String> getValoresIniciales(){
+			return this.valoresIniciales;
+		}
+		public ArrayList<Boolean> getHabilitado(){
+			return this.habilitado;
 		}
 	}
 
