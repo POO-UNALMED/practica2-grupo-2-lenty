@@ -643,8 +643,9 @@ public class Gui extends Application {
 						String prod1="";
 						Cliente cliente1=null;
 						for(int i=0; i<Cliente.getClientes().size();i++) {
-							if(Cliente.getClientes().get(i).getNombre().equals(cliente.getText()));
-							cliente1=Cliente.getClientes().get(i);
+							if(Cliente.getClientes().get(i).getNombre().equals(cliente.getText())) {
+								cliente1=Cliente.getClientes().get(i);
+							}
 						}
 						Sede sede1 = null;
 						for(int i=0;i<Sede.getSede().size();i++) {
