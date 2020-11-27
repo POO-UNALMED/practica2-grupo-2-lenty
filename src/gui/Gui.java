@@ -100,7 +100,6 @@ public class Gui extends Application {
 		rootScene2.setCenter(ingreso);
 		
 		
-		AyudaHandler ayuda1=new AyudaHandler();
 		acercaDe.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
