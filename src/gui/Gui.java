@@ -125,6 +125,9 @@ public class Gui extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				
+				Label a = new Label("Gestion Humana");
+				Label b = new Label("En este menu podras seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
+				
 				// Pane de Gestion Humana
 				GridPane gestionHumana = new GridPane();
 				gestionHumana.setPadding(new Insets(10,10,10,10));
@@ -187,7 +190,117 @@ public class Gui extends Application {
 				btnClientes.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event){
-						System.out.println("Clientes");
+						gestionHumana.getChildren().remove(clientes);
+						gestionHumana.getChildren().remove(repartidores);
+						
+						a.setText("Menu de Clientes");
+						b.setText("En este menu podras visualizar el listado de clientes, consultar el cliente que mas productos ha comprado y agregar nuevos clientes");
+						
+						//Pane de Clientes
+						GridPane menuClientes = new GridPane();
+						menuClientes.setPadding(new Insets(10,10,10,10));
+						menuClientes.setVgap(5);
+						menuClientes.setHgap(5);
+						menuClientes.setAlignment(Pos.CENTER);
+						
+						Label regi = new Label("Registrar un Cliente");
+						Label docu = new Label("Documento");
+						TextField documento=new TextField();
+						Label nom = new Label("Nombre (String)=");
+						TextField nombre = new TextField();
+						Label tel = new Label("Telefono (String)=");
+						TextField telefono = new TextField();
+						Label gen = new Label("Genero (M/F)=");
+						TextField genero = new TextField();
+						Label dir = new Label("Direccion (Sin espacios)=");
+						TextField direccion = new TextField();
+						Label metodo = new Label("Metodo de pago");
+						Label tarj = new Label("Numero de tarjeta (Sin espacios)=");
+						TextField tarjeta = new TextField();
+						
+						ChoiceBox<String> cb = new ChoiceBox<String>(FXCollections.observableArrayList(
+							    "Efectivo", "Tarjeta")
+						);
+						cb.setTooltip(new Tooltip("Selecciona un metodo de pago"));
+						
+						VBox RegClie = new VBox(regi,docu,documento,nom,nombre,tel,telefono,gen,genero,dir,direccion,metodo,cb);
+						
+						cb.getSelectionModel().selectedIndexProperty().addListener(
+						         (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+						            if(new_val.intValue() == 0) {
+						            	tarjeta.setText("00000000000");
+						            	RegClie.getChildren().remove(tarj);
+						            	RegClie.getChildren().remove(tarjeta);
+						            } else {
+						            	RegClie.getChildren().add(13,tarj);
+						            	RegClie.getChildren().add(14,tarjeta);
+						            };
+						      });
+						Button registrar = new Button("Registrar");
+						registrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+							@Override
+							public void handle(MouseEvent arg0) {
+								try {
+									String documento1 = documento.getText();
+									String nombre1 = nombre.getText();
+									String telefono1 = telefono.getText();
+									String genero1 = genero.getText();
+									int tarjeta1 = Integer.parseInt(tarjeta.getText());
+									Alert confir = new Alert(AlertType.CONFIRMATION);
+									confir.setTitle("Confirmar registro cliente");
+									confir.setHeaderText("Se requiere confirmacion para crear el cliente o se descartara");
+									confir.setContentText("Esta seguro de que quiere registrar el cliente con documento= "
+											+ documento1+" nombre= " + nombre1+" telefono= "+telefono1+" genero= "+genero1);
+									documento.setText("");
+									nombre.setText("");
+									telefono.setText("");
+									genero.setText("");
+									tarjeta.setText("");
+									confir.show();
+								}
+								catch(Exception e) {
+									Alert error=new Alert(AlertType.ERROR);
+									error.setTitle("ERROR");
+									error.setTitle("No se pudo registrar cliente");
+									error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+									error.show();
+								}
+							}
+							
+						});
+						RegClie.getChildren().add(registrar);
+						
+						// Consultar
+						Button consultar = new Button("Ver Clientes");
+						consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						gestionHumana.add(consultar, 1, 0);
+						
+						// Cliente con mayores compras
+						Button mayoresCompras = new Button("Cliente que mas ha comprado");
+						mayoresCompras.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						gestionHumana.add(mayoresCompras, 1, 1);
+						
+						// Regresar
+						Button regresar = new Button("Regresar");
+						regresar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						gestionHumana.add(regresar, 0, 1);
+						regresar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+							@Override
+							public void handle(MouseEvent arg0) {
+								gestionHumana.getChildren().remove(consultar);
+								gestionHumana.getChildren().remove(mayoresCompras);
+								gestionHumana.getChildren().remove(regresar);
+								gestionHumana.getChildren().remove(RegClie);
+								a.setText("Gestion Humana");
+								b.setText("En este menu podras seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
+								gestionHumana.add(clientes, 0, 0);
+								gestionHumana.add(repartidores, 1, 0);
+							}
+						});
+						
+						gestionHumana.add(RegClie, 0, 0);
 					}
 				});
 				
@@ -204,8 +317,6 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				
 				VBox t = new VBox(10);
-				Label a = new Label("Gestion Humana");
-				Label b =new Label("En este menu podras seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(gestionHumana);
