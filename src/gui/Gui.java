@@ -2,8 +2,8 @@ package gui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
+import gestorAplicacion.orden.Producto;
 import javafx.application.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +22,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.*;
 
+import baseDatos.Escritor;
+import baseDatos.Lector;
+import gestorAplicacion.gestionHumana.*;
+import gestorAplicacion.orden.*;
+import gestorAplicacion.sede.*;
+import gestorAplicacion.vehiculo.*;
 
 
 
@@ -43,6 +50,7 @@ public class Gui extends Application {
 	
 
 	public static void main(String[] args) {
+		Lector.Leer();
 		launch(args);
 	}
 	
@@ -420,7 +428,7 @@ public class Gui extends Application {
 				
 				agregar.add(new Label("Agregar Producto"), 0, 0);
 				agregar.add(new Label("Nombre"), 0, 1);
-				agregar.add(new Label("Descripcion (Opcional)"), 0, 2);
+				agregar.add(new Label("Descripcion"), 0, 2);
 				agregar.add(new Label("Precio"), 0, 3);
 				TextField nombreP = new TextField();
 				TextField descripcionP = new TextField();
@@ -443,23 +451,41 @@ public class Gui extends Application {
 				eliminarB.setMinSize(100, 0);
 				eliminarG.add(eliminarB, 0, 14);
 				ComboBox<String> eliminar = new ComboBox<String>();
-				String opciones[] = {"Perro", "hamburguesa"};
-				eliminar.getItems().addAll(opciones);
+				LinkedList<String> productos = Producto.verProductos();
+				for (int i = 0; i<productos.size();i++) {
+					eliminar.getItems().add(productos.get(i));
+				}
+				
 				eliminar.setPromptText("Productos");
 				eliminar.valueProperty().addListener(new ChangeListener<String>(){
 					
 					public void changed(ObservableValue ov, String t, String t1) {
 						String productoAEliminar = t1;
+						int indice = eliminar.getSelectionModel().getSelectedIndex();
 						Alert dialog = new Alert(AlertType.NONE);
 						eliminarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle(MouseEvent event) {
-								dialog.setAlertType(AlertType.INFORMATION);
-								dialog.setTitle("Eliminar producto");
-								dialog.setHeaderText("Se elimino el producto con exito");
-								dialog.setContentText("El producto "+productoAEliminar+" se elimino");
-								dialog.show();
-								
-								eliminar.setValue("Productos");
+								if(productoAEliminar == "Productos") {
+									dialog.setAlertType(AlertType.ERROR);
+									dialog.setTitle("Eliminar producto");
+									dialog.setHeaderText("No se selecciono ningun producto");
+									dialog.setContentText("Por favor seleccione uno");
+									dialog.show();
+								}
+								else {
+									dialog.setAlertType(AlertType.INFORMATION);
+									dialog.setTitle("Eliminar producto");
+									dialog.setHeaderText("Se elimino el producto con exito");
+									dialog.setContentText("El producto "+productoAEliminar+" se elimino");
+									dialog.show();
+									Producto.getProductos().remove(indice);
+									eliminar.getItems().clear();
+									LinkedList<String> productos = Producto.verProductos();
+									for (int i = 0; i<productos.size();i++) {
+										eliminar.getItems().add(productos.get(i));
+									}
+									eliminar.setValue("Productos");
+								}
 							}
 
 						});
@@ -528,6 +554,23 @@ public class Gui extends Application {
 							dialog.setContentText("Por favor ingrese un precio");
 							dialog.show();
 						}
+						else if(descripcion.isEmpty()){
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Agregar Producto");
+							dialog.setHeaderText("Se agrego el producto con exito");
+							dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
+							dialog.show();
+							
+							Producto.agregarProducto(nombre, "", Integer.parseInt(precio));
+							eliminar.getItems().clear();
+							LinkedList<String> productos = Producto.verProductos();
+							for (int i = 0; i<productos.size();i++) {
+								eliminar.getItems().add(productos.get(i));
+							}
+							nombreP.setText("");
+							descripcionP.setText("");
+							precioP.setText("");
+						}
 						else {
 							dialog.setAlertType(AlertType.INFORMATION);
 							dialog.setTitle("Agregar Producto");
@@ -535,6 +578,15 @@ public class Gui extends Application {
 							dialog.setContentText("El producto "+nombre+" se guardo con el precio "+precio);
 							dialog.show();
 							
+							Producto.agregarProducto(nombre, descripcion, Integer.parseInt(precio));
+							
+							
+
+							eliminar.getItems().clear();
+							LinkedList<String> productos = Producto.verProductos();
+							for (int i = 0; i<productos.size();i++) {
+								eliminar.getItems().add(productos.get(i));
+							}
 							nombreP.setText("");
 							descripcionP.setText("");
 							precioP.setText("");
@@ -544,7 +596,8 @@ public class Gui extends Application {
 				BorderPane border = new BorderPane();
 				VBox t = new VBox(10);
 				Label a = new Label("Menu de Productos");
-				Label b =new Label("En este menu puede agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido");
+				Label b =new Label("En este menu puede agregar, eliminar o consultar tanto los productos en inventario como el producto mas vendido\n"
+						+ "La descripcion es opcional.");
 				t.getChildren().add(a);
 				t.getChildren().add(b);
 				border.setCenter(producto);

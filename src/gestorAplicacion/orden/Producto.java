@@ -57,17 +57,22 @@ public class Producto implements Serializable{
 
 	public static void agregarProducto(String nom,String des,long pre) {
 		Producto p = (new Producto(nom, des, pre));
-		System.out.println("\nProducto creado con exito.");
 	}
-	public static void verProductos() {
+	public static LinkedList<String> verProductos() {
+		LinkedList<String> prod = new LinkedList();
 		for (int i = 0; i<productos.size();i++) {
-			System.out.println("\nProducto "+ (i));
-			System.out.println(productos.get(i));
+			prod.add(productos.get(i).toString());
 		}
+		return prod;
 	}
 
 	public String toString() {
-		return "Nombre: "+this.nombre+", descripcion: " + this.descripcion + ", precio: " + this.precio + ", Se ha vendido " + this.cantVentas + " veces";
+		if (this.descripcion == "") {
+			return "Nombre: "+this.nombre+ ", precio: " + this.precio;
+		}
+		else {
+			return "Nombre: "+this.nombre+", descripcion: " + this.descripcion + ", precio: " + this.precio;
+		}
 	}
 	public static void adicionarProducto(Producto p) {
 		productos.add(p);
