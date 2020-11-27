@@ -83,11 +83,11 @@ public class Gui extends Application {
 		BorderPane rootScene2 = new BorderPane();
 		rootScene2.setTop(barraMenu2);
 		VBox ingreso=new VBox();
-		Label ingreso1=new Label("Bienvenido a Lenty, aplicacion para la gestion eficaz de"
-				+ "envios, arriba de la ventana vera dos menus, en Ayuda podra ver los desarrolladores"
+		Label ingreso1=new Label("Bienvenido a Lenty, aplicacion para la gestion eficaz de "
+				+ "envios, arriba de la ventana vera dos menus, en Ayuda podra ver los desarrolladores "
 				+ "de esta aplicacion por si cuenta con alguna dida al respecto, al lado izquierdo "
-				+ "de esto se encuentra el menu Procesos y Consultas, el cual despliega las opciones"
-				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones"
+				+ "de esto se encuentra el menu Procesos y Consultas, el cual despliega las opciones "
+				+ "necesarias para poder despachar ordenes de manera efectiva, en cada uno de esas opciones "
 				+ "se encontrara una breve descripcion de las acciones que podra realizar dentro.");
 		ingreso1.setTextFill(Color.web("#19164a"));
 	    ingreso1.setPrefWidth(400);
