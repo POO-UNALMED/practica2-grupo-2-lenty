@@ -686,29 +686,36 @@ public class Gui extends Application {
 						String productoAEliminar = t1;
 						int indice = eliminar.getSelectionModel().getSelectedIndex();
 						Alert dialog = new Alert(AlertType.NONE);
+
 						eliminarB.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle(MouseEvent event) {
-								if(productoAEliminar == "Productos") {
-									dialog.setAlertType(AlertType.ERROR);
-									dialog.setTitle("Eliminar producto");
-									dialog.setHeaderText("No se selecciono ningun producto");
-									dialog.setContentText("Por favor seleccione uno");
-									dialog.show();
-								}
-								else {
-									dialog.setAlertType(AlertType.INFORMATION);
-									dialog.setTitle("Eliminar producto");
-									dialog.setHeaderText("Se elimino el producto con exito");
-									dialog.setContentText("El producto "+productoAEliminar+" se elimino");
-									dialog.show();
-									Producto.getProductos().remove(indice);
-									eliminar.getItems().clear();
-									LinkedList<String> productos = Producto.verProductos();
-									for (int i = 0; i<productos.size();i++) {
-										eliminar.getItems().add(productos.get(i));
+						
+									if(productoAEliminar == "Productos") {
+										dialog.setAlertType(AlertType.ERROR);
+										dialog.setTitle("Eliminar producto");
+										dialog.setHeaderText("No se selecciono ningun producto");
+										dialog.setContentText("Por favor seleccione uno");
+										dialog.show();
 									}
-									eliminar.setValue("Productos");
-								}
+									else {
+										
+										dialog.setAlertType(AlertType.INFORMATION);
+										dialog.setTitle("Eliminar producto");
+										dialog.setHeaderText("Se elimino el producto con exito");
+										dialog.setContentText("El producto "+productoAEliminar+" se elimino");
+										dialog.show();
+										Producto.getProductos().remove(indice);
+										eliminar.getItems().clear();
+										LinkedList<String> productos = Producto.verProductos();
+										for (int i = 0; i<productos.size();i++) {
+											eliminar.getItems().add(productos.get(i));
+										}
+										eliminar.setValue("Productos");
+									}
+									
+									
+								
+							
 							}
 
 						});
@@ -734,30 +741,47 @@ public class Gui extends Application {
 				
 				productoV.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
-						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Producto mas vendido");
-						dialog.setHeaderText("El producto que mas se ha vendido es "+Producto.productoMayorVentas().getNombre());
-						dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString())+"\nSe ha vendido "+Producto.productoMayorVentas().getCantVentas()+" veces");
-						dialog.show();
-						
+						try {
+							Alert dialog = new Alert(AlertType.NONE);
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Producto mas vendido");
+							dialog.setHeaderText("El producto que mas se ha vendido es "+Producto.productoMayorVentas().getNombre());
+							dialog.setContentText("Informacion completa:\n"+(Producto.productoMayorVentas().toString())+"\nSe ha vendido "+Producto.productoMayorVentas().getCantVentas()+" veces");
+							dialog.show();
+						}
+						catch(Exception a) {
+							Alert dialog = new Alert(AlertType.NONE);
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Producto mas vendido");
+							dialog.setHeaderText("No hay un producto mas vendido");
+							dialog.show();
+						}
 					}
 
 				});
 				
 				productoE.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
-						Alert dialog = new Alert(AlertType.NONE);
-						String s = "";
-						for(String a : Producto.verProductos()) {
-							s += a+"\n";
+						if(Producto.getProductos().size() != 0) {	
+							Alert dialog = new Alert(AlertType.NONE);
+							String s = "";
+							for(String a : Producto.verProductos()) {
+								s += a+"\n";
+							}
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Productos en existencia");
+							dialog.setHeaderText("Los productos en existencia son los siguientes:");
+							dialog.setContentText(s);
+							dialog.show();
 						}
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Productos en existencia");
-						dialog.setHeaderText("Los productos en existencia son los siguientes:");
-						dialog.setContentText(s);
-						dialog.show();
-						
+						else {
+							Alert dialog = new Alert(AlertType.NONE);
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Productos en existencia");
+							dialog.setHeaderText("No hay productos en existencia");
+							dialog.show();
+							
+						}
 					}
 
 				});
@@ -904,19 +928,28 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						eliminarBS.setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle(MouseEvent event) {
-								dialog.setAlertType(AlertType.INFORMATION);
-								dialog.setTitle("Eliminar sede");
-								dialog.setHeaderText("Se elimino la sede con exito");
-								dialog.setContentText("La sede ubicada en "+sede+" se elimino");
-								dialog.show();
-								Sede.getSede().remove(indice);
-								eliminarS.getItems().clear();
-								LinkedList<Sede> sedes = Sede.consultarSedes();
-								for (Sede s: sedes) {
-									eliminarS.getItems().add(s.toString());
+								try {
+									dialog.setAlertType(AlertType.INFORMATION);
+									dialog.setTitle("Eliminar sede");
+									dialog.setHeaderText("Se elimino la sede con exito");
+									dialog.setContentText("La sede ubicada en "+sede+" se elimino");
+									dialog.show();
+									Sede.getSede().remove(indice);
+									eliminarS.getItems().clear();
+									LinkedList<Sede> sedes = Sede.consultarSedes();
+									for (Sede s: sedes) {
+										eliminarS.getItems().add(s.toString());
+									}
+									
+									eliminarS.setValue("Sedes");
 								}
-								
-								eliminarS.setValue("Sedes");
+								catch(Exception a) {
+									dialog.setAlertType(AlertType.ERROR);
+									dialog.setTitle("Eliminar sede");
+									dialog.setHeaderText("No selecciono una sede");
+									dialog.setContentText("Seleccione una sede");
+									dialog.show();
+								}
 							}
 
 						});
@@ -951,22 +984,31 @@ public class Gui extends Application {
 							dialog.show();
 						}
 						else {
-							dialog.setAlertType(AlertType.INFORMATION);
-							dialog.setTitle("Registrar sede");
-							dialog.setHeaderText("Se registro la sede con exito");
-							dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
-							dialog.show();
-							
-							Sede sede = new Sede(direccionS, Integer.parseInt(telefonoS));
-							Sede.adicionarSede(sede);
-							eliminarS.getItems().clear();
-							LinkedList<Sede> sedes = Sede.consultarSedes();
-							for (Sede s: sedes) {
-								eliminarS.getItems().add(s.toString());
+							try {
+								dialog.setAlertType(AlertType.INFORMATION);
+								dialog.setTitle("Registrar sede");
+								dialog.setHeaderText("Se registro la sede con exito");
+								dialog.setContentText("La sede ubicada en "+direccionS+" se guardo con el telefono "+telefonoS);
+								dialog.show();
+								
+								Sede sede = new Sede(direccionS, Integer.parseInt(telefonoS));
+								Sede.adicionarSede(sede);
+								eliminarS.getItems().clear();
+								LinkedList<Sede> sedes = Sede.consultarSedes();
+								for (Sede s: sedes) {
+									eliminarS.getItems().add(s.toString());
+								}
+								
+								direccion.setText("");
+								telefono.setText("");
 							}
-							
-							direccion.setText("");
-							telefono.setText("");
+							catch(Exception a) {
+								dialog.setAlertType(AlertType.ERROR);
+								dialog.setTitle("Registrar sede");
+								dialog.setHeaderText("El telefono debe ser un numero");
+								dialog.setContentText("Por favor ingrese un numero");
+								dialog.show();
+							}
 						}
 					}
 				});
@@ -974,12 +1016,19 @@ public class Gui extends Application {
 				sedeV.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
-						dialog.setAlertType(AlertType.INFORMATION);
-						dialog.setTitle("Sede con mas ventas");
-						dialog.setHeaderText("La sede que mas ventas ha realizado es:");
-						dialog.setContentText(Sede.sedeMayorVentas().toString()+" \nVentas: "+ Sede.sedeMayorVentas().getCantVentas());
-						dialog.show();
-						
+						try {	
+							dialog.setAlertType(AlertType.INFORMATION);
+							dialog.setTitle("Sede con mas ventas");
+							dialog.setHeaderText("La sede que mas ventas ha realizado es:");
+							dialog.setContentText(Sede.sedeMayorVentas().toString()+" \nVentas: "+ Sede.sedeMayorVentas().getCantVentas());
+							dialog.show();
+						}
+						catch(Exception a) {
+							dialog.setAlertType(AlertType.ERROR);
+							dialog.setTitle("Sede con mas ventas");
+							dialog.setHeaderText("No hay una sede con mayor ventas");
+							dialog.show();
+						}
 					}
 
 				});
@@ -987,7 +1036,6 @@ public class Gui extends Application {
 				consulta.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						Alert dialog = new Alert(AlertType.NONE);
-						System.out.println(Sede.getSede().size());
 						if(Sede.getSede().size() == 0){
 							dialog.setAlertType(AlertType.ERROR);
 							dialog.setTitle("Sedes registradas");
