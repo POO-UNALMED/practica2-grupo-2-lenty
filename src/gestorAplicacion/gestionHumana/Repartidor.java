@@ -144,5 +144,10 @@ public class Repartidor extends Persona implements Serializable {
 		
 	}
 
+	public int getCantVentas() {
+		// TODO Auto-generated method stub
+		return this.cantPedidos;
+	}
+
     
 }

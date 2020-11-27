@@ -49,7 +49,6 @@ public class Orden implements Serializable {
 		r.aceptarPedido();
 		this.valor = descuento(c, valor);
 		ordenes.add(this);
-		System.out.println("\nOrden creada con exito.\n");
 		
 	}
 	static public void consultarOrdenesActivas() {
@@ -68,7 +67,6 @@ public class Orden implements Serializable {
 	}
 	public void aceptarOrden() {
 		this.estado = "Aceptada";
-		System.out.println("La orden fue aceptada con exito");
 		
 	}
 	public void rechazarOrden(Orden i) {
@@ -77,12 +75,10 @@ public class Orden implements Serializable {
 	public void ordenEntregada() {
 		this.estado = "Entregada";
 		this.getRepartidor().terminarPedido();
-		System.out.println("La orden fue entregada con exito");
 		
 	}
 	public void ordenRecogida() {
 		this.estado = "En camino";
-		System.out.println("La orden fue recogida con exito");
 	}
 	
 	
