@@ -29,7 +29,7 @@ public class Orden implements Serializable {
 	private List<Producto> productos= new ArrayList<>();
 	private float pesoTotal;
 	public String estado;
-	public Orden(Cliente c,Sede s,Repartidor r,int valor,List<Producto> p,float peso,String es) {
+	public Orden(Cliente c,Sede s,Repartidor r,int valor,ArrayList<Producto> p,float peso,String es) {
 		idG++;
 		this.id=idG;
 		this.cliente=c;
@@ -89,13 +89,13 @@ public class Orden implements Serializable {
 	public void setId(int i) {
 		this.id=i;
 	}
-	int getId() {
+	public int getId() {
 		return this.id;
 	}
 	public void setCliente(Cliente i) {
 		this.cliente=i;
 	}
-	Cliente getCliente() {
+	public Cliente getCliente() {
 		return this.cliente;
 	}
 	public void setSede(Sede i){
@@ -131,7 +131,7 @@ public class Orden implements Serializable {
 	public void setEstado(String s) {
 		this.estado=s;
 	}
-	String getEstado() {
+	public String getEstado() {
 		return this.estado;
 	}
 	public static LinkedList<Orden> getOrdenes(){
