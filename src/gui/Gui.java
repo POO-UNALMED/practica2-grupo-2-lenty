@@ -1177,19 +1177,19 @@ public class Gui extends Application {
 	    
 	    
 	    
-	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\1.png"); 
+	    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC1.jpg"); 
 	    image1 = new ImageView(new Image(fileA.toURI().toString())); 
 	    image1.setFitHeight(150);
 	    image1.setFitWidth(150);
-	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\2.png"); 
+	    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC2.jpg"); 
 	    image2 = new ImageView(new Image(fileB.toURI().toString()));
 	    image2.setFitHeight(150);
 	    image2.setFitWidth(150);
-	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\3.png"); 
+	    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC3.jpg"); 
 	    image3 = new ImageView(new Image(fileC.toURI().toString()));
 	    image3.setFitHeight(150);
 	    image3.setFitWidth(150);
-	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\4.png"); 
+	    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC4.jpg"); 
 	    image4 = new ImageView(new Image(fileD.toURI().toString()));
 	    image4.setFitHeight(150);
 	    image4.setFitWidth(150);
@@ -1288,19 +1288,19 @@ public class Gui extends Application {
 					email.setText("juaczuluagamon@unal.edu.co");
 					profesion.setText("Ciencias de la computacion");
 				    
-				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\1.png"); 
+				    File fileA = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC1.jpg"); 
 				    image1.setImage(new Image(fileA.toURI().toString())); 
 				    image1.setFitHeight(150);
 				    image1.setFitWidth(150);
-				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\2.png"); 
+				    File fileB = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC2.jpg"); 
 				    image2.setImage(new Image(fileB.toURI().toString()));
 				    image2.setFitHeight(150);
 				    image2.setFitWidth(150);
-				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\3.png"); 
+				    File fileC = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC3.jpg"); 
 				    image3.setImage(new Image(fileC.toURI().toString()));
 				    image3.setFitHeight(150);
 				    image3.setFitWidth(150);
-				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\4.png"); 
+				    File fileD = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\JuanC4.jpg"); 
 				    image4.setImage(new Image(fileD.toURI().toString()));
 				    image4.setFitHeight(150);
 				    image4.setFitWidth(150);
@@ -1315,7 +1315,7 @@ public class Gui extends Application {
 	    hojaVida.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 	    
 	    //Imagen rotativa
-	    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\1.png"); 
+	    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Sistema5.png"); 
 	    imagenRotativa = new ImageView(new Image(filee.toURI().toString()));
 	    imagenRotativa.setFitHeight(200);
 	    imagenRotativa.setFitWidth(200);
@@ -1328,7 +1328,7 @@ public class Gui extends Application {
 			@Override
 			public void handle(MouseEvent arg0) {
 				
-				if (contadorx2 == 4) {
+				if (contadorx2 == 5) {
 		    		contadorx2 = 1;	
 		    	}
 		    	else {
@@ -1337,21 +1337,21 @@ public class Gui extends Application {
 				
 				if (contadorx2 == 1) {
 					
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\3.png"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Sistema1.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString())); 
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
 				}
 				else if (contadorx2 == 2) {
 					
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\2.png"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Sistema2.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
 				}
 				else if (contadorx2 == 3) {
 					
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\5.jpg"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Sistema3.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
@@ -1359,7 +1359,15 @@ public class Gui extends Application {
 				}
 				else if (contadorx2 == 4) {
 				    
-				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\4.png"); 
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Sistema4.png"); 
+				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
+				    imagenRotativa.setFitHeight(200);
+				    imagenRotativa.setFitWidth(200);
+				
+			}	
+				else if (contadorx2 == 5) {
+				    
+				    File filee = new File(ruta.getAbsolutePath()+"\\src\\Imagenes\\Sistema5.png"); 
 				    imagenRotativa.setImage(new Image(filee.toURI().toString()));
 				    imagenRotativa.setFitHeight(200);
 				    imagenRotativa.setFitWidth(200);
