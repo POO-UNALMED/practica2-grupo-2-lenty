@@ -158,7 +158,6 @@ public class Orden implements Serializable {
 		int aux;
 		if (c.getCantVentas() >=5) {
 			aux = (int) (valor*0.9);
-			System.out.println("Se ha realizado un descuento del 10% sobre el valor total");
 		}
 		else {
 			aux = valor;

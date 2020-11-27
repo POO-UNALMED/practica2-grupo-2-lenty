@@ -131,7 +131,6 @@ public class Repartidor extends Persona implements Serializable {
 		this.cantPedidos++;
 		if(this.cantPedidos >= 5) {
 			this.aumento+=2000;
-			System.out.println("Es el pedido numero " + this.cantPedidos +" de "+ this.getNombre() + ", ha generado un aumento de " + this.aumento);
 			this.salario+=2000;
 		}
 	}
