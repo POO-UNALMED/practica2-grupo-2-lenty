@@ -307,7 +307,101 @@ public class Gui extends Application {
 				btnRepartidores.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event){
-						System.out.println("Repartidores");
+						gestionHumana.getChildren().remove(clientes);
+						gestionHumana.getChildren().remove(repartidores);
+						
+						a.setText("Menu de Repartidores");
+						b.setText("En este menu podras visualizar el listado de Repartidores, consultar el repartidor que ha realizado mas envios y agregar nuevos repartidores");
+						
+						//Pane de Repartidores
+						GridPane menuRepartidores = new GridPane();
+						menuRepartidores.setPadding(new Insets(10,10,10,10));
+						menuRepartidores.setVgap(5);
+						menuRepartidores.setHgap(5);
+						menuRepartidores.setAlignment(Pos.CENTER);
+						
+						Label regi = new Label("Registrar un Repartidor");
+						Label docu = new Label("Documento");
+						TextField documento=new TextField();
+						Label nom = new Label("Nombre (String)=");
+						TextField nombre = new TextField();
+						Label tel = new Label("Telefono (String)=");
+						TextField telefono = new TextField();
+						Label gen = new Label("Genero (M/F)=");
+						TextField genero = new TextField();
+						Label ent = new Label("Entidad de Salud (Sin espacios)=");
+						TextField entidad = new TextField();
+						Label sal = new Label("Salario (Sin signos)=");
+						TextField salario = new TextField();
+						
+						VBox RegRepart = new VBox(regi,docu,documento,nom,nombre,tel,telefono,gen,genero,ent,entidad,sal,salario);
+						Button registrar = new Button("Registrar");
+						registrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+							@Override
+							public void handle(MouseEvent arg0) {
+								try {
+									String documento1 = documento.getText();
+									String nombre1 = nombre.getText();
+									String telefono1 = telefono.getText();
+									String genero1 = genero.getText();
+									String entidad1 = entidad.getText();
+									int salario1 = Integer.parseInt(salario.getText());
+									Alert confir = new Alert(AlertType.CONFIRMATION);
+									confir.setTitle("Confirmar registro repartidor");
+									confir.setHeaderText("Se requiere confirmacion para crear el repartidor o se descartara");
+									confir.setContentText("Esta seguro de que quiere registrar el repartidor con documento= "
+											+ documento1+" nombre= " + nombre1+" telefono= "+telefono1+" genero= "+genero1+" salario= "+salario1);
+									documento.setText("");
+									nombre.setText("");
+									telefono.setText("");
+									genero.setText("");
+									entidad.setText("");
+									salario.setText("");
+									confir.show();
+								}
+								catch(Exception e) {
+									Alert error=new Alert(AlertType.ERROR);
+									error.setTitle("ERROR");
+									error.setTitle("No se pudo registrar repartidor");
+									error.setContentText("Verifique los datos, que pertenezcan al tipo de dato requerido");
+									error.show();
+								}
+							}
+							
+						});
+						RegRepart.getChildren().add(registrar);
+						
+						// Consultar
+						Button consultar = new Button("Ver Repartidores");
+						consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						gestionHumana.add(consultar, 1, 0);
+						
+						// Repartidor con mas pedidos
+						Button mayoresPedidos = new Button("Repartidor con mas pedidos");
+						mayoresPedidos.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						gestionHumana.add(mayoresPedidos, 1, 1);
+						
+						// Regresar
+						Button regresar = new Button("Regresar");
+						regresar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						gestionHumana.add(regresar, 0, 1);
+						regresar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+							@Override
+							public void handle(MouseEvent arg0) {
+								gestionHumana.getChildren().remove(consultar);
+								gestionHumana.getChildren().remove(mayoresPedidos);
+								gestionHumana.getChildren().remove(regresar);
+								gestionHumana.getChildren().remove(RegRepart);
+								a.setText("Gestion Humana");
+								b.setText("En este menu podras seleccionar los sub Menu de Clientes y Repartidores para acceder \n a cada una de las opciones por tipo de usuario");
+								gestionHumana.add(clientes, 0, 0);
+								gestionHumana.add(repartidores, 1, 0);
+							}
+						});
+						
+						gestionHumana.add(RegRepart, 0, 0);
 					}
 				});
 				
@@ -485,7 +579,7 @@ public class Gui extends Application {
 						Alert dialog = new Alert(AlertType.NONE);
 						dialog.setAlertType(AlertType.CONFIRMATION);
 						dialog.setTitle("Confirmar eliminacion");
-						dialog.setHeaderText("¿Esta seguro de eliminar la orden con el ID "+aux+"?");
+						dialog.setHeaderText("ï¿½Esta seguro de eliminar la orden con el ID "+aux+"?");
 						dialog.show();
 					}
 					catch(Exception e) {
