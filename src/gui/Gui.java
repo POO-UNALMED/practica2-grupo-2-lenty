@@ -996,10 +996,12 @@ public class Gui extends Application {
 				VBox RegVeh=new VBox(regi,pla,placa,mod,modelo,matri,matricula,seg,seguro,registrar);
 				Veh.add(RegVeh, 0, 0);
 				//Eliminar
-				ArrayList<String> a=new ArrayList<>();
-				a.add("ASD123");
+				ArrayList<String> veh=new ArrayList<>();
+				for(int i=0;i<Vehiculo.getVehiculos().size();i++) {
+					veh.add(Vehiculo.getVehiculos().get(i).getPlaca());
+				}
 				Label eli=new Label("Eliminar vehiculo");
-				ComboBox<String> eliVeh=new ComboBox<String>(FXCollections.observableArrayList(a));
+				ComboBox<String> eliVeh=new ComboBox<String>(FXCollections.observableArrayList(veh));
 				eliVeh.setPromptText("Seleccione la placa de vehiculo a eliminar");
 				TextField vehAEli=new TextField();
 				eliVeh.valueProperty().addListener(new ChangeListener<String>(){
@@ -1017,8 +1019,30 @@ public class Gui extends Application {
 				Button consultar=new Button("Consultar Vehiculos");
 				Veh.add(consultar, 1, 0);
 				consultar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+				consultar.setOnAction(new EventHandler<ActionEvent>(){
+
+					@Override
+					public void handle(ActionEvent event) {
+						Alert error=new Alert(AlertType.INFORMATION);
+						error.setTitle("Vehiculos creados");
+						error.setHeaderText("Placas de los vehiculos registrados en el sistema");
+						String veh="";
+						for(int i=0;i<Vehiculo.getVehiculos().size();i++) {
+							if(i==Vehiculo.getVehiculos().size()-1) {
+								veh+=Vehiculo.getVehiculos().get(i).getPlaca();
+							}
+							else {
+								veh+=Vehiculo.getVehiculos().get(i).getPlaca();
+								veh+=", ";
+							}
+						}
+						error.setContentText(veh);
+						error.show();
+					}
+					
+				});
 				//Modificar
-				Button modificar=new Button("Modificar Vehiculo ");
+				Button modificar=new Button("Modificar Vehiculo");
 				Veh.add(modificar, 1, 1);
 				modificar.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				Veh.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -1039,11 +1063,26 @@ public class Gui extends Application {
 							confir.setHeaderText("Se requiere confirmacion para crear el vehiculo o se descartara");
 							confir.setContentText("Esta seguro de que quiere registrar el vehiculo con placa= "
 									+ placa1+" modelo= " + modelo1+" matricula= "+matricula1+" seguro= "+seguro1);
-							placa.setText("");
-							modelo.setText("");
-							matricula.setText("");
-							seguro.setText("");
-							confir.show();
+							Optional<ButtonType> result=confir.showAndWait();
+							if(result.get()==ButtonType.OK) {
+								Alert mens=new Alert(AlertType.INFORMATION);
+								mens.setTitle("Se registro");
+								mens.setHeaderText("Se registro del vehiculo");
+								mens.show();
+								Vehiculo aux=new Vehiculo(placa1,modelo1,matricula1,seguro1,null);
+								Vehiculo.adicionarVehiculo(aux);
+								placa.setText("");
+								modelo.setText("");
+								matricula.setText("");
+								seguro.setText("");
+							}
+							else {
+								Alert mens=new Alert(AlertType.INFORMATION);
+								mens.setTitle("No registro");
+								mens.setHeaderText("Se cancelo el registro del vehiculo");
+								mens.show();
+							}
+						
 						}
 						catch(Exception e) {
 							Alert error=new Alert(AlertType.ERROR);
@@ -1059,13 +1098,30 @@ public class Gui extends Application {
 					@Override
 					public void handle(MouseEvent event) {
 						try {
-							String placaVehEli=vehAEli.getText();
-							int aux=a.indexOf(placaVehEli);
+							String aux=vehAEli.getText();
 							Alert confir=new Alert(AlertType.CONFIRMATION);
 							confir.setTitle("Confirmar eliminacion de vehiculo");
 							confir.setHeaderText("Se requiere confirmacion para eliminar un vehiculo");
-							confir.setContentText("Esta seguro de que quiere registrar el vehiculo con placa= "+placaVehEli);
-							confir.show();
+							confir.setContentText("¿Esta seguro de que quiere eliminar el vehiculo con placa= "+aux+"?");
+							Optional<ButtonType> result=confir.showAndWait();
+							if(result.get()==ButtonType.OK) {
+								Alert mens=new Alert(AlertType.INFORMATION);
+								mens.setTitle("Se elimino");
+								mens.setHeaderText("Se elimino el vehiculo");
+								mens.show();
+								for(int i=0;i<Vehiculo.getVehiculos().size();i++) {
+									if(Vehiculo.getVehiculos().get(i).getPlaca().equals(aux)) {
+										Vehiculo.getVehiculos().remove(i);
+									}
+								}
+								
+							}
+							else {
+								Alert mens=new Alert(AlertType.INFORMATION);
+								mens.setTitle("No se elimino");
+								mens.setHeaderText("Se cancelo el eliminado del vehiculo");
+								mens.show();
+							}
 						}
 						catch(Exception e) {
 							Alert error=new Alert(AlertType.ERROR);
